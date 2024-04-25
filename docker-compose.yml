@@ -1,0 +1,87 @@
+version: "3.6"
+services:
+  postgres:
+    image: "postgres:14.1-alpine"
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data14
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: secret
+      # POSTGRES_PASSWORD: DxL6SK3e4bPBx3iMZuEnNKATX2jnTlPc
+
+  hasura:
+    image: hasura/graphql-engine:v2.0.10
+    depends_on:
+      - postgres
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: "postgres://postgres:secret@postgres:5432/postgres"
+      HASURA_GRAPHQL_METADATA_DATABASE_URL: "postgres://postgres:secret@postgres:5432/postgres"
+      HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "inherited_roles"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      #HASURA_GRAPHQL_UNAUTHORIZED_ROLE: anonymous
+      HASURA_GRAPHQL_ENDPOINT: http://localhost:8080
+      HASURA_GRAPHQL_ADMIN_SECRET: admin_secret
+      HASURA_GRAPHQL_JWT_SECRET: |
+        {
+          "type": "HS256",
+          "key": "357af2e8640cf0aebf80e21bfaf1202b",
+          "https://hasura.io/jwt/claims": {
+            "x-hasura-allowed-roles": { "path": "$$.allowedRoles" },
+            "x-hasura-default-role":  { "path": "$$.defaultRole" },
+            "x-hasura-user-id": { "path": "$$.username" }
+          }
+        }
+      
+  hasura-migrations:
+    build:
+      context: ./hasura
+      dockerfile: Dockerfile.local
+    depends_on:
+      - postgres
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: "postgres://postgres:secret@postgres:5432/postgres"
+      HASURA_GRAPHQL_ADMIN_SECRET: admin_secret
+      HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "inherited_roles"
+    profiles:
+      - tools
+    volumes:
+      - ./hasura/migrations:/hasura-migrations
+      - ./hasura/metadata:/hasura-metadata
+      - ./hasura/seeds:/seeds
+      - ./hasura/config.yaml:/config.yaml
+
+  hasura-cli:
+    image: hasura/graphql-engine:v2.0.10.cli-migrations-v3
+    entrypoint: hasura-cli
+    network_mode: host
+    depends_on:
+      - postgres
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: "postgres://postgres:secret@localhost:5432/postgres"
+      HASURA_GRAPHQL_ENDPOINT: http://localhost:8080
+      HASURA_GRAPHQL_ADMIN_SECRET: admin_secret
+    volumes:
+      - ./hasura/migrations:/migrations
+      - ./hasura/metadata:/metadata
+      - ./hasura/seeds:/seeds
+      - ./hasura/config.yaml:/config.yaml
+    profiles:
+      - tools
+
+  data:
+    build:
+      context: data
+      dockerfile: Dockerfile.local
+    restart: always
+    volumes:
+      - ./data:/home/user/app:cached
+
+volumes:
+  db_data:

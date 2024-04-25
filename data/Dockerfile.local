@@ -1,0 +1,25 @@
+################################## Build image #################################
+
+FROM python:3.10 as builder
+
+# Install application dependencies
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install --user --no-warn-script-location -r /tmp/requirements.txt
+
+############################## Application  image ##############################
+
+FROM python:3.10-slim
+
+# Install runtime library dependencies
+RUN apt-get update && apt-get install -y unixodbc libpq-dev
+
+# Setup application dependencies & code
+COPY --from=builder /root/.local /home/user/.local
+COPY . /home/user/app
+
+# Setup unprivileged user
+RUN adduser --home /home/user --no-create-home --disabled-password --gecos '' --shell /bin/sh app
+RUN chown -R app:app /home/user
+
+USER app:app
+WORKDIR /home/user/app

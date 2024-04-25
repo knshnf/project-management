@@ -1,0 +1,24 @@
+table:
+  schema: public
+  name: projects
+object_relationships:
+  - name: task_type
+    using:
+      manual_configuration:
+        remote_table:
+          schema: public
+          name: task_type
+        insertion_order: null
+        column_mapping:
+          task_type_id: id
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+        - task_type_id
+        - created_at
+        - updated_at
+      filter: {}
+      allow_aggregations: true

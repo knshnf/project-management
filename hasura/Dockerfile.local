@@ -1,0 +1,10 @@
+# This image is for the building the image for the hasura migration
+FROM hasura/graphql-engine:v2.0.10.cli-migrations-v3
+
+ARG GIT_HASH
+ENV IMAGE_GIT_HASH "$GIT_HASH"
+
+COPY ./migrations /hasura-migrations
+COPY ./metadata /hasura-metadata
+
+CMD [ "sh", "-c", "/bin/true" ]
