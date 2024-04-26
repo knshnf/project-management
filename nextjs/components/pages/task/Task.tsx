@@ -32,7 +32,6 @@ const Task = ( () => {
 
     useEffect( () => {
         if (parameterView == undefined){
-            console.log(parameterView)
             router.push(`http://localhost:3000/task?view=kanban`)
         }
     },[view])
