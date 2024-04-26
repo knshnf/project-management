@@ -6,9 +6,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridRowSelectionModel  } from '@mui/x-data-grid';
 
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, useMutation, gql } from '@apollo/client';
 
 import { tableData } from './data'
 import { transformData } from './transformData'
@@ -48,7 +48,14 @@ const Table = ( ( table ) => {
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setName(null);
+        setOpen(false);
+    }
+
+    const [name, setName] = useState(null)
+
+    const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
 
     const GET_CONFIG = gql`
     query GetConfig {
@@ -79,11 +86,56 @@ const Table = ( ( table ) => {
       }
     `;
 
-    const create = ( () => {
+    const ADD_STATUS = gql`
+    mutation AddStatus($name: String!) {
+        insert_status(objects: {name: $name}) {
+            returning {
+              id
+              name
+            }
+          }
+        }
+    `;
 
+    const DELETE_STATUS = gql`
+    mutation DeleteStatus($id: bigint!) {
+        delete_status(where: {id: {_eq: $id }}) {
+            returning {
+              id
+            }
+          }
+        }
+    `;
+
+    const create = ( () => {
+        if (table.table == 'status') {
+            addStatus()
+        }
+
+        handleClose()
+    })
+
+    const deleteRow = ( () => {
+        if (rowSelectionModel.length > 0) {
+            rowSelectionModel.map( (value) => {
+                deleteStatus({
+                    variables: {
+                        id: value
+                    }
+                })
+            })
+        }
     })
     
     const { loading, error, data } = useQuery(GET_CONFIG);
+    const [addStatus, { loading: loadingAddStatus, error: errorAddStatus, data: dataAddStatus }] = useMutation(ADD_STATUS, {
+        variables: {
+            name: name
+        }
+    });
+
+    const [deleteStatus] = useMutation(DELETE_STATUS)
+    
     const cleanData = transformData(data, table.table)
     const dataGrid = tableData(cleanData, table.table)
 
@@ -100,12 +152,25 @@ const Table = ( ( table ) => {
                     padding: '10px',
                 }}
             >
-                <Button 
-                    variant="contained"
-                    onClick={handleOpen}
-                >
-                    Create
-                </Button>
+                {
+                    (rowSelectionModel.length > 0) 
+                    ?
+                    <Button 
+                        variant="contained"
+                        color="error"
+                        onClick={deleteRow}
+                    >
+                        Delete
+                    </Button>
+                    :
+                    <Button 
+                        variant="contained"
+                        onClick={handleOpen}
+                    >
+                        Create
+                    </Button>
+                }
+
             </Box>
             <DataGrid
                 editMode="row"
@@ -113,6 +178,11 @@ const Table = ( ( table ) => {
                 rows={dataGrid.rows}
                 columns={dataGrid.columns}
                 slots={{ toolbar: GridToolbar }}
+                onRowSelectionModelChange={(newRowSelectionModel) => {
+                    setRowSelectionModel(newRowSelectionModel);
+                }}
+                rowSelectionModel={rowSelectionModel}
+                checkboxSelection 
             />
 
             <Modal
@@ -137,12 +207,13 @@ const Table = ( ( table ) => {
                         }}
                     >
                         <TextField
-                            id="outlined-number"
+                            id="name"
                             variant="standard"
                             label="Name"
                             InputLabelProps={{
                                 shrink: true,
                             }}
+                            onChange={e => setName(e.target.value)}
                         />
                     </Box>
                     <Box
@@ -150,7 +221,7 @@ const Table = ( ( table ) => {
                             margin: '10px',
                         }}
                     >
-                        <Button variant="contained">Create</Button>
+                        <Button variant="contained" onClick={create}>Create</Button>
                         <Button variant="outlined" onClick={handleClose}>Cancel</Button>
                     </Box>
                 </Box>
