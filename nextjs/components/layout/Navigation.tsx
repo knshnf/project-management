@@ -9,6 +9,7 @@ import Tab from '@mui/material/Tab';
 type NavItems = {
     label: string
     value: string
+    disabled: boolean
 }
 
 const Navigation = ( () => {
@@ -20,15 +21,23 @@ const Navigation = ( () => {
     const navItems: NavItems[] = [
         {
             label: 'Dashboard',
-            value: '/dashboard'
+            value: '/dashboard',
+            disabled: false
         },
         {
             label: 'Task Board',
-            value: '/task'
+            value: '/task',
+            disabled: false
+        },
+        {
+            label: 'RTS Tracker',
+            value: '/rts',
+            disabled: true
         },
         {
             label: 'Configuration',
-            value: '/configuration'
+            value: '/configuration',
+            disabled: false
         },
     ];
 
@@ -49,7 +58,7 @@ const Navigation = ( () => {
                 {
                     navItems.map( (navItem, i) => {
                         return (
-                            <Tab key={i} value={navItem.value} label={navItem.label} wrapped/>
+                            <Tab key={i} value={navItem.value} label={navItem.label} disabled={navItem.disabled} wrapped/>
                         )
                     })
                 }

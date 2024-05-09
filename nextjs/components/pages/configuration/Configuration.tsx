@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 
+import Divider from '@mui/material/Divider';
+
 import Layout from '../../layout/Layout'
 import Table from './Table'
 
@@ -43,6 +45,20 @@ const Configuration = ( () => {
     return (
         <Box sx={pageHeight}>
             <Layout />
+
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '18px'
+                }}
+            >
+                    <Box>
+                        Filters
+                    </Box>
+            </Box>
+            <Divider />
+
             <Box
                 sx={{
                     width: '100%',
@@ -70,9 +86,10 @@ const Configuration = ( () => {
                         sx={{ borderRight: 1, borderColor: 'divider' }}
                     >
                         {
-                            tableOptions.map( (table) => {
+                            tableOptions.map( (table, index) => {
                                 return (
                                     <Tab
+                                        key={index}
                                         label={table.value}
                                         value={table.key}
                                     />

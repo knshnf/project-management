@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Layout from '../../layout/Layout'
 import { pageHeight } from '../../shared_styles/common'
 
-import { DataGrid, GridToolbar, GridEventListener   } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridEventListener, GridRowSelectionModel } from '@mui/x-data-grid';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -19,8 +19,12 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 
-import { useQuery, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
+
+import { 
+    useGetTaskQuery, 
+    useDeleteTaskMutation,
+} from './queries'
 
 const Task = ( () => {
 
@@ -28,12 +32,19 @@ const Task = ( () => {
 
     const parameterView = router.query.view
 
-    const [view, setView] = useState('kanban')
+    const [view, setView] = useState(parameterView)
+
+    const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
 
     useEffect( () => {
-        if (parameterView == undefined){
-            router.push(`http://localhost:3000/task?view=kanban`)
-        }
+        if (view == undefined){
+            setView('kanban')
+            router.push(`http://localhost:3000/task?view=${view}`)
+        } 
+    },[parameterView])
+
+    useEffect( () => {
+        setRowSelectionModel([])
     },[view])
 
     const handleView = (
@@ -79,51 +90,26 @@ const Task = ( () => {
         }, 
     ]
 
-    const GET_TASK = gql`
-    query GetTask {
-        task {
-            id
-            name
-            description
-            created_at
-            updated_at
-            project {
-                id
-                name
-            }
-            status {
-                id
-                name
-            }
-            task_type {
-                id
-                name
-            }
-            user {
-                id
-                name
-            }
-        }
-      }
-    `;
-    
-    const { loading, error, data } = useQuery(GET_TASK);
+    const { loading, error, data, refetch } = useGetTaskQuery()
 
     const kanbanView = ( () => {
         return (
             data?.task.map( (t) => {
+                const statusColor = t.status.color
                 return (
                     <Button
                         sx={{
                             margin: '10px',
                         }}
-                        href={`http://localhost:3000/formtask?view=${view}&id=${t.id}`}
+                        href={`http://localhost:3000/formtask?view=${view}&mode=edit&id=${t.id}`}
                     >
                         <Card 
                             sx={{
                                 textAlign: 'left',
                                 width: '320px',
-                                height: '220px'
+                                height: '220px',
+                                display: 'flex',
+                                flexDirection: 'Column',
                             }}
                             variant="outlined"
                         >
@@ -131,16 +117,34 @@ const Task = ( () => {
                                 <Typography variant="h6" component="div">
                                     {t.name}
                                 </Typography>
-                                <Typography variant="caption">
+                                <Divider 
+                                    sx={{
+                                        marginBottom: '10px'
+                                    }}
+                                />
+                                <Typography 
+                                    variant="caption"
+                                >
                                     {t.description}
                                 </Typography>
-                                <Typography variant="caption" component="div">
+                                {/* <Typography variant="caption" component="div">
                                     {t.user.name}
-                                </Typography>
-                                <Typography variant="caption" component="div">
-                                    {t.status.name}
-                                </Typography>
+                                </Typography> */}
                             </CardContent>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'flex-end',
+                                    justifyContent: 'center',
+                                    height: '30px',
+                                    marginTop: 'auto',
+                                    background: statusColor,
+                                    color: 'white',
+                                  
+                                }}
+                            >
+                                {t.status.name}
+                            </Box>
                         </Card>
                     </Button>
                 )
@@ -158,10 +162,14 @@ const Task = ( () => {
             >
                 <DataGrid
                     loading={loading}
-                    rows={data?.task}
+                    rows={data?.task ?? []}
                     columns={columns}
+                    onRowSelectionModelChange={(newRowSelectionModel) => {
+                        setRowSelectionModel(newRowSelectionModel);
+                    }}
                     onRowClick={handleRowClick}
                     slots={{ toolbar: GridToolbar }}
+                    checkboxSelection
                 />
             </Box>
         )
@@ -215,6 +223,18 @@ const Task = ( () => {
             </Box>
             <Divider />
 
+            <Box
+                sx={{
+                    padding: '10px',
+                }}
+            >
+                <Button 
+                    variant="contained"
+                    href={`http://localhost:3000/formtask?view=${view}&mode=${'create'}`}
+                >
+                    Create
+                </Button>
+            </Box>
             <Box
                 sx={{
                     display: 'flex',

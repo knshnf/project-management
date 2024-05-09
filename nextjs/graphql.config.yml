@@ -1,0 +1,37 @@
+projects:
+  default:
+    schema: ./schema.graphql
+    extensions:
+      codegen:
+        generates:
+          ./types/graphql.types.ts:
+            plugins:
+              - typescript
+          ./:
+            preset: near-operation-file
+            documents: ./{api,pages,components,helpers,queries,hooks}/**/!(*.types).{ts,tsx}
+            presetConfig:
+              extension: .types.ts
+              baseTypesPath: types/graphql.types.ts
+            plugins:
+              - typescript-operations
+              - typescript-react-apollo
+            config:
+              scalars:
+                bigint: number
+                # TODO(P3): enable and fix wrong types in code
+                # numeric: number
+        # hooks:
+        #   afterAllFileWrite:
+        #     - prettier --write
+  schema:
+    schema:
+      - http://localhost:8080/v1/graphql:
+          headers:
+            X-Hasura-Admin-Secret: admin_secret
+    extensions:
+      codegen:
+        generates:
+          ./schema.graphql:
+            plugins:
+              - schema-ast
