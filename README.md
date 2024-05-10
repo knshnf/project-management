@@ -1,3 +1,29 @@
+Project Management Development Setup
+
+Step 1: Pull Repository
+    a. Use GitHub CLI Options from Code
+
+Step 2: Run Docker Setup
+    a. Open Terminal from VS Code or CMD from the Main Repository that contains the docker-compose.yml
+    b. Run -> docker-compose run hasura postgres
+
+Step 3: Run Hasura Migrations
+    a. Open a new Terminal from VS Code or CMD from the Main Repository
+    b. Run -> docker-compose run hasura-migrations
+
+Step 4: Run ETL
+    a. Open a new Terminal from VS Code or CMD from the Main Repository
+    b. Run -> docker-compose run data python import.py
+
+Step 5: Run Web Application
+    a. Open a new Terminal from VS Code or CMD from the nextjs Folder
+    b. Run -> yarn dev:watch
+
+Step 6: Open Web Application
+    a. Open any Browser
+    b. localhost:3000/
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
