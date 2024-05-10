@@ -8,7 +8,7 @@ Step 2: Run Docker Setup
     
     a. Open Terminal from VS Code or CMD from the Main Repository that contains the docker-compose.yml
     
-    b. Run -> docker-compose run hasura postgres
+    b. Run -> docker-compose up hasura postgres
 
 Step 3: Run Hasura Migrations
     
