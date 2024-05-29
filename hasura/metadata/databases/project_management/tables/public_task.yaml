@@ -45,29 +45,35 @@ insert_permissions:
         user_id:
           _eq: X-Hasura-User-Id
       columns:
+        - created_at
+        - description
+        - done_date
+        - draft_date
         - id
+        - in_progress_date
         - name
         - project_id
         - status_id
         - task_type_id
-        - user_id
-        - description
-        - created_at
         - updated_at
+        - user_id
       backend_only: false
 select_permissions:
   - role: user
     permission:
       columns:
-        - id
-        - name
-        - description
         - created_at
-        - updated_at
-        - task_type_id
-        - user_id
-        - status_id
+        - description
+        - done_date
+        - draft_date
+        - id
+        - in_progress_date
+        - name
         - project_id
+        - status_id
+        - task_type_id
+        - updated_at
+        - user_id
       filter:
         user_id:
           _eq: X-Hasura-User-Id
@@ -76,15 +82,18 @@ update_permissions:
   - role: user
     permission:
       columns:
+        - created_at
+        - description
+        - done_date
+        - draft_date
         - id
+        - in_progress_date
         - name
         - project_id
         - status_id
         - task_type_id
-        - user_id
-        - description
-        - created_at
         - updated_at
+        - user_id
       filter:
         user_id:
           _eq: X-Hasura-User-Id

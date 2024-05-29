@@ -18,14 +18,14 @@ export type GetStatusIdQuery = { __typename?: 'query_root', status: Array<{ __ty
 export type GetTaskQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetTaskQuery = { __typename?: 'query_root', task: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string, color?: string | null } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null }> };
+export type GetTaskQuery = { __typename?: 'query_root', task: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string, color?: string | null } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null }> };
 
 export type GetTaskIdQueryVariables = Types.Exact<{
   id: Types.Scalars['bigint']['input'];
 }>;
 
 
-export type GetTaskIdQuery = { __typename?: 'query_root', task_by_pk?: { __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null } | null };
+export type GetTaskIdQuery = { __typename?: 'query_root', task_by_pk?: { __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null } | null };
 
 export type AddTaskMutationVariables = Types.Exact<{
   name: Types.Scalars['String']['input'];
@@ -47,6 +47,8 @@ export type UpdateTaskMutationVariables = Types.Exact<{
   status_id: Types.Scalars['Int']['input'];
   task_type_id: Types.Scalars['Int']['input'];
   user_id: Types.Scalars['Int']['input'];
+  in_progress_date: Types.Scalars['timestamptz']['input'];
+  done_date: Types.Scalars['timestamptz']['input'];
 }>;
 
 
@@ -162,6 +164,9 @@ export const GetTaskDocument = gql`
     description
     created_at
     updated_at
+    draft_date
+    in_progress_date
+    done_date
     project {
       id
       name
@@ -217,6 +222,9 @@ export const GetTaskIdDocument = gql`
     description
     created_at
     updated_at
+    draft_date
+    in_progress_date
+    done_date
     project {
       id
       name
@@ -316,10 +324,10 @@ export type AddTaskMutationHookResult = ReturnType<typeof useAddTaskMutation>;
 export type AddTaskMutationResult = Apollo.MutationResult<AddTaskMutation>;
 export type AddTaskMutationOptions = Apollo.BaseMutationOptions<AddTaskMutation, AddTaskMutationVariables>;
 export const UpdateTaskDocument = gql`
-    mutation UpdateTask($id: bigint!, $name: String!, $description: String!, $project_id: Int!, $status_id: Int!, $task_type_id: Int!, $user_id: Int!) {
+    mutation UpdateTask($id: bigint!, $name: String!, $description: String!, $project_id: Int!, $status_id: Int!, $task_type_id: Int!, $user_id: Int!, $in_progress_date: timestamptz!, $done_date: timestamptz!) {
   update_task(
     where: {id: {_eq: $id}}
-    _set: {name: $name, description: $description, project_id: $project_id, status_id: $status_id, task_type_id: $task_type_id, user_id: $user_id}
+    _set: {name: $name, description: $description, project_id: $project_id, status_id: $status_id, task_type_id: $task_type_id, user_id: $user_id, in_progress_date: $in_progress_date, done_date: $done_date}
   ) {
     returning {
       id
@@ -358,6 +366,8 @@ export type UpdateTaskMutationFn = Apollo.MutationFunction<UpdateTaskMutation, U
  *      status_id: // value for 'status_id'
  *      task_type_id: // value for 'task_type_id'
  *      user_id: // value for 'user_id'
+ *      in_progress_date: // value for 'in_progress_date'
+ *      done_date: // value for 'done_date'
  *   },
  * });
  */

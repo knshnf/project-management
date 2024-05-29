@@ -1343,7 +1343,10 @@ type subscription_root {
 type task {
   created_at: timestamptz!
   description: String
+  done_date: timestamptz
+  draft_date: timestamptz
   id: bigint!
+  in_progress_date: timestamptz
   name: String!
 
   """An object relationship"""
@@ -1445,7 +1448,10 @@ input task_bool_exp {
   _or: [task_bool_exp!]
   created_at: timestamptz_comparison_exp
   description: String_comparison_exp
+  done_date: timestamptz_comparison_exp
+  draft_date: timestamptz_comparison_exp
   id: bigint_comparison_exp
+  in_progress_date: timestamptz_comparison_exp
   name: String_comparison_exp
   project: projects_bool_exp
   project_id: Int_comparison_exp
@@ -1483,7 +1489,10 @@ input type for inserting data into table "task"
 input task_insert_input {
   created_at: timestamptz
   description: String
+  done_date: timestamptz
+  draft_date: timestamptz
   id: bigint
+  in_progress_date: timestamptz
   name: String
   project: projects_obj_rel_insert_input
   project_id: Int
@@ -1500,7 +1509,10 @@ input task_insert_input {
 type task_max_fields {
   created_at: timestamptz
   description: String
+  done_date: timestamptz
+  draft_date: timestamptz
   id: bigint
+  in_progress_date: timestamptz
   name: String
   project_id: Int
   status_id: Int
@@ -1515,7 +1527,10 @@ order by max() on columns of table "task"
 input task_max_order_by {
   created_at: order_by
   description: order_by
+  done_date: order_by
+  draft_date: order_by
   id: order_by
+  in_progress_date: order_by
   name: order_by
   project_id: order_by
   status_id: order_by
@@ -1528,7 +1543,10 @@ input task_max_order_by {
 type task_min_fields {
   created_at: timestamptz
   description: String
+  done_date: timestamptz
+  draft_date: timestamptz
   id: bigint
+  in_progress_date: timestamptz
   name: String
   project_id: Int
   status_id: Int
@@ -1543,7 +1561,10 @@ order by min() on columns of table "task"
 input task_min_order_by {
   created_at: order_by
   description: order_by
+  done_date: order_by
+  draft_date: order_by
   id: order_by
+  in_progress_date: order_by
   name: order_by
   project_id: order_by
   status_id: order_by
@@ -1576,7 +1597,10 @@ input task_on_conflict {
 input task_order_by {
   created_at: order_by
   description: order_by
+  done_date: order_by
+  draft_date: order_by
   id: order_by
+  in_progress_date: order_by
   name: order_by
   project: projects_order_by
   project_id: order_by
@@ -1605,7 +1629,16 @@ enum task_select_column {
   description
 
   """column name"""
+  done_date
+
+  """column name"""
+  draft_date
+
+  """column name"""
   id
+
+  """column name"""
+  in_progress_date
 
   """column name"""
   name
@@ -1632,7 +1665,10 @@ input type for updating data in table "task"
 input task_set_input {
   created_at: timestamptz
   description: String
+  done_date: timestamptz
+  draft_date: timestamptz
   id: bigint
+  in_progress_date: timestamptz
   name: String
   project_id: Int
   status_id: Int
@@ -1953,7 +1989,16 @@ enum task_update_column {
   description
 
   """column name"""
+  done_date
+
+  """column name"""
+  draft_date
+
+  """column name"""
   id
+
+  """column name"""
+  in_progress_date
 
   """column name"""
   name

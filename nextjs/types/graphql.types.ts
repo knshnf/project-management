@@ -1137,7 +1137,10 @@ export type Task = {
   __typename?: 'task';
   created_at: Scalars['timestamptz']['output'];
   description?: Maybe<Scalars['String']['output']>;
+  done_date?: Maybe<Scalars['timestamptz']['output']>;
+  draft_date?: Maybe<Scalars['timestamptz']['output']>;
   id: Scalars['bigint']['output'];
+  in_progress_date?: Maybe<Scalars['timestamptz']['output']>;
   name: Scalars['String']['output'];
   /** An object relationship */
   project?: Maybe<Projects>;
@@ -1232,7 +1235,10 @@ export type Task_Bool_Exp = {
   _or?: InputMaybe<Array<Task_Bool_Exp>>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
+  done_date?: InputMaybe<Timestamptz_Comparison_Exp>;
+  draft_date?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Bigint_Comparison_Exp>;
+  in_progress_date?: InputMaybe<Timestamptz_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   project?: InputMaybe<Projects_Bool_Exp>;
   project_id?: InputMaybe<Int_Comparison_Exp>;
@@ -1264,7 +1270,10 @@ export type Task_Inc_Input = {
 export type Task_Insert_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  done_date?: InputMaybe<Scalars['timestamptz']['input']>;
+  draft_date?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  in_progress_date?: InputMaybe<Scalars['timestamptz']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   project?: InputMaybe<Projects_Obj_Rel_Insert_Input>;
   project_id?: InputMaybe<Scalars['Int']['input']>;
@@ -1282,7 +1291,10 @@ export type Task_Max_Fields = {
   __typename?: 'task_max_fields';
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  done_date?: Maybe<Scalars['timestamptz']['output']>;
+  draft_date?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  in_progress_date?: Maybe<Scalars['timestamptz']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   project_id?: Maybe<Scalars['Int']['output']>;
   status_id?: Maybe<Scalars['Int']['output']>;
@@ -1295,7 +1307,10 @@ export type Task_Max_Fields = {
 export type Task_Max_Order_By = {
   created_at?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  done_date?: InputMaybe<Order_By>;
+  draft_date?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  in_progress_date?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   status_id?: InputMaybe<Order_By>;
@@ -1309,7 +1324,10 @@ export type Task_Min_Fields = {
   __typename?: 'task_min_fields';
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  done_date?: Maybe<Scalars['timestamptz']['output']>;
+  draft_date?: Maybe<Scalars['timestamptz']['output']>;
   id?: Maybe<Scalars['bigint']['output']>;
+  in_progress_date?: Maybe<Scalars['timestamptz']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   project_id?: Maybe<Scalars['Int']['output']>;
   status_id?: Maybe<Scalars['Int']['output']>;
@@ -1322,7 +1340,10 @@ export type Task_Min_Fields = {
 export type Task_Min_Order_By = {
   created_at?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  done_date?: InputMaybe<Order_By>;
+  draft_date?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  in_progress_date?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   status_id?: InputMaybe<Order_By>;
@@ -1351,7 +1372,10 @@ export type Task_On_Conflict = {
 export type Task_Order_By = {
   created_at?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  done_date?: InputMaybe<Order_By>;
+  draft_date?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  in_progress_date?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   project?: InputMaybe<Projects_Order_By>;
   project_id?: InputMaybe<Order_By>;
@@ -1376,7 +1400,13 @@ export enum Task_Select_Column {
   /** column name */
   Description = 'description',
   /** column name */
+  DoneDate = 'done_date',
+  /** column name */
+  DraftDate = 'draft_date',
+  /** column name */
   Id = 'id',
+  /** column name */
+  InProgressDate = 'in_progress_date',
   /** column name */
   Name = 'name',
   /** column name */
@@ -1395,7 +1425,10 @@ export enum Task_Select_Column {
 export type Task_Set_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  done_date?: InputMaybe<Scalars['timestamptz']['input']>;
+  draft_date?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['bigint']['input']>;
+  in_progress_date?: InputMaybe<Scalars['timestamptz']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   project_id?: InputMaybe<Scalars['Int']['input']>;
   status_id?: InputMaybe<Scalars['Int']['input']>;
@@ -1701,7 +1734,13 @@ export enum Task_Update_Column {
   /** column name */
   Description = 'description',
   /** column name */
+  DoneDate = 'done_date',
+  /** column name */
+  DraftDate = 'draft_date',
+  /** column name */
   Id = 'id',
+  /** column name */
+  InProgressDate = 'in_progress_date',
   /** column name */
   Name = 'name',
   /** column name */

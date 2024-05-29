@@ -59,6 +59,9 @@ const FormTask = ( () => {
         setUserId(data?.task_by_pk.user.id)
         setUpdatedAt(data?.task_by_pk.updated_at)
         setCreatedAt(data?.task_by_pk.created_at)
+        setDraftDate(data?.task_by_pk.draft_date)
+        setInProgressDate(data?.task_by_pk.in_progress_date)
+        setDoneDate(data?.task_by_pk.done_date)
     },[data])
 
     useEffect( () => {
@@ -76,7 +79,10 @@ const FormTask = ( () => {
 
     const [updatedAt, setUpdatedAt] = useState(data?.task_by_pk.updated_at)
     const [createdAt, setCreatedAt] = useState(data?.task_by_pk.created_at)
-
+    const [draftDate, setDraftDate] = useState(data?.task_by_pk.draft_date)
+    const [inProgressDate, setInProgressDate] = useState(data?.task_by_pk.in_progress_date)
+    const [doneDate, setDoneDate] = useState(data?.task_by_pk.done_date)
+ 
     const [status_name, setStatusName] = useState(data?.task_by_pk.status.name)
 
     const [edit,setEdit] = useState(false)
@@ -126,7 +132,7 @@ const FormTask = ( () => {
             setProjectId(Number(data.update_task.returning[0].project_id))
             setStatusId(Number(data.update_task.returning[0].status_id))
             setUserId(Number(data.update_task.returning[0].user_id))
-            setStatusName(data.update_task.returning[0].status.name)
+            setStatusName(data.update_task.returning[0].status.name),
             refetch()
             router.push(`http://localhost:3000/formtask?view=${parameterView}&mode=edit&id=${Number(data.update_task.returning[0].id)}`)
         }
@@ -190,6 +196,8 @@ const FormTask = ( () => {
                 project_id: project_id,
                 user_id: user_id,
                 status_id: status_id,
+                in_progress_date: inProgressDate,
+                done_date: doneDate
             }
         })
         refetch()
@@ -210,6 +218,8 @@ const FormTask = ( () => {
                 project_id: project_id,
                 user_id: user_id,
                 status_id: dataDraft.status[0].id,
+                in_progress_date: null,
+                done_date: null
             }
         })
         refetch()
@@ -231,6 +241,8 @@ const FormTask = ( () => {
                 project_id: project_id,
                 user_id: user_id,
                 status_id: dataInProgress.status[0].id,
+                in_progress_date: new Date(),
+                done_date:  null
             }
         })
         refetch()
@@ -251,6 +263,8 @@ const FormTask = ( () => {
                 project_id: project_id,
                 user_id: user_id,
                 status_id: dataDone.status[0].id,
+                in_progress_date:  inProgressDate,
+                done_date: new Date()
             }
         })
         refetch()
@@ -603,13 +617,35 @@ const FormTask = ( () => {
 
                     <TextFieldRead 
                         label='Created At'
-                        value={createdAt}
+                        value={dateformat(createdAt, "dd-mmm-yyyy")}
                         mode={mode}
                     />
 
                     <TextFieldRead 
                         label='Updated At'
-                        value={updatedAt}
+                        value={dateformat(updatedAt, "dd-mmm-yyyy")}
+                        mode={mode}
+                    />
+
+                    <TextFieldRead 
+                        label='Draft Date'
+                        value={dateformat(draftDate, "dd-mmm-yyyy")}
+                        mode={mode}
+                    />
+
+                    <TextFieldRead 
+                        label='In Progress Date'
+                        value={inProgressDate ? dateformat(inProgressDate, "dd-mmm-yyyy") : 
+                            "none"
+                        }
+                        mode={mode}
+                    />
+
+                    <TextFieldRead
+                        label='Done Date'
+                        value={doneDate ? dateformat(doneDate, "dd-mmm-yyyy") : 
+                            "none"
+                        }
                         mode={mode}
                     />
 

@@ -56,6 +56,9 @@ query GetTask {
         description
         created_at
         updated_at
+        draft_date
+        in_progress_date
+        done_date
         project {
             id
             name
@@ -88,6 +91,9 @@ query GetTaskId(
         description
         created_at
         updated_at
+        draft_date
+        in_progress_date
+        done_date
         project {
             id
             name
@@ -156,6 +162,8 @@ mutation UpdateTask(
     $status_id: Int!,
     $task_type_id: Int!,
     $user_id: Int!
+    $in_progress_date: timestamptz!,
+    $done_date: timestamptz!
 ) {
     update_task(
         where: {
@@ -167,7 +175,9 @@ mutation UpdateTask(
             project_id: $project_id,
             status_id: $status_id,
             task_type_id: $task_type_id,
-            user_id: $user_id
+            user_id: $user_id,
+            in_progress_date: $in_progress_date,
+            done_date: $done_date
         }
     ) {
         returning {
