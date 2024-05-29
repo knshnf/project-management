@@ -10,7 +10,8 @@
     ],
     "paths": {
       "@/hooks/*": ["hooks/*"],
-      "@/utils/*": ["utils/*"]
+      "@/utils/*": ["utils/*"], 
+      "react": [ "./node_modules/@types/react" ],
     },
     "target": "es5",
     "lib": [
@@ -34,7 +35,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "_middleware.js"  ],
   "exclude": [
     "node_modules"
   ]
