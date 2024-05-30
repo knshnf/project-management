@@ -282,7 +282,7 @@ const FormTask = ( () => {
         router.push(`http://localhost:3000/task?view=${parameterView}`)
     }) 
 
-    console.log(dateformat(new Date('2024-04-23T08:01:12.341816+00:00'), "dd-mmm-yyyy"))
+    // console.log(dateformat(new Date('2024-04-23T08:01:12.341816+00:00'), "dd-mmm-yyyy"))
 
     return (
         <Box sx={pageHeight}>
@@ -636,7 +636,7 @@ const FormTask = ( () => {
                     <TextFieldRead 
                         label='In Progress Date'
                         value={inProgressDate ? dateformat(inProgressDate, "dd-mmm-yyyy") : 
-                            "none"
+                            "N/A"
                         }
                         mode={mode}
                     />
@@ -644,7 +644,7 @@ const FormTask = ( () => {
                     <TextFieldRead
                         label='Done Date'
                         value={doneDate ? dateformat(doneDate, "dd-mmm-yyyy") : 
-                            "none"
+                            "N/A"
                         }
                         mode={mode}
                     />
