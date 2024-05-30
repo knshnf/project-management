@@ -72,11 +72,6 @@ const tableOptions = {
 const Table = ( ( table ) => {
 
     useEffect( () => {
-        const users_name = `${lastName}, ${firstName} ${middleName}`
-        setFullName(users_name)
-    }, ['lastName','firstName','middleName','suffixName'])
-
-    useEffect( () => {
         setRowSelectionModel([])
     },[table.table])
 
@@ -113,6 +108,11 @@ const Table = ( ( table ) => {
     const [color, setColor] = useState(null)
 
     const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
+
+    useEffect( () => {
+        const users_name = `${lastName}, ${firstName} ${middleName}`
+        setFullName(users_name)
+    }, [lastName, firstName, middleName])
 
     const [ addStatus ] = useAddStatusMutation({
         variables: {
