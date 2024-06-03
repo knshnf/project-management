@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 import { useGetMasterdataQuery } from './queries'
 
-const columns = ( () => {
+const columns = (() => {
 
     const { data } = useGetMasterdataQuery()
 
@@ -11,83 +11,83 @@ const columns = ( () => {
     return {
         'status': {
             columns: [
-                { 
-                    field: 'name', 
+                {
+                    field: 'name',
                     headerName: 'Status',
                     flex: 1,
                     editable: true
-                }, 
-                { 
-                    field: 'color', 
+                },
+                {
+                    field: 'color',
                     headerName: 'Color',
                     flex: 1,
                     editable: true
-                }, 
+                },
             ]
         },
-    
+
         'task_type': {
             columns: [
-                { 
-                    field: 'name', 
+                {
+                    field: 'name',
                     headerName: 'Task Type',
                     flex: 1,
                     editable: true
-                }, 
+                },
             ]
         },
-    
+
         'users': {
             columns: [
-                { 
-                    field: 'username', 
-                    headerName: 'Username' ,
+                {
+                    field: 'username',
+                    headerName: 'Username',
                     flex: 1,
                     editable: true
-                }, 
-                { 
-                    field: 'last_name', 
+                },
+                {
+                    field: 'last_name',
                     headerName: 'Last Name',
                     flex: 1,
                     editable: true
-                }, 
-                { 
-                    field: 'first_name', 
+                },
+                {
+                    field: 'first_name',
                     headerName: 'First Name',
                     flex: 1,
                     editable: true
-                }, 
-                { 
-                    field: 'middle_name', 
-                    headerName: 'Middle Name' ,
+                },
+                {
+                    field: 'middle_name',
+                    headerName: 'Middle Name',
                     flex: 1,
                     eimtable: true
-                }, 
-                { 
-                    field: 'suffix_name', 
+                },
+                {
+                    field: 'suffix_name',
                     headerName: 'Suffix Name',
                     flex: 1,
                     editable: true
                 },
-                { 
-                    field: 'role', 
+                {
+                    field: 'role',
                     headerName: 'Role',
                     flex: 1,
                     editable: true
                 },
             ]
         },
-    
+
         'projects': {
             columns: [
-                { 
-                    field: 'name', 
+                {
+                    field: 'name',
                     headerName: 'Project',
                     flex: 1,
                     editable: true
                 },
-                { 
-                    field: 'task_type_id', 
+                {
+                    field: 'task_type_id',
                     headerName: 'Task Type ID',
                     flex: 1,
                     editable: true,
@@ -95,14 +95,36 @@ const columns = ( () => {
                     getOptionValue: (value: any) => value.id,
                     getOptionLabel: (value: any) => value.name,
                     valueOptions: data?.task_type,
-                }, 
+                },
             ]
-        }
+        },
+        'tags': {
+            columns: [
+                {
+                    field: 'name',
+                    headerName: 'Tag',
+                    flex: 1,
+                    editable: true
+                },
+                {
+                    field: 'color',
+                    headerName: 'Color',
+                    flex: 1,
+                    editable: true
+                },
+                {
+                    field: 'sort',
+                    headerName: 'Sort',
+                    flex: 1,
+                    editable: true
+                },
+            ]
+        },
     }
 
 })
 
-export const tableData = ( (data, table) => {
+export const tableData = ((data, table) => {
 
     const getColumns = columns()
 

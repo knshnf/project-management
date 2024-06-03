@@ -1,0 +1,22 @@
+table:
+  schema: public
+  name: tags
+array_relationships:
+  - name: task_tags
+    using:
+      foreign_key_constraint_on:
+        column: tag_id
+        table:
+          schema: public
+          name: task_tags
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - id
+        - name
+        - created_at
+        - updated_at
+        - color
+        - sort
+      filter: {}

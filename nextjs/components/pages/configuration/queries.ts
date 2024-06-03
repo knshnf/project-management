@@ -39,6 +39,12 @@ query GetMasterdata {
           name
       }
   }
+  tags(order_by: {sort: asc}) {
+    color
+    id
+    name
+    sort
+  }
 }
 `;
 
@@ -125,6 +131,20 @@ mutation AddUsers(
     }
 `;
 
+export { useAddTagsMutation } from './queries.types'
+const ADD_TAGS = gql`
+mutation AddTags($color: String!, $name: String!, $sort: bigint!) {
+    insert_tags(objects: {color: $color, name: $name, sort: $sort}) {
+      returning {
+        color
+        id
+        name
+        sort
+      }
+    }
+  }
+`;
+
 // Update
 export { useUpdateStatusMutation } from './queries.types'
 const UPDATE_STATUS = gql`
@@ -191,11 +211,39 @@ mutation UpdateProjects(
     }
 `;
 
+export { useUpdateTagsMutation } from './queries.types'
+const UPDATE_TAGS = gql`
+mutation UpdateTags(
+    $id: bigint!,
+    $color: String!,
+    $name: String!,
+    $sort: bigint!
+) {
+    update_tags(
+        where: {
+        id: { _eq: $id }
+    },
+        _set: {
+        name: $name
+        color: $color
+        sort: $sort
+    }
+    ) {
+        returning {
+            id
+            color
+            name
+            sort
+        }
+    }
+}
+`;
+
 // Delete
 export { useDeleteStatusMutation } from './queries.types'
 export const DELETE_STATUS = gql`
 mutation DeleteStatus($id: bigint!) {
-    delete_status(where: {id: {_eq: $id }}) {
+    delete_status(where: { id: { _eq: $id } }) {
         returning {
             id
         }
@@ -206,7 +254,7 @@ mutation DeleteStatus($id: bigint!) {
 export { useDeleteTaskTypeMutation } from './queries.types'
 export const DELETE_TASK_TYPE = gql`
 mutation DeleteTaskType($id: bigint!) {
-    delete_task_type(where: {id: {_eq: $id }}) {
+    delete_task_type(where: { id: { _eq: $id } }) {
         returning {
             id
         }
@@ -217,7 +265,7 @@ mutation DeleteTaskType($id: bigint!) {
 export { useDeleteProjectsMutation } from './queries.types'
 export const DELETE_PROJECTS = gql`
 mutation DeleteProjects($id: bigint!) {
-    delete_projects(where: {id: {_eq: $id }}) {
+    delete_projects(where: { id: { _eq: $id } }) {
         returning {
             id
         }
@@ -228,7 +276,18 @@ mutation DeleteProjects($id: bigint!) {
 export { useDeleteUsersMutation } from './queries.types'
 export const DELETE_USERS = gql`
 mutation DeleteUsers($id: bigint!) {
-    delete_users(where: {id: {_eq: $id }}) {
+    delete_users(where: { id: { _eq: $id } }) {
+        returning {
+            id
+        }
+    }
+}
+`;
+
+export { useDeleteTagsMutation } from './queries.types'
+export const DELETE_TAGS = gql`
+mutation DeleteTags($id: bigint!) {
+    delete_tags(where: { id: { _eq: $id } }) {
         returning {
             id
         }

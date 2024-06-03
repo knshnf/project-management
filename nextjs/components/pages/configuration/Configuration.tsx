@@ -36,6 +36,10 @@ const Configuration = ( () => {
             key: 'users',
             value: 'Users'
         },
+        {
+            key: 'tags',
+            value: 'tags'
+        },
     ]
 
     const handleTable = ( ( event: React.SyntheticEvent, value: string ) => {

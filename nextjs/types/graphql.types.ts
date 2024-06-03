@@ -121,12 +121,41 @@ export type Comments_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+/** order by aggregate values of table "comments" */
+export type Comments_Aggregate_Order_By = {
+  avg?: InputMaybe<Comments_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Comments_Max_Order_By>;
+  min?: InputMaybe<Comments_Min_Order_By>;
+  stddev?: InputMaybe<Comments_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Comments_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Comments_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Comments_Sum_Order_By>;
+  var_pop?: InputMaybe<Comments_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Comments_Var_Samp_Order_By>;
+  variance?: InputMaybe<Comments_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "comments" */
+export type Comments_Arr_Rel_Insert_Input = {
+  data: Array<Comments_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Comments_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Comments_Avg_Fields = {
   __typename?: 'comments_avg_fields';
   id?: Maybe<Scalars['Float']['output']>;
   task_id?: Maybe<Scalars['Float']['output']>;
   user_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "comments" */
+export type Comments_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "comments". All fields are combined with a logical 'AND'. */
@@ -185,6 +214,17 @@ export type Comments_Max_Fields = {
   user_id?: Maybe<Scalars['Int']['output']>;
 };
 
+/** order by max() on columns of table "comments" */
+export type Comments_Max_Order_By = {
+  comment?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
 /** aggregate min on columns */
 export type Comments_Min_Fields = {
   __typename?: 'comments_min_fields';
@@ -195,6 +235,17 @@ export type Comments_Min_Fields = {
   task_id?: Maybe<Scalars['Int']['output']>;
   updated_at?: Maybe<Scalars['timestamptz']['output']>;
   user_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by min() on columns of table "comments" */
+export type Comments_Min_Order_By = {
+  comment?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "comments" */
@@ -268,12 +319,26 @@ export type Comments_Stddev_Fields = {
   user_id?: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by stddev() on columns of table "comments" */
+export type Comments_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
 /** aggregate stddev_pop on columns */
 export type Comments_Stddev_Pop_Fields = {
   __typename?: 'comments_stddev_pop_fields';
   id?: Maybe<Scalars['Float']['output']>;
   task_id?: Maybe<Scalars['Float']['output']>;
   user_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "comments" */
+export type Comments_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_samp on columns */
@@ -284,12 +349,26 @@ export type Comments_Stddev_Samp_Fields = {
   user_id?: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by stddev_samp() on columns of table "comments" */
+export type Comments_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
 /** aggregate sum on columns */
 export type Comments_Sum_Fields = {
   __typename?: 'comments_sum_fields';
   id?: Maybe<Scalars['bigint']['output']>;
   task_id?: Maybe<Scalars['Int']['output']>;
   user_id?: Maybe<Scalars['Int']['output']>;
+};
+
+/** order by sum() on columns of table "comments" */
+export type Comments_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "comments" */
@@ -318,6 +397,13 @@ export type Comments_Var_Pop_Fields = {
   user_id?: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by var_pop() on columns of table "comments" */
+export type Comments_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
 /** aggregate var_samp on columns */
 export type Comments_Var_Samp_Fields = {
   __typename?: 'comments_var_samp_fields';
@@ -326,12 +412,26 @@ export type Comments_Var_Samp_Fields = {
   user_id?: Maybe<Scalars['Float']['output']>;
 };
 
+/** order by var_samp() on columns of table "comments" */
+export type Comments_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
 /** aggregate variance on columns */
 export type Comments_Variance_Fields = {
   __typename?: 'comments_variance_fields';
   id?: Maybe<Scalars['Float']['output']>;
   task_id?: Maybe<Scalars['Float']['output']>;
   user_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "comments" */
+export type Comments_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
 };
 
 /** mutation root */
@@ -349,10 +449,18 @@ export type Mutation_Root = {
   delete_status?: Maybe<Status_Mutation_Response>;
   /** delete single row from the table: "status" */
   delete_status_by_pk?: Maybe<Status>;
+  /** delete data from the table: "tags" */
+  delete_tags?: Maybe<Tags_Mutation_Response>;
+  /** delete single row from the table: "tags" */
+  delete_tags_by_pk?: Maybe<Tags>;
   /** delete data from the table: "task" */
   delete_task?: Maybe<Task_Mutation_Response>;
   /** delete single row from the table: "task" */
   delete_task_by_pk?: Maybe<Task>;
+  /** delete data from the table: "task_tags" */
+  delete_task_tags?: Maybe<Task_Tags_Mutation_Response>;
+  /** delete single row from the table: "task_tags" */
+  delete_task_tags_by_pk?: Maybe<Task_Tags>;
   /** delete data from the table: "task_type" */
   delete_task_type?: Maybe<Task_Type_Mutation_Response>;
   /** delete single row from the table: "task_type" */
@@ -373,10 +481,18 @@ export type Mutation_Root = {
   insert_status?: Maybe<Status_Mutation_Response>;
   /** insert a single row into the table: "status" */
   insert_status_one?: Maybe<Status>;
+  /** insert data into the table: "tags" */
+  insert_tags?: Maybe<Tags_Mutation_Response>;
+  /** insert a single row into the table: "tags" */
+  insert_tags_one?: Maybe<Tags>;
   /** insert data into the table: "task" */
   insert_task?: Maybe<Task_Mutation_Response>;
   /** insert a single row into the table: "task" */
   insert_task_one?: Maybe<Task>;
+  /** insert data into the table: "task_tags" */
+  insert_task_tags?: Maybe<Task_Tags_Mutation_Response>;
+  /** insert a single row into the table: "task_tags" */
+  insert_task_tags_one?: Maybe<Task_Tags>;
   /** insert data into the table: "task_type" */
   insert_task_type?: Maybe<Task_Type_Mutation_Response>;
   /** insert a single row into the table: "task_type" */
@@ -397,10 +513,18 @@ export type Mutation_Root = {
   update_status?: Maybe<Status_Mutation_Response>;
   /** update single row of the table: "status" */
   update_status_by_pk?: Maybe<Status>;
+  /** update data of the table: "tags" */
+  update_tags?: Maybe<Tags_Mutation_Response>;
+  /** update single row of the table: "tags" */
+  update_tags_by_pk?: Maybe<Tags>;
   /** update data of the table: "task" */
   update_task?: Maybe<Task_Mutation_Response>;
   /** update single row of the table: "task" */
   update_task_by_pk?: Maybe<Task>;
+  /** update data of the table: "task_tags" */
+  update_task_tags?: Maybe<Task_Tags_Mutation_Response>;
+  /** update single row of the table: "task_tags" */
+  update_task_tags_by_pk?: Maybe<Task_Tags>;
   /** update data of the table: "task_type" */
   update_task_type?: Maybe<Task_Type_Mutation_Response>;
   /** update single row of the table: "task_type" */
@@ -450,6 +574,18 @@ export type Mutation_RootDelete_Status_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDelete_TagsArgs = {
+  where: Tags_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Tags_By_PkArgs = {
+  id: Scalars['bigint']['input'];
+};
+
+
+/** mutation root */
 export type Mutation_RootDelete_TaskArgs = {
   where: Task_Bool_Exp;
 };
@@ -457,6 +593,18 @@ export type Mutation_RootDelete_TaskArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Task_By_PkArgs = {
+  id: Scalars['bigint']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Task_TagsArgs = {
+  where: Task_Tags_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Task_Tags_By_PkArgs = {
   id: Scalars['bigint']['input'];
 };
 
@@ -530,6 +678,20 @@ export type Mutation_RootInsert_Status_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_TagsArgs = {
+  objects: Array<Tags_Insert_Input>;
+  on_conflict?: InputMaybe<Tags_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Tags_OneArgs = {
+  object: Tags_Insert_Input;
+  on_conflict?: InputMaybe<Tags_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_TaskArgs = {
   objects: Array<Task_Insert_Input>;
   on_conflict?: InputMaybe<Task_On_Conflict>;
@@ -540,6 +702,20 @@ export type Mutation_RootInsert_TaskArgs = {
 export type Mutation_RootInsert_Task_OneArgs = {
   object: Task_Insert_Input;
   on_conflict?: InputMaybe<Task_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Task_TagsArgs = {
+  objects: Array<Task_Tags_Insert_Input>;
+  on_conflict?: InputMaybe<Task_Tags_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Task_Tags_OneArgs = {
+  object: Task_Tags_Insert_Input;
+  on_conflict?: InputMaybe<Task_Tags_On_Conflict>;
 };
 
 
@@ -620,6 +796,22 @@ export type Mutation_RootUpdate_Status_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_TagsArgs = {
+  _inc?: InputMaybe<Tags_Inc_Input>;
+  _set?: InputMaybe<Tags_Set_Input>;
+  where: Tags_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Tags_By_PkArgs = {
+  _inc?: InputMaybe<Tags_Inc_Input>;
+  _set?: InputMaybe<Tags_Set_Input>;
+  pk_columns: Tags_Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_TaskArgs = {
   _inc?: InputMaybe<Task_Inc_Input>;
   _set?: InputMaybe<Task_Set_Input>;
@@ -632,6 +824,22 @@ export type Mutation_RootUpdate_Task_By_PkArgs = {
   _inc?: InputMaybe<Task_Inc_Input>;
   _set?: InputMaybe<Task_Set_Input>;
   pk_columns: Task_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Task_TagsArgs = {
+  _inc?: InputMaybe<Task_Tags_Inc_Input>;
+  _set?: InputMaybe<Task_Tags_Set_Input>;
+  where: Task_Tags_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Task_Tags_By_PkArgs = {
+  _inc?: InputMaybe<Task_Tags_Inc_Input>;
+  _set?: InputMaybe<Task_Tags_Set_Input>;
+  pk_columns: Task_Tags_Pk_Columns_Input;
 };
 
 
@@ -914,9 +1122,9 @@ export type Projects_Variance_Fields = {
 
 export type Query_Root = {
   __typename?: 'query_root';
-  /** fetch data from the table: "comments" */
+  /** An array relationship */
   comments: Array<Comments>;
-  /** fetch aggregated fields from the table: "comments" */
+  /** An aggregate relationship */
   comments_aggregate: Comments_Aggregate;
   /** fetch data from the table: "comments" using primary key columns */
   comments_by_pk?: Maybe<Comments>;
@@ -932,12 +1140,24 @@ export type Query_Root = {
   status_aggregate: Status_Aggregate;
   /** fetch data from the table: "status" using primary key columns */
   status_by_pk?: Maybe<Status>;
+  /** fetch data from the table: "tags" */
+  tags: Array<Tags>;
+  /** fetch aggregated fields from the table: "tags" */
+  tags_aggregate: Tags_Aggregate;
+  /** fetch data from the table: "tags" using primary key columns */
+  tags_by_pk?: Maybe<Tags>;
   /** fetch data from the table: "task" */
   task: Array<Task>;
   /** fetch aggregated fields from the table: "task" */
   task_aggregate: Task_Aggregate;
   /** fetch data from the table: "task" using primary key columns */
   task_by_pk?: Maybe<Task>;
+  /** An array relationship */
+  task_tags: Array<Task_Tags>;
+  /** An aggregate relationship */
+  task_tags_aggregate: Task_Tags_Aggregate;
+  /** fetch data from the table: "task_tags" using primary key columns */
+  task_tags_by_pk?: Maybe<Task_Tags>;
   /** fetch data from the table: "task_type" */
   task_type: Array<Task_Type>;
   /** fetch aggregated fields from the table: "task_type" */
@@ -1023,6 +1243,29 @@ export type Query_RootStatus_By_PkArgs = {
 };
 
 
+export type Query_RootTagsArgs = {
+  distinct_on?: InputMaybe<Array<Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Tags_Order_By>>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+
+export type Query_RootTags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Tags_Order_By>>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+
+export type Query_RootTags_By_PkArgs = {
+  id: Scalars['bigint']['input'];
+};
+
+
 export type Query_RootTaskArgs = {
   distinct_on?: InputMaybe<Array<Task_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1042,6 +1285,29 @@ export type Query_RootTask_AggregateArgs = {
 
 
 export type Query_RootTask_By_PkArgs = {
+  id: Scalars['bigint']['input'];
+};
+
+
+export type Query_RootTask_TagsArgs = {
+  distinct_on?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Tags_Order_By>>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
+};
+
+
+export type Query_RootTask_Tags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Tags_Order_By>>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
+};
+
+
+export type Query_RootTask_Tags_By_PkArgs = {
   id: Scalars['bigint']['input'];
 };
 
@@ -1318,9 +1584,9 @@ export type Status_Variance_Fields = {
 
 export type Subscription_Root = {
   __typename?: 'subscription_root';
-  /** fetch data from the table: "comments" */
+  /** An array relationship */
   comments: Array<Comments>;
-  /** fetch aggregated fields from the table: "comments" */
+  /** An aggregate relationship */
   comments_aggregate: Comments_Aggregate;
   /** fetch data from the table: "comments" using primary key columns */
   comments_by_pk?: Maybe<Comments>;
@@ -1336,12 +1602,24 @@ export type Subscription_Root = {
   status_aggregate: Status_Aggregate;
   /** fetch data from the table: "status" using primary key columns */
   status_by_pk?: Maybe<Status>;
+  /** fetch data from the table: "tags" */
+  tags: Array<Tags>;
+  /** fetch aggregated fields from the table: "tags" */
+  tags_aggregate: Tags_Aggregate;
+  /** fetch data from the table: "tags" using primary key columns */
+  tags_by_pk?: Maybe<Tags>;
   /** fetch data from the table: "task" */
   task: Array<Task>;
   /** fetch aggregated fields from the table: "task" */
   task_aggregate: Task_Aggregate;
   /** fetch data from the table: "task" using primary key columns */
   task_by_pk?: Maybe<Task>;
+  /** An array relationship */
+  task_tags: Array<Task_Tags>;
+  /** An aggregate relationship */
+  task_tags_aggregate: Task_Tags_Aggregate;
+  /** fetch data from the table: "task_tags" using primary key columns */
+  task_tags_by_pk?: Maybe<Task_Tags>;
   /** fetch data from the table: "task_type" */
   task_type: Array<Task_Type>;
   /** fetch aggregated fields from the table: "task_type" */
@@ -1427,6 +1705,29 @@ export type Subscription_RootStatus_By_PkArgs = {
 };
 
 
+export type Subscription_RootTagsArgs = {
+  distinct_on?: InputMaybe<Array<Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Tags_Order_By>>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+
+export type Subscription_RootTags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Tags_Order_By>>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+
+export type Subscription_RootTags_By_PkArgs = {
+  id: Scalars['bigint']['input'];
+};
+
+
 export type Subscription_RootTaskArgs = {
   distinct_on?: InputMaybe<Array<Task_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -1446,6 +1747,29 @@ export type Subscription_RootTask_AggregateArgs = {
 
 
 export type Subscription_RootTask_By_PkArgs = {
+  id: Scalars['bigint']['input'];
+};
+
+
+export type Subscription_RootTask_TagsArgs = {
+  distinct_on?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Tags_Order_By>>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
+};
+
+
+export type Subscription_RootTask_Tags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Tags_Order_By>>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
+};
+
+
+export type Subscription_RootTask_Tags_By_PkArgs = {
   id: Scalars['bigint']['input'];
 };
 
@@ -1497,6 +1821,269 @@ export type Subscription_RootUsers_By_PkArgs = {
   username: Scalars['String']['input'];
 };
 
+/** columns and relationships of "tags" */
+export type Tags = {
+  __typename?: 'tags';
+  color?: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['timestamptz']['output'];
+  id: Scalars['bigint']['output'];
+  name: Scalars['String']['output'];
+  sort: Scalars['bigint']['output'];
+  /** An array relationship */
+  task_tags: Array<Task_Tags>;
+  /** An aggregate relationship */
+  task_tags_aggregate: Task_Tags_Aggregate;
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+
+/** columns and relationships of "tags" */
+export type TagsTask_TagsArgs = {
+  distinct_on?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Tags_Order_By>>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
+};
+
+
+/** columns and relationships of "tags" */
+export type TagsTask_Tags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Tags_Order_By>>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
+};
+
+/** aggregated selection of "tags" */
+export type Tags_Aggregate = {
+  __typename?: 'tags_aggregate';
+  aggregate?: Maybe<Tags_Aggregate_Fields>;
+  nodes: Array<Tags>;
+};
+
+/** aggregate fields of "tags" */
+export type Tags_Aggregate_Fields = {
+  __typename?: 'tags_aggregate_fields';
+  avg?: Maybe<Tags_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Tags_Max_Fields>;
+  min?: Maybe<Tags_Min_Fields>;
+  stddev?: Maybe<Tags_Stddev_Fields>;
+  stddev_pop?: Maybe<Tags_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Tags_Stddev_Samp_Fields>;
+  sum?: Maybe<Tags_Sum_Fields>;
+  var_pop?: Maybe<Tags_Var_Pop_Fields>;
+  var_samp?: Maybe<Tags_Var_Samp_Fields>;
+  variance?: Maybe<Tags_Variance_Fields>;
+};
+
+
+/** aggregate fields of "tags" */
+export type Tags_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Tags_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Tags_Avg_Fields = {
+  __typename?: 'tags_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  sort?: Maybe<Scalars['Float']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "tags". All fields are combined with a logical 'AND'. */
+export type Tags_Bool_Exp = {
+  _and?: InputMaybe<Array<Tags_Bool_Exp>>;
+  _not?: InputMaybe<Tags_Bool_Exp>;
+  _or?: InputMaybe<Array<Tags_Bool_Exp>>;
+  color?: InputMaybe<String_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Bigint_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  sort?: InputMaybe<Bigint_Comparison_Exp>;
+  task_tags?: InputMaybe<Task_Tags_Bool_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "tags" */
+export enum Tags_Constraint {
+  /** unique or primary key constraint */
+  TagNameKey = 'tag_name_key',
+  /** unique or primary key constraint */
+  TagPkey = 'tag_pkey'
+}
+
+/** input type for incrementing numeric columns in table "tags" */
+export type Tags_Inc_Input = {
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  sort?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** input type for inserting data into table "tags" */
+export type Tags_Insert_Input = {
+  color?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['bigint']['input']>;
+  task_tags?: InputMaybe<Task_Tags_Arr_Rel_Insert_Input>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate max on columns */
+export type Tags_Max_Fields = {
+  __typename?: 'tags_max_fields';
+  color?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  sort?: Maybe<Scalars['bigint']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** aggregate min on columns */
+export type Tags_Min_Fields = {
+  __typename?: 'tags_min_fields';
+  color?: Maybe<Scalars['String']['output']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  sort?: Maybe<Scalars['bigint']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** response of any mutation on the table "tags" */
+export type Tags_Mutation_Response = {
+  __typename?: 'tags_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Tags>;
+};
+
+/** input type for inserting object relation for remote table "tags" */
+export type Tags_Obj_Rel_Insert_Input = {
+  data: Tags_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Tags_On_Conflict>;
+};
+
+/** on conflict condition type for table "tags" */
+export type Tags_On_Conflict = {
+  constraint: Tags_Constraint;
+  update_columns?: Array<Tags_Update_Column>;
+  where?: InputMaybe<Tags_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "tags". */
+export type Tags_Order_By = {
+  color?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  sort?: InputMaybe<Order_By>;
+  task_tags_aggregate?: InputMaybe<Task_Tags_Aggregate_Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: tags */
+export type Tags_Pk_Columns_Input = {
+  id: Scalars['bigint']['input'];
+};
+
+/** select columns of table "tags" */
+export enum Tags_Select_Column {
+  /** column name */
+  Color = 'color',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Sort = 'sort',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "tags" */
+export type Tags_Set_Input = {
+  color?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  sort?: InputMaybe<Scalars['bigint']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Tags_Stddev_Fields = {
+  __typename?: 'tags_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  sort?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Tags_Stddev_Pop_Fields = {
+  __typename?: 'tags_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  sort?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Tags_Stddev_Samp_Fields = {
+  __typename?: 'tags_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  sort?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate sum on columns */
+export type Tags_Sum_Fields = {
+  __typename?: 'tags_sum_fields';
+  id?: Maybe<Scalars['bigint']['output']>;
+  sort?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** update columns of table "tags" */
+export enum Tags_Update_Column {
+  /** column name */
+  Color = 'color',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Sort = 'sort',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** aggregate var_pop on columns */
+export type Tags_Var_Pop_Fields = {
+  __typename?: 'tags_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  sort?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Tags_Var_Samp_Fields = {
+  __typename?: 'tags_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  sort?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Tags_Variance_Fields = {
+  __typename?: 'tags_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  sort?: Maybe<Scalars['Float']['output']>;
+};
+
 /**
  * List of Tasks
  *
@@ -1506,6 +2093,10 @@ export type Subscription_RootUsers_By_PkArgs = {
  */
 export type Task = {
   __typename?: 'task';
+  /** An array relationship */
+  comments: Array<Comments>;
+  /** An aggregate relationship */
+  comments_aggregate: Comments_Aggregate;
   created_at: Scalars['timestamptz']['output'];
   description?: Maybe<Scalars['String']['output']>;
   done_date?: Maybe<Scalars['timestamptz']['output']>;
@@ -1519,6 +2110,10 @@ export type Task = {
   /** An object relationship */
   status?: Maybe<Status>;
   status_id: Scalars['Int']['output'];
+  /** An array relationship */
+  task_tags: Array<Task_Tags>;
+  /** An aggregate relationship */
+  task_tags_aggregate: Task_Tags_Aggregate;
   /** An object relationship */
   task_type?: Maybe<Task_Type>;
   task_type_id: Scalars['Int']['output'];
@@ -1526,6 +2121,70 @@ export type Task = {
   /** An object relationship */
   user?: Maybe<Users>;
   user_id: Scalars['Int']['output'];
+};
+
+
+/**
+ * List of Tasks
+ *
+ *
+ * columns and relationships of "task"
+ *
+ */
+export type TaskCommentsArgs = {
+  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Comments_Order_By>>;
+  where?: InputMaybe<Comments_Bool_Exp>;
+};
+
+
+/**
+ * List of Tasks
+ *
+ *
+ * columns and relationships of "task"
+ *
+ */
+export type TaskComments_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Comments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Comments_Order_By>>;
+  where?: InputMaybe<Comments_Bool_Exp>;
+};
+
+
+/**
+ * List of Tasks
+ *
+ *
+ * columns and relationships of "task"
+ *
+ */
+export type TaskTask_TagsArgs = {
+  distinct_on?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Tags_Order_By>>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
+};
+
+
+/**
+ * List of Tasks
+ *
+ *
+ * columns and relationships of "task"
+ *
+ */
+export type TaskTask_Tags_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Task_Tags_Order_By>>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
 };
 
 /** aggregated selection of "task" */
@@ -1604,6 +2263,7 @@ export type Task_Bool_Exp = {
   _and?: InputMaybe<Array<Task_Bool_Exp>>;
   _not?: InputMaybe<Task_Bool_Exp>;
   _or?: InputMaybe<Array<Task_Bool_Exp>>;
+  comments?: InputMaybe<Comments_Bool_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   done_date?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -1615,6 +2275,7 @@ export type Task_Bool_Exp = {
   project_id?: InputMaybe<Int_Comparison_Exp>;
   status?: InputMaybe<Status_Bool_Exp>;
   status_id?: InputMaybe<Int_Comparison_Exp>;
+  task_tags?: InputMaybe<Task_Tags_Bool_Exp>;
   task_type?: InputMaybe<Task_Type_Bool_Exp>;
   task_type_id?: InputMaybe<Int_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -1639,6 +2300,7 @@ export type Task_Inc_Input = {
 
 /** input type for inserting data into table "task" */
 export type Task_Insert_Input = {
+  comments?: InputMaybe<Comments_Arr_Rel_Insert_Input>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   done_date?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -1650,6 +2312,7 @@ export type Task_Insert_Input = {
   project_id?: InputMaybe<Scalars['Int']['input']>;
   status?: InputMaybe<Status_Obj_Rel_Insert_Input>;
   status_id?: InputMaybe<Scalars['Int']['input']>;
+  task_tags?: InputMaybe<Task_Tags_Arr_Rel_Insert_Input>;
   task_type?: InputMaybe<Task_Type_Obj_Rel_Insert_Input>;
   task_type_id?: InputMaybe<Scalars['Int']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
@@ -1748,6 +2411,7 @@ export type Task_On_Conflict = {
 
 /** Ordering options when selecting data from "task". */
 export type Task_Order_By = {
+  comments_aggregate?: InputMaybe<Comments_Aggregate_Order_By>;
   created_at?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   done_date?: InputMaybe<Order_By>;
@@ -1759,6 +2423,7 @@ export type Task_Order_By = {
   project_id?: InputMaybe<Order_By>;
   status?: InputMaybe<Status_Order_By>;
   status_id?: InputMaybe<Order_By>;
+  task_tags_aggregate?: InputMaybe<Task_Tags_Aggregate_Order_By>;
   task_type?: InputMaybe<Task_Type_Order_By>;
   task_type_id?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
@@ -1889,6 +2554,337 @@ export type Task_Sum_Order_By = {
   status_id?: InputMaybe<Order_By>;
   task_type_id?: InputMaybe<Order_By>;
   user_id?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "task_tags" */
+export type Task_Tags = {
+  __typename?: 'task_tags';
+  created_at: Scalars['timestamptz']['output'];
+  id: Scalars['bigint']['output'];
+  /** An object relationship */
+  tag: Tags;
+  tag_id: Scalars['bigint']['output'];
+  /** An object relationship */
+  task: Task;
+  task_id: Scalars['bigint']['output'];
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** aggregated selection of "task_tags" */
+export type Task_Tags_Aggregate = {
+  __typename?: 'task_tags_aggregate';
+  aggregate?: Maybe<Task_Tags_Aggregate_Fields>;
+  nodes: Array<Task_Tags>;
+};
+
+/** aggregate fields of "task_tags" */
+export type Task_Tags_Aggregate_Fields = {
+  __typename?: 'task_tags_aggregate_fields';
+  avg?: Maybe<Task_Tags_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Task_Tags_Max_Fields>;
+  min?: Maybe<Task_Tags_Min_Fields>;
+  stddev?: Maybe<Task_Tags_Stddev_Fields>;
+  stddev_pop?: Maybe<Task_Tags_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Task_Tags_Stddev_Samp_Fields>;
+  sum?: Maybe<Task_Tags_Sum_Fields>;
+  var_pop?: Maybe<Task_Tags_Var_Pop_Fields>;
+  var_samp?: Maybe<Task_Tags_Var_Samp_Fields>;
+  variance?: Maybe<Task_Tags_Variance_Fields>;
+};
+
+
+/** aggregate fields of "task_tags" */
+export type Task_Tags_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Task_Tags_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** order by aggregate values of table "task_tags" */
+export type Task_Tags_Aggregate_Order_By = {
+  avg?: InputMaybe<Task_Tags_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Task_Tags_Max_Order_By>;
+  min?: InputMaybe<Task_Tags_Min_Order_By>;
+  stddev?: InputMaybe<Task_Tags_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Task_Tags_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Task_Tags_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Task_Tags_Sum_Order_By>;
+  var_pop?: InputMaybe<Task_Tags_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Task_Tags_Var_Samp_Order_By>;
+  variance?: InputMaybe<Task_Tags_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "task_tags" */
+export type Task_Tags_Arr_Rel_Insert_Input = {
+  data: Array<Task_Tags_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Task_Tags_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Task_Tags_Avg_Fields = {
+  __typename?: 'task_tags_avg_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  tag_id?: Maybe<Scalars['Float']['output']>;
+  task_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by avg() on columns of table "task_tags" */
+export type Task_Tags_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "task_tags". All fields are combined with a logical 'AND'. */
+export type Task_Tags_Bool_Exp = {
+  _and?: InputMaybe<Array<Task_Tags_Bool_Exp>>;
+  _not?: InputMaybe<Task_Tags_Bool_Exp>;
+  _or?: InputMaybe<Array<Task_Tags_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Bigint_Comparison_Exp>;
+  tag?: InputMaybe<Tags_Bool_Exp>;
+  tag_id?: InputMaybe<Bigint_Comparison_Exp>;
+  task?: InputMaybe<Task_Bool_Exp>;
+  task_id?: InputMaybe<Bigint_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "task_tags" */
+export enum Task_Tags_Constraint {
+  /** unique or primary key constraint */
+  TaskTagPkey = 'task_tag_pkey'
+}
+
+/** input type for incrementing numeric columns in table "task_tags" */
+export type Task_Tags_Inc_Input = {
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  tag_id?: InputMaybe<Scalars['bigint']['input']>;
+  task_id?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** input type for inserting data into table "task_tags" */
+export type Task_Tags_Insert_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  tag?: InputMaybe<Tags_Obj_Rel_Insert_Input>;
+  tag_id?: InputMaybe<Scalars['bigint']['input']>;
+  task?: InputMaybe<Task_Obj_Rel_Insert_Input>;
+  task_id?: InputMaybe<Scalars['bigint']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate max on columns */
+export type Task_Tags_Max_Fields = {
+  __typename?: 'task_tags_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  tag_id?: Maybe<Scalars['bigint']['output']>;
+  task_id?: Maybe<Scalars['bigint']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by max() on columns of table "task_tags" */
+export type Task_Tags_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Task_Tags_Min_Fields = {
+  __typename?: 'task_tags_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['bigint']['output']>;
+  tag_id?: Maybe<Scalars['bigint']['output']>;
+  task_id?: Maybe<Scalars['bigint']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
+};
+
+/** order by min() on columns of table "task_tags" */
+export type Task_Tags_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "task_tags" */
+export type Task_Tags_Mutation_Response = {
+  __typename?: 'task_tags_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Task_Tags>;
+};
+
+/** on conflict condition type for table "task_tags" */
+export type Task_Tags_On_Conflict = {
+  constraint: Task_Tags_Constraint;
+  update_columns?: Array<Task_Tags_Update_Column>;
+  where?: InputMaybe<Task_Tags_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "task_tags". */
+export type Task_Tags_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  tag?: InputMaybe<Tags_Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task?: InputMaybe<Task_Order_By>;
+  task_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: task_tags */
+export type Task_Tags_Pk_Columns_Input = {
+  id: Scalars['bigint']['input'];
+};
+
+/** select columns of table "task_tags" */
+export enum Task_Tags_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  TagId = 'tag_id',
+  /** column name */
+  TaskId = 'task_id',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** input type for updating data in table "task_tags" */
+export type Task_Tags_Set_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['bigint']['input']>;
+  tag_id?: InputMaybe<Scalars['bigint']['input']>;
+  task_id?: InputMaybe<Scalars['bigint']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** aggregate stddev on columns */
+export type Task_Tags_Stddev_Fields = {
+  __typename?: 'task_tags_stddev_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  tag_id?: Maybe<Scalars['Float']['output']>;
+  task_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev() on columns of table "task_tags" */
+export type Task_Tags_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Task_Tags_Stddev_Pop_Fields = {
+  __typename?: 'task_tags_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  tag_id?: Maybe<Scalars['Float']['output']>;
+  task_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_pop() on columns of table "task_tags" */
+export type Task_Tags_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Task_Tags_Stddev_Samp_Fields = {
+  __typename?: 'task_tags_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  tag_id?: Maybe<Scalars['Float']['output']>;
+  task_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by stddev_samp() on columns of table "task_tags" */
+export type Task_Tags_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Task_Tags_Sum_Fields = {
+  __typename?: 'task_tags_sum_fields';
+  id?: Maybe<Scalars['bigint']['output']>;
+  tag_id?: Maybe<Scalars['bigint']['output']>;
+  task_id?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** order by sum() on columns of table "task_tags" */
+export type Task_Tags_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "task_tags" */
+export enum Task_Tags_Update_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  TagId = 'tag_id',
+  /** column name */
+  TaskId = 'task_id',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** aggregate var_pop on columns */
+export type Task_Tags_Var_Pop_Fields = {
+  __typename?: 'task_tags_var_pop_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  tag_id?: Maybe<Scalars['Float']['output']>;
+  task_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_pop() on columns of table "task_tags" */
+export type Task_Tags_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Task_Tags_Var_Samp_Fields = {
+  __typename?: 'task_tags_var_samp_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  tag_id?: Maybe<Scalars['Float']['output']>;
+  task_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by var_samp() on columns of table "task_tags" */
+export type Task_Tags_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Task_Tags_Variance_Fields = {
+  __typename?: 'task_tags_variance_fields';
+  id?: Maybe<Scalars['Float']['output']>;
+  tag_id?: Maybe<Scalars['Float']['output']>;
+  task_id?: Maybe<Scalars['Float']['output']>;
+};
+
+/** order by variance() on columns of table "task_tags" */
+export type Task_Tags_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
+  tag_id?: InputMaybe<Order_By>;
+  task_id?: InputMaybe<Order_By>;
 };
 
 /**

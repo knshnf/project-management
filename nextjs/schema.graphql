@@ -142,11 +142,47 @@ type comments_aggregate_fields {
   variance: comments_variance_fields
 }
 
+"""
+order by aggregate values of table "comments"
+"""
+input comments_aggregate_order_by {
+  avg: comments_avg_order_by
+  count: order_by
+  max: comments_max_order_by
+  min: comments_min_order_by
+  stddev: comments_stddev_order_by
+  stddev_pop: comments_stddev_pop_order_by
+  stddev_samp: comments_stddev_samp_order_by
+  sum: comments_sum_order_by
+  var_pop: comments_var_pop_order_by
+  var_samp: comments_var_samp_order_by
+  variance: comments_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "comments"
+"""
+input comments_arr_rel_insert_input {
+  data: [comments_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: comments_on_conflict
+}
+
 """aggregate avg on columns"""
 type comments_avg_fields {
   id: Float
   task_id: Float
   user_id: Float
+}
+
+"""
+order by avg() on columns of table "comments"
+"""
+input comments_avg_order_by {
+  id: order_by
+  task_id: order_by
+  user_id: order_by
 }
 
 """
@@ -213,6 +249,19 @@ type comments_max_fields {
   user_id: Int
 }
 
+"""
+order by max() on columns of table "comments"
+"""
+input comments_max_order_by {
+  comment: order_by
+  created_at: order_by
+  id: order_by
+  name: order_by
+  task_id: order_by
+  updated_at: order_by
+  user_id: order_by
+}
+
 """aggregate min on columns"""
 type comments_min_fields {
   comment: String
@@ -222,6 +271,19 @@ type comments_min_fields {
   task_id: Int
   updated_at: timestamptz
   user_id: Int
+}
+
+"""
+order by min() on columns of table "comments"
+"""
+input comments_min_order_by {
+  comment: order_by
+  created_at: order_by
+  id: order_by
+  name: order_by
+  task_id: order_by
+  updated_at: order_by
+  user_id: order_by
 }
 
 """
@@ -308,11 +370,29 @@ type comments_stddev_fields {
   user_id: Float
 }
 
+"""
+order by stddev() on columns of table "comments"
+"""
+input comments_stddev_order_by {
+  id: order_by
+  task_id: order_by
+  user_id: order_by
+}
+
 """aggregate stddev_pop on columns"""
 type comments_stddev_pop_fields {
   id: Float
   task_id: Float
   user_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "comments"
+"""
+input comments_stddev_pop_order_by {
+  id: order_by
+  task_id: order_by
+  user_id: order_by
 }
 
 """aggregate stddev_samp on columns"""
@@ -322,11 +402,29 @@ type comments_stddev_samp_fields {
   user_id: Float
 }
 
+"""
+order by stddev_samp() on columns of table "comments"
+"""
+input comments_stddev_samp_order_by {
+  id: order_by
+  task_id: order_by
+  user_id: order_by
+}
+
 """aggregate sum on columns"""
 type comments_sum_fields {
   id: bigint
   task_id: Int
   user_id: Int
+}
+
+"""
+order by sum() on columns of table "comments"
+"""
+input comments_sum_order_by {
+  id: order_by
+  task_id: order_by
+  user_id: order_by
 }
 
 """
@@ -362,6 +460,15 @@ type comments_var_pop_fields {
   user_id: Float
 }
 
+"""
+order by var_pop() on columns of table "comments"
+"""
+input comments_var_pop_order_by {
+  id: order_by
+  task_id: order_by
+  user_id: order_by
+}
+
 """aggregate var_samp on columns"""
 type comments_var_samp_fields {
   id: Float
@@ -369,11 +476,29 @@ type comments_var_samp_fields {
   user_id: Float
 }
 
+"""
+order by var_samp() on columns of table "comments"
+"""
+input comments_var_samp_order_by {
+  id: order_by
+  task_id: order_by
+  user_id: order_by
+}
+
 """aggregate variance on columns"""
 type comments_variance_fields {
   id: Float
   task_id: Float
   user_id: Float
+}
+
+"""
+order by variance() on columns of table "comments"
+"""
+input comments_variance_order_by {
+  id: order_by
+  task_id: order_by
+  user_id: order_by
 }
 
 """mutation root"""
@@ -418,6 +543,19 @@ type mutation_root {
   delete_status_by_pk(id: bigint!, name: String!): status
 
   """
+  delete data from the table: "tags"
+  """
+  delete_tags(
+    """filter the rows which have to be deleted"""
+    where: tags_bool_exp!
+  ): tags_mutation_response
+
+  """
+  delete single row from the table: "tags"
+  """
+  delete_tags_by_pk(id: bigint!): tags
+
+  """
   delete data from the table: "task"
   """
   delete_task(
@@ -429,6 +567,19 @@ type mutation_root {
   delete single row from the table: "task"
   """
   delete_task_by_pk(id: bigint!): task
+
+  """
+  delete data from the table: "task_tags"
+  """
+  delete_task_tags(
+    """filter the rows which have to be deleted"""
+    where: task_tags_bool_exp!
+  ): task_tags_mutation_response
+
+  """
+  delete single row from the table: "task_tags"
+  """
+  delete_task_tags_by_pk(id: bigint!): task_tags
 
   """
   delete data from the table: "task_type"
@@ -523,6 +674,28 @@ type mutation_root {
   ): status
 
   """
+  insert data into the table: "tags"
+  """
+  insert_tags(
+    """the rows to be inserted"""
+    objects: [tags_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: tags_on_conflict
+  ): tags_mutation_response
+
+  """
+  insert a single row into the table: "tags"
+  """
+  insert_tags_one(
+    """the row to be inserted"""
+    object: tags_insert_input!
+
+    """on conflict condition"""
+    on_conflict: tags_on_conflict
+  ): tags
+
+  """
   insert data into the table: "task"
   """
   insert_task(
@@ -543,6 +716,28 @@ type mutation_root {
     """on conflict condition"""
     on_conflict: task_on_conflict
   ): task
+
+  """
+  insert data into the table: "task_tags"
+  """
+  insert_task_tags(
+    """the rows to be inserted"""
+    objects: [task_tags_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: task_tags_on_conflict
+  ): task_tags_mutation_response
+
+  """
+  insert a single row into the table: "task_tags"
+  """
+  insert_task_tags_one(
+    """the row to be inserted"""
+    object: task_tags_insert_input!
+
+    """on conflict condition"""
+    on_conflict: task_tags_on_conflict
+  ): task_tags
 
   """
   insert data into the table: "task_type"
@@ -667,6 +862,32 @@ type mutation_root {
   ): status
 
   """
+  update data of the table: "tags"
+  """
+  update_tags(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: tags_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: tags_set_input
+
+    """filter the rows which have to be updated"""
+    where: tags_bool_exp!
+  ): tags_mutation_response
+
+  """
+  update single row of the table: "tags"
+  """
+  update_tags_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: tags_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: tags_set_input
+    pk_columns: tags_pk_columns_input!
+  ): tags
+
+  """
   update data of the table: "task"
   """
   update_task(
@@ -691,6 +912,32 @@ type mutation_root {
     _set: task_set_input
     pk_columns: task_pk_columns_input!
   ): task
+
+  """
+  update data of the table: "task_tags"
+  """
+  update_task_tags(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: task_tags_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: task_tags_set_input
+
+    """filter the rows which have to be updated"""
+    where: task_tags_bool_exp!
+  ): task_tags_mutation_response
+
+  """
+  update single row of the table: "task_tags"
+  """
+  update_task_tags_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: task_tags_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: task_tags_set_input
+    pk_columns: task_tags_pk_columns_input!
+  ): task_tags
 
   """
   update data of the table: "task_type"
@@ -1014,9 +1261,7 @@ type projects_variance_fields {
 }
 
 type query_root {
-  """
-  fetch data from the table: "comments"
-  """
+  """An array relationship"""
   comments(
     """distinct select on columns"""
     distinct_on: [comments_select_column!]
@@ -1034,9 +1279,7 @@ type query_root {
     where: comments_bool_exp
   ): [comments!]!
 
-  """
-  fetch aggregated fields from the table: "comments"
-  """
+  """An aggregate relationship"""
   comments_aggregate(
     """distinct select on columns"""
     distinct_on: [comments_select_column!]
@@ -1144,6 +1387,49 @@ type query_root {
   status_by_pk(id: bigint!, name: String!): status
 
   """
+  fetch data from the table: "tags"
+  """
+  tags(
+    """distinct select on columns"""
+    distinct_on: [tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tags_order_by!]
+
+    """filter the rows returned"""
+    where: tags_bool_exp
+  ): [tags!]!
+
+  """
+  fetch aggregated fields from the table: "tags"
+  """
+  tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tags_order_by!]
+
+    """filter the rows returned"""
+    where: tags_bool_exp
+  ): tags_aggregate!
+
+  """fetch data from the table: "tags" using primary key columns"""
+  tags_by_pk(id: bigint!): tags
+
+  """
   fetch data from the table: "task"
   """
   task(
@@ -1185,6 +1471,45 @@ type query_root {
 
   """fetch data from the table: "task" using primary key columns"""
   task_by_pk(id: bigint!): task
+
+  """An array relationship"""
+  task_tags(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): [task_tags!]!
+
+  """An aggregate relationship"""
+  task_tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): task_tags_aggregate!
+
+  """fetch data from the table: "task_tags" using primary key columns"""
+  task_tags_by_pk(id: bigint!): task_tags
 
   """
   fetch data from the table: "task_type"
@@ -1505,9 +1830,7 @@ type status_variance_fields {
 }
 
 type subscription_root {
-  """
-  fetch data from the table: "comments"
-  """
+  """An array relationship"""
   comments(
     """distinct select on columns"""
     distinct_on: [comments_select_column!]
@@ -1525,9 +1848,7 @@ type subscription_root {
     where: comments_bool_exp
   ): [comments!]!
 
-  """
-  fetch aggregated fields from the table: "comments"
-  """
+  """An aggregate relationship"""
   comments_aggregate(
     """distinct select on columns"""
     distinct_on: [comments_select_column!]
@@ -1635,6 +1956,49 @@ type subscription_root {
   status_by_pk(id: bigint!, name: String!): status
 
   """
+  fetch data from the table: "tags"
+  """
+  tags(
+    """distinct select on columns"""
+    distinct_on: [tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tags_order_by!]
+
+    """filter the rows returned"""
+    where: tags_bool_exp
+  ): [tags!]!
+
+  """
+  fetch aggregated fields from the table: "tags"
+  """
+  tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tags_order_by!]
+
+    """filter the rows returned"""
+    where: tags_bool_exp
+  ): tags_aggregate!
+
+  """fetch data from the table: "tags" using primary key columns"""
+  tags_by_pk(id: bigint!): tags
+
+  """
   fetch data from the table: "task"
   """
   task(
@@ -1676,6 +2040,45 @@ type subscription_root {
 
   """fetch data from the table: "task" using primary key columns"""
   task_by_pk(id: bigint!): task
+
+  """An array relationship"""
+  task_tags(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): [task_tags!]!
+
+  """An aggregate relationship"""
+  task_tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): task_tags_aggregate!
+
+  """fetch data from the table: "task_tags" using primary key columns"""
+  task_tags_by_pk(id: bigint!): task_tags
 
   """
   fetch data from the table: "task_type"
@@ -1764,8 +2167,336 @@ type subscription_root {
   users_by_pk(id: bigint!, username: String!): users
 }
 
+"""
+columns and relationships of "tags"
+"""
+type tags {
+  color: String
+  created_at: timestamptz!
+  id: bigint!
+  name: String!
+  sort: bigint!
+
+  """An array relationship"""
+  task_tags(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): [task_tags!]!
+
+  """An aggregate relationship"""
+  task_tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): task_tags_aggregate!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "tags"
+"""
+type tags_aggregate {
+  aggregate: tags_aggregate_fields
+  nodes: [tags!]!
+}
+
+"""
+aggregate fields of "tags"
+"""
+type tags_aggregate_fields {
+  avg: tags_avg_fields
+  count(columns: [tags_select_column!], distinct: Boolean): Int!
+  max: tags_max_fields
+  min: tags_min_fields
+  stddev: tags_stddev_fields
+  stddev_pop: tags_stddev_pop_fields
+  stddev_samp: tags_stddev_samp_fields
+  sum: tags_sum_fields
+  var_pop: tags_var_pop_fields
+  var_samp: tags_var_samp_fields
+  variance: tags_variance_fields
+}
+
+"""aggregate avg on columns"""
+type tags_avg_fields {
+  id: Float
+  sort: Float
+}
+
+"""
+Boolean expression to filter rows from the table "tags". All fields are combined with a logical 'AND'.
+"""
+input tags_bool_exp {
+  _and: [tags_bool_exp!]
+  _not: tags_bool_exp
+  _or: [tags_bool_exp!]
+  color: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  id: bigint_comparison_exp
+  name: String_comparison_exp
+  sort: bigint_comparison_exp
+  task_tags: task_tags_bool_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "tags"
+"""
+enum tags_constraint {
+  """unique or primary key constraint"""
+  tag_name_key
+
+  """unique or primary key constraint"""
+  tag_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "tags"
+"""
+input tags_inc_input {
+  id: bigint
+  sort: bigint
+}
+
+"""
+input type for inserting data into table "tags"
+"""
+input tags_insert_input {
+  color: String
+  created_at: timestamptz
+  id: bigint
+  name: String
+  sort: bigint
+  task_tags: task_tags_arr_rel_insert_input
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type tags_max_fields {
+  color: String
+  created_at: timestamptz
+  id: bigint
+  name: String
+  sort: bigint
+  updated_at: timestamptz
+}
+
+"""aggregate min on columns"""
+type tags_min_fields {
+  color: String
+  created_at: timestamptz
+  id: bigint
+  name: String
+  sort: bigint
+  updated_at: timestamptz
+}
+
+"""
+response of any mutation on the table "tags"
+"""
+type tags_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [tags!]!
+}
+
+"""
+input type for inserting object relation for remote table "tags"
+"""
+input tags_obj_rel_insert_input {
+  data: tags_insert_input!
+
+  """on conflict condition"""
+  on_conflict: tags_on_conflict
+}
+
+"""
+on conflict condition type for table "tags"
+"""
+input tags_on_conflict {
+  constraint: tags_constraint!
+  update_columns: [tags_update_column!]! = []
+  where: tags_bool_exp
+}
+
+"""Ordering options when selecting data from "tags"."""
+input tags_order_by {
+  color: order_by
+  created_at: order_by
+  id: order_by
+  name: order_by
+  sort: order_by
+  task_tags_aggregate: task_tags_aggregate_order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: tags"""
+input tags_pk_columns_input {
+  id: bigint!
+}
+
+"""
+select columns of table "tags"
+"""
+enum tags_select_column {
+  """column name"""
+  color
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  sort
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "tags"
+"""
+input tags_set_input {
+  color: String
+  created_at: timestamptz
+  id: bigint
+  name: String
+  sort: bigint
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type tags_stddev_fields {
+  id: Float
+  sort: Float
+}
+
+"""aggregate stddev_pop on columns"""
+type tags_stddev_pop_fields {
+  id: Float
+  sort: Float
+}
+
+"""aggregate stddev_samp on columns"""
+type tags_stddev_samp_fields {
+  id: Float
+  sort: Float
+}
+
+"""aggregate sum on columns"""
+type tags_sum_fields {
+  id: bigint
+  sort: bigint
+}
+
+"""
+update columns of table "tags"
+"""
+enum tags_update_column {
+  """column name"""
+  color
+
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  sort
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type tags_var_pop_fields {
+  id: Float
+  sort: Float
+}
+
+"""aggregate var_samp on columns"""
+type tags_var_samp_fields {
+  id: Float
+  sort: Float
+}
+
+"""aggregate variance on columns"""
+type tags_variance_fields {
+  id: Float
+  sort: Float
+}
+
 "List of Tasks\n\n\ncolumns and relationships of \"task\"\n"
 type task {
+  """An array relationship"""
+  comments(
+    """distinct select on columns"""
+    distinct_on: [comments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [comments_order_by!]
+
+    """filter the rows returned"""
+    where: comments_bool_exp
+  ): [comments!]!
+
+  """An aggregate relationship"""
+  comments_aggregate(
+    """distinct select on columns"""
+    distinct_on: [comments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [comments_order_by!]
+
+    """filter the rows returned"""
+    where: comments_bool_exp
+  ): comments_aggregate!
   created_at: timestamptz!
   description: String
   done_date: timestamptz
@@ -1781,6 +2512,42 @@ type task {
   """An object relationship"""
   status: status
   status_id: Int!
+
+  """An array relationship"""
+  task_tags(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): [task_tags!]!
+
+  """An aggregate relationship"""
+  task_tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): task_tags_aggregate!
 
   """An object relationship"""
   task_type: task_type
@@ -1871,6 +2638,7 @@ input task_bool_exp {
   _and: [task_bool_exp!]
   _not: task_bool_exp
   _or: [task_bool_exp!]
+  comments: comments_bool_exp
   created_at: timestamptz_comparison_exp
   description: String_comparison_exp
   done_date: timestamptz_comparison_exp
@@ -1882,6 +2650,7 @@ input task_bool_exp {
   project_id: Int_comparison_exp
   status: status_bool_exp
   status_id: Int_comparison_exp
+  task_tags: task_tags_bool_exp
   task_type: task_type_bool_exp
   task_type_id: Int_comparison_exp
   updated_at: timestamptz_comparison_exp
@@ -1912,6 +2681,7 @@ input task_inc_input {
 input type for inserting data into table "task"
 """
 input task_insert_input {
+  comments: comments_arr_rel_insert_input
   created_at: timestamptz
   description: String
   done_date: timestamptz
@@ -1923,6 +2693,7 @@ input task_insert_input {
   project_id: Int
   status: status_obj_rel_insert_input
   status_id: Int
+  task_tags: task_tags_arr_rel_insert_input
   task_type: task_type_obj_rel_insert_input
   task_type_id: Int
   updated_at: timestamptz
@@ -2030,6 +2801,7 @@ input task_on_conflict {
 
 """Ordering options when selecting data from "task"."""
 input task_order_by {
+  comments_aggregate: comments_aggregate_order_by
   created_at: order_by
   description: order_by
   done_date: order_by
@@ -2041,6 +2813,7 @@ input task_order_by {
   project_id: order_by
   status: status_order_by
   status_id: order_by
+  task_tags_aggregate: task_tags_aggregate_order_by
   task_type: task_type_order_by
   task_type_id: order_by
   updated_at: order_by
@@ -2190,6 +2963,376 @@ input task_sum_order_by {
   status_id: order_by
   task_type_id: order_by
   user_id: order_by
+}
+
+"""
+columns and relationships of "task_tags"
+"""
+type task_tags {
+  created_at: timestamptz!
+  id: bigint!
+
+  """An object relationship"""
+  tag: tags!
+  tag_id: bigint!
+
+  """An object relationship"""
+  task: task!
+  task_id: bigint!
+  updated_at: timestamptz
+}
+
+"""
+aggregated selection of "task_tags"
+"""
+type task_tags_aggregate {
+  aggregate: task_tags_aggregate_fields
+  nodes: [task_tags!]!
+}
+
+"""
+aggregate fields of "task_tags"
+"""
+type task_tags_aggregate_fields {
+  avg: task_tags_avg_fields
+  count(columns: [task_tags_select_column!], distinct: Boolean): Int!
+  max: task_tags_max_fields
+  min: task_tags_min_fields
+  stddev: task_tags_stddev_fields
+  stddev_pop: task_tags_stddev_pop_fields
+  stddev_samp: task_tags_stddev_samp_fields
+  sum: task_tags_sum_fields
+  var_pop: task_tags_var_pop_fields
+  var_samp: task_tags_var_samp_fields
+  variance: task_tags_variance_fields
+}
+
+"""
+order by aggregate values of table "task_tags"
+"""
+input task_tags_aggregate_order_by {
+  avg: task_tags_avg_order_by
+  count: order_by
+  max: task_tags_max_order_by
+  min: task_tags_min_order_by
+  stddev: task_tags_stddev_order_by
+  stddev_pop: task_tags_stddev_pop_order_by
+  stddev_samp: task_tags_stddev_samp_order_by
+  sum: task_tags_sum_order_by
+  var_pop: task_tags_var_pop_order_by
+  var_samp: task_tags_var_samp_order_by
+  variance: task_tags_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "task_tags"
+"""
+input task_tags_arr_rel_insert_input {
+  data: [task_tags_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: task_tags_on_conflict
+}
+
+"""aggregate avg on columns"""
+type task_tags_avg_fields {
+  id: Float
+  tag_id: Float
+  task_id: Float
+}
+
+"""
+order by avg() on columns of table "task_tags"
+"""
+input task_tags_avg_order_by {
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "task_tags". All fields are combined with a logical 'AND'.
+"""
+input task_tags_bool_exp {
+  _and: [task_tags_bool_exp!]
+  _not: task_tags_bool_exp
+  _or: [task_tags_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  id: bigint_comparison_exp
+  tag: tags_bool_exp
+  tag_id: bigint_comparison_exp
+  task: task_bool_exp
+  task_id: bigint_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "task_tags"
+"""
+enum task_tags_constraint {
+  """unique or primary key constraint"""
+  task_tag_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "task_tags"
+"""
+input task_tags_inc_input {
+  id: bigint
+  tag_id: bigint
+  task_id: bigint
+}
+
+"""
+input type for inserting data into table "task_tags"
+"""
+input task_tags_insert_input {
+  created_at: timestamptz
+  id: bigint
+  tag: tags_obj_rel_insert_input
+  tag_id: bigint
+  task: task_obj_rel_insert_input
+  task_id: bigint
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type task_tags_max_fields {
+  created_at: timestamptz
+  id: bigint
+  tag_id: bigint
+  task_id: bigint
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "task_tags"
+"""
+input task_tags_max_order_by {
+  created_at: order_by
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type task_tags_min_fields {
+  created_at: timestamptz
+  id: bigint
+  tag_id: bigint
+  task_id: bigint
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "task_tags"
+"""
+input task_tags_min_order_by {
+  created_at: order_by
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "task_tags"
+"""
+type task_tags_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [task_tags!]!
+}
+
+"""
+on conflict condition type for table "task_tags"
+"""
+input task_tags_on_conflict {
+  constraint: task_tags_constraint!
+  update_columns: [task_tags_update_column!]! = []
+  where: task_tags_bool_exp
+}
+
+"""Ordering options when selecting data from "task_tags"."""
+input task_tags_order_by {
+  created_at: order_by
+  id: order_by
+  tag: tags_order_by
+  tag_id: order_by
+  task: task_order_by
+  task_id: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: task_tags"""
+input task_tags_pk_columns_input {
+  id: bigint!
+}
+
+"""
+select columns of table "task_tags"
+"""
+enum task_tags_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  tag_id
+
+  """column name"""
+  task_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "task_tags"
+"""
+input task_tags_set_input {
+  created_at: timestamptz
+  id: bigint
+  tag_id: bigint
+  task_id: bigint
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type task_tags_stddev_fields {
+  id: Float
+  tag_id: Float
+  task_id: Float
+}
+
+"""
+order by stddev() on columns of table "task_tags"
+"""
+input task_tags_stddev_order_by {
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type task_tags_stddev_pop_fields {
+  id: Float
+  tag_id: Float
+  task_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "task_tags"
+"""
+input task_tags_stddev_pop_order_by {
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type task_tags_stddev_samp_fields {
+  id: Float
+  tag_id: Float
+  task_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "task_tags"
+"""
+input task_tags_stddev_samp_order_by {
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+}
+
+"""aggregate sum on columns"""
+type task_tags_sum_fields {
+  id: bigint
+  tag_id: bigint
+  task_id: bigint
+}
+
+"""
+order by sum() on columns of table "task_tags"
+"""
+input task_tags_sum_order_by {
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+}
+
+"""
+update columns of table "task_tags"
+"""
+enum task_tags_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  tag_id
+
+  """column name"""
+  task_id
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type task_tags_var_pop_fields {
+  id: Float
+  tag_id: Float
+  task_id: Float
+}
+
+"""
+order by var_pop() on columns of table "task_tags"
+"""
+input task_tags_var_pop_order_by {
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type task_tags_var_samp_fields {
+  id: Float
+  tag_id: Float
+  task_id: Float
+}
+
+"""
+order by var_samp() on columns of table "task_tags"
+"""
+input task_tags_var_samp_order_by {
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
+}
+
+"""aggregate variance on columns"""
+type task_tags_variance_fields {
+  id: Float
+  tag_id: Float
+  task_id: Float
+}
+
+"""
+order by variance() on columns of table "task_tags"
+"""
+input task_tags_variance_order_by {
+  id: order_by
+  tag_id: order_by
+  task_id: order_by
 }
 
 "List of Task Types\n\n\ncolumns and relationships of \"task_type\"\n"

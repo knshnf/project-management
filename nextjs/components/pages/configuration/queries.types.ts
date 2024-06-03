@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type GetMasterdataQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetMasterdataQuery = { __typename?: 'query_root', status: Array<{ __typename?: 'status', id: number, name: string, color?: string | null }>, task_type: Array<{ __typename?: 'task_type', id: number, name: string }>, users: Array<{ __typename?: 'users', id: number, name: string, last_name: string, first_name: string, middle_name?: string | null, suffix_name?: string | null, username: string, role?: string | null }>, projects: Array<{ __typename?: 'projects', id: number, name: string, task_type_id: number, task_type?: { __typename?: 'task_type', name: string } | null }> };
+export type GetMasterdataQuery = { __typename?: 'query_root', status: Array<{ __typename?: 'status', id: number, name: string, color?: string | null }>, task_type: Array<{ __typename?: 'task_type', id: number, name: string }>, users: Array<{ __typename?: 'users', id: number, name: string, last_name: string, first_name: string, middle_name?: string | null, suffix_name?: string | null, username: string, role?: string | null }>, projects: Array<{ __typename?: 'projects', id: number, name: string, task_type_id: number, task_type?: { __typename?: 'task_type', name: string } | null }>, tags: Array<{ __typename?: 'tags', color?: string | null, id: number, name: string, sort: number }> };
 
 export type AddStatusMutationVariables = Types.Exact<{
   name: Types.Scalars['String']['input'];
@@ -44,6 +44,15 @@ export type AddUsersMutationVariables = Types.Exact<{
 
 export type AddUsersMutation = { __typename?: 'mutation_root', insert_users?: { __typename?: 'users_mutation_response', returning: Array<{ __typename?: 'users', id: number, name: string, username: string }> } | null };
 
+export type AddTagsMutationVariables = Types.Exact<{
+  color: Types.Scalars['String']['input'];
+  name: Types.Scalars['String']['input'];
+  sort: Types.Scalars['bigint']['input'];
+}>;
+
+
+export type AddTagsMutation = { __typename?: 'mutation_root', insert_tags?: { __typename?: 'tags_mutation_response', returning: Array<{ __typename?: 'tags', color?: string | null, id: number, name: string, sort: number }> } | null };
+
 export type UpdateStatusMutationVariables = Types.Exact<{
   id: Types.Scalars['bigint']['input'];
   name: Types.Scalars['String']['input'];
@@ -69,6 +78,16 @@ export type UpdateProjectsMutationVariables = Types.Exact<{
 
 
 export type UpdateProjectsMutation = { __typename?: 'mutation_root', update_projects?: { __typename?: 'projects_mutation_response', returning: Array<{ __typename?: 'projects', id: number, name: string, task_type_id: number }> } | null };
+
+export type UpdateTagsMutationVariables = Types.Exact<{
+  id: Types.Scalars['bigint']['input'];
+  color: Types.Scalars['String']['input'];
+  name: Types.Scalars['String']['input'];
+  sort: Types.Scalars['bigint']['input'];
+}>;
+
+
+export type UpdateTagsMutation = { __typename?: 'mutation_root', update_tags?: { __typename?: 'tags_mutation_response', returning: Array<{ __typename?: 'tags', id: number, color?: string | null, name: string, sort: number }> } | null };
 
 export type DeleteStatusMutationVariables = Types.Exact<{
   id: Types.Scalars['bigint']['input'];
@@ -97,6 +116,13 @@ export type DeleteUsersMutationVariables = Types.Exact<{
 
 
 export type DeleteUsersMutation = { __typename?: 'mutation_root', delete_users?: { __typename?: 'users_mutation_response', returning: Array<{ __typename?: 'users', id: number }> } | null };
+
+export type DeleteTagsMutationVariables = Types.Exact<{
+  id: Types.Scalars['bigint']['input'];
+}>;
+
+
+export type DeleteTagsMutation = { __typename?: 'mutation_root', delete_tags?: { __typename?: 'tags_mutation_response', returning: Array<{ __typename?: 'tags', id: number }> } | null };
 
 
 export const GetMasterdataDocument = gql`
@@ -127,6 +153,12 @@ export const GetMasterdataDocument = gql`
     task_type {
       name
     }
+  }
+  tags(order_by: {sort: asc}) {
+    color
+    id
+    name
+    sort
   }
 }
     `;
@@ -314,6 +346,46 @@ export function useAddUsersMutation(baseOptions?: Apollo.MutationHookOptions<Add
 export type AddUsersMutationHookResult = ReturnType<typeof useAddUsersMutation>;
 export type AddUsersMutationResult = Apollo.MutationResult<AddUsersMutation>;
 export type AddUsersMutationOptions = Apollo.BaseMutationOptions<AddUsersMutation, AddUsersMutationVariables>;
+export const AddTagsDocument = gql`
+    mutation AddTags($color: String!, $name: String!, $sort: bigint!) {
+  insert_tags(objects: {color: $color, name: $name, sort: $sort}) {
+    returning {
+      color
+      id
+      name
+      sort
+    }
+  }
+}
+    `;
+export type AddTagsMutationFn = Apollo.MutationFunction<AddTagsMutation, AddTagsMutationVariables>;
+
+/**
+ * __useAddTagsMutation__
+ *
+ * To run a mutation, you first call `useAddTagsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddTagsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addTagsMutation, { data, loading, error }] = useAddTagsMutation({
+ *   variables: {
+ *      color: // value for 'color'
+ *      name: // value for 'name'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useAddTagsMutation(baseOptions?: Apollo.MutationHookOptions<AddTagsMutation, AddTagsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddTagsMutation, AddTagsMutationVariables>(AddTagsDocument, options);
+      }
+export type AddTagsMutationHookResult = ReturnType<typeof useAddTagsMutation>;
+export type AddTagsMutationResult = Apollo.MutationResult<AddTagsMutation>;
+export type AddTagsMutationOptions = Apollo.BaseMutationOptions<AddTagsMutation, AddTagsMutationVariables>;
 export const UpdateStatusDocument = gql`
     mutation UpdateStatus($id: bigint!, $name: String!, $color: String!) {
   update_status(where: {id: {_eq: $id}}, _set: {name: $name, color: $color}) {
@@ -431,6 +503,50 @@ export function useUpdateProjectsMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateProjectsMutationHookResult = ReturnType<typeof useUpdateProjectsMutation>;
 export type UpdateProjectsMutationResult = Apollo.MutationResult<UpdateProjectsMutation>;
 export type UpdateProjectsMutationOptions = Apollo.BaseMutationOptions<UpdateProjectsMutation, UpdateProjectsMutationVariables>;
+export const UpdateTagsDocument = gql`
+    mutation UpdateTags($id: bigint!, $color: String!, $name: String!, $sort: bigint!) {
+  update_tags(
+    where: {id: {_eq: $id}}
+    _set: {name: $name, color: $color, sort: $sort}
+  ) {
+    returning {
+      id
+      color
+      name
+      sort
+    }
+  }
+}
+    `;
+export type UpdateTagsMutationFn = Apollo.MutationFunction<UpdateTagsMutation, UpdateTagsMutationVariables>;
+
+/**
+ * __useUpdateTagsMutation__
+ *
+ * To run a mutation, you first call `useUpdateTagsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTagsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTagsMutation, { data, loading, error }] = useUpdateTagsMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      color: // value for 'color'
+ *      name: // value for 'name'
+ *      sort: // value for 'sort'
+ *   },
+ * });
+ */
+export function useUpdateTagsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTagsMutation, UpdateTagsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTagsMutation, UpdateTagsMutationVariables>(UpdateTagsDocument, options);
+      }
+export type UpdateTagsMutationHookResult = ReturnType<typeof useUpdateTagsMutation>;
+export type UpdateTagsMutationResult = Apollo.MutationResult<UpdateTagsMutation>;
+export type UpdateTagsMutationOptions = Apollo.BaseMutationOptions<UpdateTagsMutation, UpdateTagsMutationVariables>;
 export const DeleteStatusDocument = gql`
     mutation DeleteStatus($id: bigint!) {
   delete_status(where: {id: {_eq: $id}}) {
@@ -571,3 +687,38 @@ export function useDeleteUsersMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DeleteUsersMutationHookResult = ReturnType<typeof useDeleteUsersMutation>;
 export type DeleteUsersMutationResult = Apollo.MutationResult<DeleteUsersMutation>;
 export type DeleteUsersMutationOptions = Apollo.BaseMutationOptions<DeleteUsersMutation, DeleteUsersMutationVariables>;
+export const DeleteTagsDocument = gql`
+    mutation DeleteTags($id: bigint!) {
+  delete_tags(where: {id: {_eq: $id}}) {
+    returning {
+      id
+    }
+  }
+}
+    `;
+export type DeleteTagsMutationFn = Apollo.MutationFunction<DeleteTagsMutation, DeleteTagsMutationVariables>;
+
+/**
+ * __useDeleteTagsMutation__
+ *
+ * To run a mutation, you first call `useDeleteTagsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteTagsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteTagsMutation, { data, loading, error }] = useDeleteTagsMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteTagsMutation(baseOptions?: Apollo.MutationHookOptions<DeleteTagsMutation, DeleteTagsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteTagsMutation, DeleteTagsMutationVariables>(DeleteTagsDocument, options);
+      }
+export type DeleteTagsMutationHookResult = ReturnType<typeof useDeleteTagsMutation>;
+export type DeleteTagsMutationResult = Apollo.MutationResult<DeleteTagsMutation>;
+export type DeleteTagsMutationOptions = Apollo.BaseMutationOptions<DeleteTagsMutation, DeleteTagsMutationVariables>;

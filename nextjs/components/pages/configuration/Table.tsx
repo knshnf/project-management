@@ -25,13 +25,16 @@ import {
     useAddTaskTypeMutation,
     useAddProjectsMutation,
     useAddUsersMutation,
+    useAddTagsMutation,
     useUpdateStatusMutation,
     useUpdateTaskTypeMutation,
     useUpdateProjectsMutation,
+    useUpdateTagsMutation,
     useDeleteStatusMutation,
     useDeleteTaskTypeMutation,
     useDeleteProjectsMutation,
     useDeleteUsersMutation,
+    useDeleteTagsMutation
 } from './queries'
 
 const style = {
@@ -65,6 +68,11 @@ const tableOptions = {
     'projects': {
         'label': 'Projects',
         'message': 'Project'
+    },
+
+    'tags': {
+        'label': 'Tag',
+        'message': 'Tag'
     }
 }
 
@@ -106,6 +114,7 @@ const Table = ( ( table ) => {
     const [role, setRole] = useState(null)
 
     const [color, setColor] = useState(null)
+    const [sort, setSort] = useState(null)
 
     const [rowSelectionModel, setRowSelectionModel] = useState<GridRowSelectionModel>([]);
 
@@ -162,11 +171,25 @@ const Table = ( ( table ) => {
         }
     });
 
+    const [ addTags ] = useAddTagsMutation({
+        variables: {
+            color: color,
+            name: name,
+            sort: sort
+        },
+        onCompleted: (data) => {
+            setFeedbackOpen(true)
+            refetch()
+        }
+    });
+
     const [ updateStatus ] = useUpdateStatusMutation()
 
     const [ updateTaskType ] = useUpdateTaskTypeMutation()
 
     const [ updateProjects ] = useUpdateProjectsMutation()
+    
+    const [ updateTags ] = useUpdateTagsMutation()
     
     const [ deleteStatus ] = useDeleteStatusMutation()
 
@@ -175,6 +198,8 @@ const Table = ( ( table ) => {
     const [ deleteProjects ] = useDeleteProjectsMutation()
 
     const [ deleteUsers ] = useDeleteUsersMutation()
+
+    const [ deleteTags ] = useDeleteTagsMutation()
 
     const create = ( () => {
         if (table.table == 'status') {
@@ -185,7 +210,10 @@ const Table = ( ( table ) => {
             addProjects()
         } else if (table.table == 'users') {
             addUsers()
+        } else if (table.table == 'tags') {
+            addTags()
         }
+
         handleClose()
     })
 
@@ -228,6 +256,15 @@ const Table = ( ( table ) => {
                             refetch()
                         }
                     })
+                } else if (table.table == 'tags') {
+                    deleteTags({
+                        variables: {
+                            id: value
+                        },
+                        onCompleted: (data) => {
+                            refetch()
+                        }
+                    })
                 }
             }) 
         }
@@ -240,6 +277,7 @@ const Table = ( ( table ) => {
             const formTaskType = ['task_type']
             const formProjects = ['projects']
             const formUsers = ['users']
+            const formTags = ['tags']
             if (formStatus.includes(table.table)) {
                 return (
                     <Box>
@@ -378,6 +416,44 @@ const Table = ( ( table ) => {
 
                     </Box>                    
                 )
+            } else if (formTags.includes(table.table)) {
+                return (
+                    <Box>
+                        <TextField
+                            id="name"
+                            variant="standard"
+                            fullWidth={true}
+                            label="Name"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            onChange={e => setName(e.target.value)}
+                        />
+
+                        <TextField
+                            id="color"
+                            variant="standard"
+                            fullWidth={true}
+                            label="Color"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            onChange={e => setColor(e.target.value)}
+                        />
+
+                        <TextField
+                            id="sort"
+                            variant="standard"
+                            fullWidth={true}
+                            label="Sort"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            onChange={e => setSort(e.target.value)}
+                            type='number'
+                        />
+                    </Box>
+                )
             }
         }) 
 
@@ -413,6 +489,18 @@ const Table = ( ( table ) => {
                     id: updatedRow.id,
                     name: updatedRow.name,
                     task_type_id: updatedRow.task_type_id,
+                },
+                onCompleted: (data) => {
+                    refetch()
+                }
+            })
+        } else if (table.table == 'tags') {
+            updateTags({
+                variables: {
+                    id: updatedRow.id,
+                    name: updatedRow.name,
+                    color: updatedRow.color,
+                    sort: updatedRow.sort,
                 },
                 onCompleted: (data) => {
                     refetch()
