@@ -27,6 +27,13 @@ export type GetTaskIdQueryVariables = Types.Exact<{
 
 export type GetTaskIdQuery = { __typename?: 'query_root', task_by_pk?: { __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null } | null };
 
+export type GetCommentsByTaskIdQueryVariables = Types.Exact<{
+  _eq: Types.Scalars['Int']['input'];
+}>;
+
+
+export type GetCommentsByTaskIdQuery = { __typename?: 'query_root', comments: Array<{ __typename?: 'comments', comment: string, created_at: any, id: number, name?: string | null, task_id: number, user_id: number, updated_at: any, user: { __typename?: 'users', first_name: string, last_name: string, middle_name?: string | null, name: string, suffix_name?: string | null, username: string } }> };
+
 export type AddTaskMutationVariables = Types.Exact<{
   name: Types.Scalars['String']['input'];
   description: Types.Scalars['String']['input'];
@@ -38,6 +45,15 @@ export type AddTaskMutationVariables = Types.Exact<{
 
 
 export type AddTaskMutation = { __typename?: 'mutation_root', insert_task?: { __typename?: 'task_mutation_response', returning: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, project_id?: number | null, status_id: number, task_type_id: number, user_id: number, status?: { __typename?: 'status', name: string } | null }> } | null };
+
+export type AddCommentMutationVariables = Types.Exact<{
+  comment: Types.Scalars['String']['input'];
+  task_id: Types.Scalars['Int']['input'];
+  user_id: Types.Scalars['Int']['input'];
+}>;
+
+
+export type AddCommentMutation = { __typename?: 'mutation_root', insert_comments?: { __typename?: 'comments_mutation_response', returning: Array<{ __typename?: 'comments', comment: string, created_at: any, id: number, name?: string | null, task_id: number, updated_at: any, user_id: number }> } | null };
 
 export type UpdateTaskMutationVariables = Types.Exact<{
   id: Types.Scalars['bigint']['input'];
@@ -272,6 +288,55 @@ export function useGetTaskIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type GetTaskIdQueryHookResult = ReturnType<typeof useGetTaskIdQuery>;
 export type GetTaskIdLazyQueryHookResult = ReturnType<typeof useGetTaskIdLazyQuery>;
 export type GetTaskIdQueryResult = Apollo.QueryResult<GetTaskIdQuery, GetTaskIdQueryVariables>;
+export const GetCommentsByTaskIdDocument = gql`
+    query GetCommentsByTaskId($_eq: Int!) {
+  comments(where: {task_id: {_eq: $_eq}}) {
+    comment
+    created_at
+    id
+    name
+    task_id
+    user_id
+    updated_at
+    user {
+      first_name
+      last_name
+      middle_name
+      name
+      suffix_name
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetCommentsByTaskIdQuery__
+ *
+ * To run a query within a React component, call `useGetCommentsByTaskIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommentsByTaskIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommentsByTaskIdQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetCommentsByTaskIdQuery(baseOptions: Apollo.QueryHookOptions<GetCommentsByTaskIdQuery, GetCommentsByTaskIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCommentsByTaskIdQuery, GetCommentsByTaskIdQueryVariables>(GetCommentsByTaskIdDocument, options);
+      }
+export function useGetCommentsByTaskIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommentsByTaskIdQuery, GetCommentsByTaskIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCommentsByTaskIdQuery, GetCommentsByTaskIdQueryVariables>(GetCommentsByTaskIdDocument, options);
+        }
+export type GetCommentsByTaskIdQueryHookResult = ReturnType<typeof useGetCommentsByTaskIdQuery>;
+export type GetCommentsByTaskIdLazyQueryHookResult = ReturnType<typeof useGetCommentsByTaskIdLazyQuery>;
+export type GetCommentsByTaskIdQueryResult = Apollo.QueryResult<GetCommentsByTaskIdQuery, GetCommentsByTaskIdQueryVariables>;
 export const AddTaskDocument = gql`
     mutation AddTask($name: String!, $description: String!, $project_id: Int!, $status_id: Int!, $task_type_id: Int!, $user_id: Int!) {
   insert_task(
@@ -323,6 +388,51 @@ export function useAddTaskMutation(baseOptions?: Apollo.MutationHookOptions<AddT
 export type AddTaskMutationHookResult = ReturnType<typeof useAddTaskMutation>;
 export type AddTaskMutationResult = Apollo.MutationResult<AddTaskMutation>;
 export type AddTaskMutationOptions = Apollo.BaseMutationOptions<AddTaskMutation, AddTaskMutationVariables>;
+export const AddCommentDocument = gql`
+    mutation AddComment($comment: String!, $task_id: Int!, $user_id: Int!) {
+  insert_comments(
+    objects: {comment: $comment, task_id: $task_id, user_id: $user_id}
+  ) {
+    returning {
+      comment
+      created_at
+      id
+      name
+      task_id
+      updated_at
+      user_id
+    }
+  }
+}
+    `;
+export type AddCommentMutationFn = Apollo.MutationFunction<AddCommentMutation, AddCommentMutationVariables>;
+
+/**
+ * __useAddCommentMutation__
+ *
+ * To run a mutation, you first call `useAddCommentMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddCommentMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addCommentMutation, { data, loading, error }] = useAddCommentMutation({
+ *   variables: {
+ *      comment: // value for 'comment'
+ *      task_id: // value for 'task_id'
+ *      user_id: // value for 'user_id'
+ *   },
+ * });
+ */
+export function useAddCommentMutation(baseOptions?: Apollo.MutationHookOptions<AddCommentMutation, AddCommentMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddCommentMutation, AddCommentMutationVariables>(AddCommentDocument, options);
+      }
+export type AddCommentMutationHookResult = ReturnType<typeof useAddCommentMutation>;
+export type AddCommentMutationResult = Apollo.MutationResult<AddCommentMutation>;
+export type AddCommentMutationOptions = Apollo.BaseMutationOptions<AddCommentMutation, AddCommentMutationVariables>;
 export const UpdateTaskDocument = gql`
     mutation UpdateTask($id: bigint!, $name: String!, $description: String!, $project_id: Int!, $status_id: Int!, $task_type_id: Int!, $user_id: Int!, $in_progress_date: timestamptz!, $done_date: timestamptz!) {
   update_task(

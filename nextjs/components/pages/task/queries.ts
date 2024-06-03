@@ -114,6 +114,29 @@ query GetTaskId(
   }
 `;
 
+export { useGetCommentsByTaskIdQuery } from './queries.types'
+const GET_COMMENTS_BY_ID = gql`
+query GetCommentsByTaskId($_eq: Int!) {
+    comments(where: {task_id: {_eq: $_eq}}) {
+        comment
+        created_at
+        id
+        name
+        task_id
+        user_id
+        updated_at
+        user {
+            first_name
+            last_name
+            middle_name
+            name
+            suffix_name
+            username
+        }
+    }
+}
+`
+
 // Create
 export { useAddTaskMutation } from './queries.types'
 export const ADD_TASK = gql`
@@ -146,6 +169,33 @@ mutation AddTask(
             status {
                 name
             }
+        }
+    }
+    }
+`;
+
+export { useAddCommentMutation } from './queries.types'
+export const ADD_COMMENT = gql`
+mutation AddComment(
+    $comment: String!,
+    $task_id: Int!,
+    $user_id: Int!
+) {
+    insert_comments(
+        objects: {
+            comment: $comment,
+            task_id: $task_id,
+            user_id: $user_id,
+        }
+    ) {
+        returning {
+            comment
+            created_at
+            id
+            name
+            task_id
+            updated_at
+            user_id
         }
     }
     }

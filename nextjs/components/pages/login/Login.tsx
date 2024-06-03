@@ -62,9 +62,11 @@ function Login() {
           const id = res.data.users[0].id
           const username = res.data.users[0].username
           const role = res.data.users[0].role
+          const user = {id: id, username: username, role: role}
   
           const token = jwt_token(id, username, role)
           localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify(user))
           router.push('http://localhost:3000/')
         }
         else {

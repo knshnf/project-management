@@ -1,5 +1,7 @@
+- "!include public_comments.yaml"
 - "!include public_projects.yaml"
 - "!include public_status.yaml"
+- "!include public_tag.yaml"
 - "!include public_task.yaml"
 - "!include public_task_type.yaml"
 - "!include public_users.yaml"

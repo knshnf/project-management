@@ -31,6 +31,7 @@ import {
 import TextFieldRead from '../../../shared/fields/TextField'
 import TextFieldEdit from '../../../shared/fields/TextFieldEdit'
 import Status from './Status'
+import Comments from './Comments'
 
 const FormTask = ( () => {
 
@@ -651,6 +652,14 @@ const FormTask = ( () => {
 
                 </Box>
             }
+            {
+                (edit == false && mode != 'create')  
+                ? 
+                    <Comments task_id={id}/>
+                :
+                null
+            }
+      
             </Box>
             <Menu
                 id="demo-positioned-menu"
