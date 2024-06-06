@@ -83,7 +83,6 @@ const Comments = ( ({task_id}) => {
 
     useEffect(() => {
         setUserId(JSON.parse(localStorage.getItem('user')).id);
-        console.log(user_id)
     },[]);
 
     const { loading : loadingComments, error: errorComments, data: dataComments, refetch } = useGetCommentsByTaskIdQuery({

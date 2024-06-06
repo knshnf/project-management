@@ -579,7 +579,7 @@ type mutation_root {
   """
   delete single row from the table: "task_tags"
   """
-  delete_task_tags_by_pk(id: bigint!): task_tags
+  delete_task_tags_by_pk(id: Int!): task_tags
 
   """
   delete data from the table: "task_type"
@@ -1509,7 +1509,7 @@ type query_root {
   ): task_tags_aggregate!
 
   """fetch data from the table: "task_tags" using primary key columns"""
-  task_tags_by_pk(id: bigint!): task_tags
+  task_tags_by_pk(id: Int!): task_tags
 
   """
   fetch data from the table: "task_type"
@@ -2078,7 +2078,7 @@ type subscription_root {
   ): task_tags_aggregate!
 
   """fetch data from the table: "task_tags" using primary key columns"""
-  task_tags_by_pk(id: bigint!): task_tags
+  task_tags_by_pk(id: Int!): task_tags
 
   """
   fetch data from the table: "task_type"
@@ -2267,10 +2267,10 @@ unique or primary key constraints on table "tags"
 """
 enum tags_constraint {
   """unique or primary key constraint"""
-  tag_name_key
+  tag_pkey
 
   """unique or primary key constraint"""
-  tag_pkey
+  tags_name_key
 }
 
 """
@@ -2507,7 +2507,7 @@ type task {
 
   """An object relationship"""
   project: projects
-  project_id: Int
+  project_id: Int!
 
   """An object relationship"""
   status: status
@@ -2970,7 +2970,7 @@ columns and relationships of "task_tags"
 """
 type task_tags {
   created_at: timestamptz!
-  id: bigint!
+  id: Int!
 
   """An object relationship"""
   tag: tags!
@@ -2980,6 +2980,10 @@ type task_tags {
   task: task!
   task_id: bigint!
   updated_at: timestamptz
+
+  """An object relationship"""
+  user: users!
+  user_id: bigint!
 }
 
 """
@@ -3039,6 +3043,7 @@ type task_tags_avg_fields {
   id: Float
   tag_id: Float
   task_id: Float
+  user_id: Float
 }
 
 """
@@ -3048,6 +3053,7 @@ input task_tags_avg_order_by {
   id: order_by
   tag_id: order_by
   task_id: order_by
+  user_id: order_by
 }
 
 """
@@ -3058,12 +3064,14 @@ input task_tags_bool_exp {
   _not: task_tags_bool_exp
   _or: [task_tags_bool_exp!]
   created_at: timestamptz_comparison_exp
-  id: bigint_comparison_exp
+  id: Int_comparison_exp
   tag: tags_bool_exp
   tag_id: bigint_comparison_exp
   task: task_bool_exp
   task_id: bigint_comparison_exp
   updated_at: timestamptz_comparison_exp
+  user: users_bool_exp
+  user_id: bigint_comparison_exp
 }
 
 """
@@ -3072,15 +3080,19 @@ unique or primary key constraints on table "task_tags"
 enum task_tags_constraint {
   """unique or primary key constraint"""
   task_tag_pkey
+
+  """unique or primary key constraint"""
+  task_tags_task_id_tag_id_key
 }
 
 """
 input type for incrementing numeric columns in table "task_tags"
 """
 input task_tags_inc_input {
-  id: bigint
+  id: Int
   tag_id: bigint
   task_id: bigint
+  user_id: bigint
 }
 
 """
@@ -3088,21 +3100,24 @@ input type for inserting data into table "task_tags"
 """
 input task_tags_insert_input {
   created_at: timestamptz
-  id: bigint
+  id: Int
   tag: tags_obj_rel_insert_input
   tag_id: bigint
   task: task_obj_rel_insert_input
   task_id: bigint
   updated_at: timestamptz
+  user: users_obj_rel_insert_input
+  user_id: bigint
 }
 
 """aggregate max on columns"""
 type task_tags_max_fields {
   created_at: timestamptz
-  id: bigint
+  id: Int
   tag_id: bigint
   task_id: bigint
   updated_at: timestamptz
+  user_id: bigint
 }
 
 """
@@ -3114,15 +3129,17 @@ input task_tags_max_order_by {
   tag_id: order_by
   task_id: order_by
   updated_at: order_by
+  user_id: order_by
 }
 
 """aggregate min on columns"""
 type task_tags_min_fields {
   created_at: timestamptz
-  id: bigint
+  id: Int
   tag_id: bigint
   task_id: bigint
   updated_at: timestamptz
+  user_id: bigint
 }
 
 """
@@ -3134,6 +3151,7 @@ input task_tags_min_order_by {
   tag_id: order_by
   task_id: order_by
   updated_at: order_by
+  user_id: order_by
 }
 
 """
@@ -3165,11 +3183,13 @@ input task_tags_order_by {
   task: task_order_by
   task_id: order_by
   updated_at: order_by
+  user: users_order_by
+  user_id: order_by
 }
 
 """primary key columns input for table: task_tags"""
 input task_tags_pk_columns_input {
-  id: bigint!
+  id: Int!
 }
 
 """
@@ -3190,6 +3210,9 @@ enum task_tags_select_column {
 
   """column name"""
   updated_at
+
+  """column name"""
+  user_id
 }
 
 """
@@ -3197,10 +3220,11 @@ input type for updating data in table "task_tags"
 """
 input task_tags_set_input {
   created_at: timestamptz
-  id: bigint
+  id: Int
   tag_id: bigint
   task_id: bigint
   updated_at: timestamptz
+  user_id: bigint
 }
 
 """aggregate stddev on columns"""
@@ -3208,6 +3232,7 @@ type task_tags_stddev_fields {
   id: Float
   tag_id: Float
   task_id: Float
+  user_id: Float
 }
 
 """
@@ -3217,6 +3242,7 @@ input task_tags_stddev_order_by {
   id: order_by
   tag_id: order_by
   task_id: order_by
+  user_id: order_by
 }
 
 """aggregate stddev_pop on columns"""
@@ -3224,6 +3250,7 @@ type task_tags_stddev_pop_fields {
   id: Float
   tag_id: Float
   task_id: Float
+  user_id: Float
 }
 
 """
@@ -3233,6 +3260,7 @@ input task_tags_stddev_pop_order_by {
   id: order_by
   tag_id: order_by
   task_id: order_by
+  user_id: order_by
 }
 
 """aggregate stddev_samp on columns"""
@@ -3240,6 +3268,7 @@ type task_tags_stddev_samp_fields {
   id: Float
   tag_id: Float
   task_id: Float
+  user_id: Float
 }
 
 """
@@ -3249,13 +3278,15 @@ input task_tags_stddev_samp_order_by {
   id: order_by
   tag_id: order_by
   task_id: order_by
+  user_id: order_by
 }
 
 """aggregate sum on columns"""
 type task_tags_sum_fields {
-  id: bigint
+  id: Int
   tag_id: bigint
   task_id: bigint
+  user_id: bigint
 }
 
 """
@@ -3265,6 +3296,7 @@ input task_tags_sum_order_by {
   id: order_by
   tag_id: order_by
   task_id: order_by
+  user_id: order_by
 }
 
 """
@@ -3285,6 +3317,9 @@ enum task_tags_update_column {
 
   """column name"""
   updated_at
+
+  """column name"""
+  user_id
 }
 
 """aggregate var_pop on columns"""
@@ -3292,6 +3327,7 @@ type task_tags_var_pop_fields {
   id: Float
   tag_id: Float
   task_id: Float
+  user_id: Float
 }
 
 """
@@ -3301,6 +3337,7 @@ input task_tags_var_pop_order_by {
   id: order_by
   tag_id: order_by
   task_id: order_by
+  user_id: order_by
 }
 
 """aggregate var_samp on columns"""
@@ -3308,6 +3345,7 @@ type task_tags_var_samp_fields {
   id: Float
   tag_id: Float
   task_id: Float
+  user_id: Float
 }
 
 """
@@ -3317,6 +3355,7 @@ input task_tags_var_samp_order_by {
   id: order_by
   tag_id: order_by
   task_id: order_by
+  user_id: order_by
 }
 
 """aggregate variance on columns"""
@@ -3324,6 +3363,7 @@ type task_tags_variance_fields {
   id: Float
   tag_id: Float
   task_id: Float
+  user_id: Float
 }
 
 """
@@ -3333,6 +3373,7 @@ input task_tags_variance_order_by {
   id: order_by
   tag_id: order_by
   task_id: order_by
+  user_id: order_by
 }
 
 "List of Task Types\n\n\ncolumns and relationships of \"task_type\"\n"
@@ -3676,6 +3717,41 @@ input timestamptz_comparison_exp {
 
 "List of Users\n\n\ncolumns and relationships of \"users\"\n"
 type users {
+  """An array relationship"""
+  comments(
+    """distinct select on columns"""
+    distinct_on: [comments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [comments_order_by!]
+
+    """filter the rows returned"""
+    where: comments_bool_exp
+  ): [comments!]!
+
+  """An aggregate relationship"""
+  comments_aggregate(
+    """distinct select on columns"""
+    distinct_on: [comments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [comments_order_by!]
+
+    """filter the rows returned"""
+    where: comments_bool_exp
+  ): comments_aggregate!
   created_at: timestamptz!
   first_name: String!
   id: bigint!
@@ -3720,6 +3796,42 @@ type users {
     """filter the rows returned"""
     where: task_bool_exp
   ): task_aggregate!
+
+  """An array relationship"""
+  task_tags(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): [task_tags!]!
+
+  """An aggregate relationship"""
+  task_tags_aggregate(
+    """distinct select on columns"""
+    distinct_on: [task_tags_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [task_tags_order_by!]
+
+    """filter the rows returned"""
+    where: task_tags_bool_exp
+  ): task_tags_aggregate!
   updated_at: timestamptz!
   username: String!
 }
@@ -3761,6 +3873,7 @@ input users_bool_exp {
   _and: [users_bool_exp!]
   _not: users_bool_exp
   _or: [users_bool_exp!]
+  comments: comments_bool_exp
   created_at: timestamptz_comparison_exp
   first_name: String_comparison_exp
   id: bigint_comparison_exp
@@ -3770,6 +3883,7 @@ input users_bool_exp {
   role: String_comparison_exp
   suffix_name: String_comparison_exp
   task_ids: task_bool_exp
+  task_tags: task_tags_bool_exp
   updated_at: timestamptz_comparison_exp
   username: String_comparison_exp
 }
@@ -3796,6 +3910,7 @@ input users_inc_input {
 input type for inserting data into table "users"
 """
 input users_insert_input {
+  comments: comments_arr_rel_insert_input
   created_at: timestamptz
   first_name: String
   id: bigint
@@ -3805,6 +3920,7 @@ input users_insert_input {
   role: String
   suffix_name: String
   task_ids: task_arr_rel_insert_input
+  task_tags: task_tags_arr_rel_insert_input
   updated_at: timestamptz
   username: String
 }
@@ -3869,6 +3985,7 @@ input users_on_conflict {
 
 """Ordering options when selecting data from "users"."""
 input users_order_by {
+  comments_aggregate: comments_aggregate_order_by
   created_at: order_by
   first_name: order_by
   id: order_by
@@ -3878,6 +3995,7 @@ input users_order_by {
   role: order_by
   suffix_name: order_by
   task_ids_aggregate: task_aggregate_order_by
+  task_tags_aggregate: task_tags_aggregate_order_by
   updated_at: order_by
   username: order_by
 }

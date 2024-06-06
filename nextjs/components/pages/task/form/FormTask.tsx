@@ -16,6 +16,8 @@ import MenuItem from '@mui/material/MenuItem';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { Chip } from '@mui/material';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 import { useRouter } from 'next/router'
 
@@ -32,6 +34,7 @@ import TextFieldRead from '../../../shared/fields/TextField'
 import TextFieldEdit from '../../../shared/fields/TextFieldEdit'
 import Status from './Status'
 import Comments from './Comments'
+import { useValueWithTimezone } from '@mui/x-date-pickers/internals/hooks/useValueWithTimezone';
 
 const FormTask = ( () => {
 
@@ -43,6 +46,10 @@ const FormTask = ( () => {
     const [mode, setMode] = useState(router.query.mode)
 
     const [id, setId] = useState<Number | undefined>(Number(parameterId))
+
+    const [edit,setEdit] = useState(false)
+    const [save, setSave] = useState(true)
+    const [cancel, setCancel] = useState(true)
 
     const { loading, error, data, refetch } = useGetTaskIdQuery({
         variables: {
@@ -63,7 +70,8 @@ const FormTask = ( () => {
         setDraftDate(data?.task_by_pk.draft_date)
         setInProgressDate(data?.task_by_pk.in_progress_date)
         setDoneDate(data?.task_by_pk.done_date)
-    },[data])
+        setTags(data?.task_by_pk.task_tags.map(task_tag => task_tag.tag))
+    },[data, cancel])
 
     useEffect( () => {
         if (mode == 'create') {
@@ -74,7 +82,7 @@ const FormTask = ( () => {
     const [name, setName] = useState(data?.task_by_pk.name)
     const [description, setDescription] = useState(data?.task_by_pk.description)
     const [task_type_id, setTaskTypeId] = useState(Number(data?.task_by_pk.task_type.id))
-    const [project_id, setProjectId] = useState(Number(data?.task_by_pk.project.id))
+    const [project_id, setProjectId] = useState(Number(data?.task_by_pk.project?.id))
     const [status_id, setStatusId] = useState(null)
     const [user_id, setUserId] = useState(Number(data?.task_by_pk.user.id))
 
@@ -85,10 +93,7 @@ const FormTask = ( () => {
     const [doneDate, setDoneDate] = useState(data?.task_by_pk.done_date)
  
     const [status_name, setStatusName] = useState(data?.task_by_pk.status.name)
-
-    const [edit,setEdit] = useState(false)
-    const [save, setSave] = useState(true)
-    const [cancel, setCancel] = useState(true)
+    const [tags, setTags] = useState(data?.task_by_pk.task_tags.map(task_tag => task_tag.tag))
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -109,6 +114,9 @@ const FormTask = ( () => {
             project_id: project_id,
             user_id: user_id,
             status_id: status_id,
+            task_tags: tags?.map(tag => ({
+                tag_id: tag.id,
+                user_id: user_id}))
         },
         onCompleted: (data) => {
             setId(Number(dataAddTask?.insert_task.returning[0].id))
@@ -119,6 +127,7 @@ const FormTask = ( () => {
             setStatusId(Number(dataAddTask?.insert_task.returning[0].status_id))
             setUserId(Number(dataAddTask?.insert_task.returning[0].user_id))
             setStatusName(dataAddTask?.insert_task.returning[0].status.name)
+            // setTags(dataAddTask.insert_task.returning[0].task_tags.map(task => task.tag))
             refetch()
             router.push(`http://localhost:3000/formtask?view=${parameterView}&mode=edit&id=${Number(dataAddTask?.insert_task.returning[0].id)}`)
         }
@@ -134,6 +143,7 @@ const FormTask = ( () => {
             setStatusId(Number(data.update_task.returning[0].status_id))
             setUserId(Number(data.update_task.returning[0].user_id))
             setStatusName(data.update_task.returning[0].status.name),
+            setTags(data.insert_task_tags.returning.map(task_tag => task_tag.tag))
             refetch()
             router.push(`http://localhost:3000/formtask?view=${parameterView}&mode=edit&id=${Number(data.update_task.returning[0].id)}`)
         }
@@ -188,19 +198,23 @@ const FormTask = ( () => {
         setEdit(false)
         setSave(true)
         setCancel(true)
-        updateTask({
-            variables: {
-                id: id,
-                name: name,
-                description: description,
-                task_type_id: task_type_id,
-                project_id: project_id,
-                user_id: user_id,
-                status_id: status_id,
-                in_progress_date: inProgressDate,
-                done_date: doneDate
-            }
-        })
+
+        updateTask({ variables: {
+            id: id,
+            name: name,
+            description: description,
+            task_type_id: task_type_id,
+            project_id: project_id,
+            user_id: user_id,
+            status_id: status_id,
+            in_progress_date: inProgressDate,
+            done_date: doneDate,
+            task_tags_ids: tags.map(tag => tag.id),
+            task_tags: tags.map(tag => ({
+                task_id: id,
+                tag_id: tag.id,
+                user_id: user_id}))
+            }})
         refetch()
     }) 
 
@@ -220,7 +234,12 @@ const FormTask = ( () => {
                 user_id: user_id,
                 status_id: dataDraft.status[0].id,
                 in_progress_date: null,
-                done_date: null
+                done_date: null,
+                task_tags_ids: tags.map(tag => tag.id),
+                task_tags: tags.map(tag => ({
+                    tag_id: tag.id,
+                    task_id: id,
+                    user_id: user_id}))
             }
         })
         refetch()
@@ -243,7 +262,12 @@ const FormTask = ( () => {
                 user_id: user_id,
                 status_id: dataInProgress.status[0].id,
                 in_progress_date: new Date(),
-                done_date:  null
+                done_date:  null,
+                task_tags_ids: tags.map(tag => tag.id),
+                task_tags: tags.map(tag => ({
+                    tag_id: tag.id,
+                    task_id: id,
+                    user_id: user_id}))
             }
         })
         refetch()
@@ -265,7 +289,12 @@ const FormTask = ( () => {
                 user_id: user_id,
                 status_id: dataDone.status[0].id,
                 in_progress_date:  inProgressDate,
-                done_date: new Date()
+                done_date: new Date(),
+                task_tags_ids: tags.map(tag => tag.id),
+                task_tags: tags.map(tag => ({
+                    tag_id: tag.id,
+                    task_id: id,
+                    user_id: user_id}))
             }
         })
         refetch()
@@ -281,9 +310,26 @@ const FormTask = ( () => {
         setAnchorEl(null);
         deleteTask()
         router.push(`http://localhost:3000/task?view=${parameterView}`)
-    }) 
+    })
 
-    // console.log(dateformat(new Date('2024-04-23T08:01:12.341816+00:00'), "dd-mmm-yyyy"))
+    const handleChangeChip = (event: SelectChangeEvent<string[]>) => {  
+        const {
+            target: { value },
+        } = event;
+
+        setTags(dataMasterdata.tags.filter(tag => value.includes(tag.name)));
+    };
+
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+    PaperProps: {
+        style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+        },
+    },
+    };
 
     return (
         <Box sx={pageHeight}>
@@ -565,18 +611,42 @@ const FormTask = ( () => {
                         }
                     />
 
-                    {/* <TextFieldRead 
-                        label='Created At'
-                        value={data?.task_by_pk.created_at}
-                        mode={mode}
+                    <TextFieldEdit
+                        label='Tags'
+                        value={ 
+                            <>
+                                <Select
+                                    id="tags"
+                                    multiple
+                                    value={tags ? tags.map(task_tag => task_tag.name) : []}
+                                    onChange={handleChangeChip}
+                                    input={<OutlinedInput id="select-multiple-chip"/>}
+                                    renderValue={(selected) => (
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                            {selected.map((value) => (
+                                                <Chip 
+                                                    key={value} 
+                                                    label={value}
+                                                    sx={{marginRight: '5px', borderRadius: '8px'}}
+                                                    style={{ backgroundColor: tags.filter(tag => tag.name == value )[0]?.color}}
+                                                />
+                                            ))}
+                                        </Box>
+                                    )}
+                                    MenuProps={MenuProps}
+                                >
+                                    {dataMasterdata?.tags.map((tag) => (
+                                        <MenuItem
+                                            key={tag.name}
+                                            value={tag.name}
+                                        >
+                                            {tag.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </>
+                        }
                     />
-
-                    <TextFieldRead 
-                        label='Updated At'
-                        value={data?.task_by_pk.updated_at}
-                        mode={mode}
-                    /> */}
-
 
                 </Box>
                 :
@@ -646,6 +716,23 @@ const FormTask = ( () => {
                         label='Done Date'
                         value={doneDate ? dateformat(doneDate, "dd-mmm-yyyy") : 
                             "N/A"
+                        }
+                        mode={mode}
+                    />
+
+                    <TextFieldRead
+                        label='Tags'
+                        value={
+                            tags?.map( (task_tag) => {
+                                return (
+                                    <Chip 
+                                        variant="filled" 
+                                        label={task_tag.name} 
+                                        sx={{marginRight: '5px', borderRadius: '8px'}} 
+                                        style={{ backgroundColor: task_tag.color}}  
+                                    />
+                                )
+                            })
                         }
                         mode={mode}
                     />

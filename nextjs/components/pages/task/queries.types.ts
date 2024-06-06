@@ -6,7 +6,7 @@ const defaultOptions = {} as const;
 export type GetMasterdataQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetMasterdataQuery = { __typename?: 'query_root', status: Array<{ __typename?: 'status', id: number, name: string, color?: string | null }>, task_type: Array<{ __typename?: 'task_type', id: number, name: string }>, users: Array<{ __typename?: 'users', id: number, name: string, last_name: string, first_name: string, middle_name?: string | null, suffix_name?: string | null, username: string, role?: string | null }>, projects: Array<{ __typename?: 'projects', id: number, name: string, task_type_id: number, task_type?: { __typename?: 'task_type', name: string } | null }> };
+export type GetMasterdataQuery = { __typename?: 'query_root', status: Array<{ __typename?: 'status', id: number, name: string, color?: string | null }>, task_type: Array<{ __typename?: 'task_type', id: number, name: string }>, users: Array<{ __typename?: 'users', id: number, name: string, last_name: string, first_name: string, middle_name?: string | null, suffix_name?: string | null, username: string, role?: string | null }>, projects: Array<{ __typename?: 'projects', id: number, name: string, task_type_id: number, task_type?: { __typename?: 'task_type', name: string } | null }>, tags: Array<{ __typename?: 'tags', id: number, color?: string | null, name: string, sort: number }> };
 
 export type GetStatusIdQueryVariables = Types.Exact<{
   name: Types.Scalars['String']['input'];
@@ -18,14 +18,14 @@ export type GetStatusIdQuery = { __typename?: 'query_root', status: Array<{ __ty
 export type GetTaskQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetTaskQuery = { __typename?: 'query_root', task: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string, color?: string | null } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null }> };
+export type GetTaskQuery = { __typename?: 'query_root', task: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string, color?: string | null } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null, task_tags: Array<{ __typename?: 'task_tags', tag: { __typename?: 'tags', id: number, color?: string | null, name: string, sort: number } }> }> };
 
 export type GetTaskIdQueryVariables = Types.Exact<{
   id: Types.Scalars['bigint']['input'];
 }>;
 
 
-export type GetTaskIdQuery = { __typename?: 'query_root', task_by_pk?: { __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null } | null };
+export type GetTaskIdQuery = { __typename?: 'query_root', task_by_pk?: { __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null, task_tags: Array<{ __typename?: 'task_tags', tag: { __typename?: 'tags', id: number, color?: string | null, name: string, sort: number } }> } | null };
 
 export type GetCommentsByTaskIdQueryVariables = Types.Exact<{
   _eq: Types.Scalars['Int']['input'];
@@ -41,10 +41,11 @@ export type AddTaskMutationVariables = Types.Exact<{
   status_id: Types.Scalars['Int']['input'];
   task_type_id: Types.Scalars['Int']['input'];
   user_id: Types.Scalars['Int']['input'];
+  task_tags: Array<Types.Task_Tags_Insert_Input> | Types.Task_Tags_Insert_Input;
 }>;
 
 
-export type AddTaskMutation = { __typename?: 'mutation_root', insert_task?: { __typename?: 'task_mutation_response', returning: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, project_id?: number | null, status_id: number, task_type_id: number, user_id: number, status?: { __typename?: 'status', name: string } | null }> } | null };
+export type AddTaskMutation = { __typename?: 'mutation_root', insert_task?: { __typename?: 'task_mutation_response', returning: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, project_id: number, status_id: number, task_type_id: number, user_id: number, status?: { __typename?: 'status', name: string } | null, task_tags: Array<{ __typename?: 'task_tags', id: number, tag: { __typename?: 'tags', name: string, color?: string | null, sort: number } }> }> } | null };
 
 export type AddCommentMutationVariables = Types.Exact<{
   comment: Types.Scalars['String']['input'];
@@ -65,10 +66,12 @@ export type UpdateTaskMutationVariables = Types.Exact<{
   user_id: Types.Scalars['Int']['input'];
   in_progress_date: Types.Scalars['timestamptz']['input'];
   done_date: Types.Scalars['timestamptz']['input'];
+  task_tags_ids?: Types.InputMaybe<Array<Types.Scalars['bigint']['input']> | Types.Scalars['bigint']['input']>;
+  task_tags: Array<Types.Task_Tags_Insert_Input> | Types.Task_Tags_Insert_Input;
 }>;
 
 
-export type UpdateTaskMutation = { __typename?: 'mutation_root', update_task?: { __typename?: 'task_mutation_response', returning: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, project_id?: number | null, status_id: number, task_type_id: number, user_id: number, status?: { __typename?: 'status', name: string } | null }> } | null };
+export type UpdateTaskMutation = { __typename?: 'mutation_root', update_task?: { __typename?: 'task_mutation_response', returning: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, project_id: number, status_id: number, task_type_id: number, user_id: number, status?: { __typename?: 'status', name: string } | null }> } | null, delete_task_tags?: { __typename?: 'task_tags_mutation_response', affected_rows: number, returning: Array<{ __typename?: 'task_tags', id: number, tag_id: number, task_id: number, user_id: number }> } | null, insert_task_tags?: { __typename?: 'task_tags_mutation_response', affected_rows: number, returning: Array<{ __typename?: 'task_tags', tag: { __typename?: 'tags', color?: string | null, id: number, name: string, sort: number } }> } | null };
 
 export type DeleteTaskMutationVariables = Types.Exact<{
   id: Types.Scalars['bigint']['input'];
@@ -106,6 +109,12 @@ export const GetMasterdataDocument = gql`
     task_type {
       name
     }
+  }
+  tags(order_by: {sort: asc}) {
+    id
+    color
+    name
+    sort
   }
 }
     `;
@@ -200,6 +209,14 @@ export const GetTaskDocument = gql`
       id
       name
     }
+    task_tags(order_by: {tag: {sort: asc}}) {
+      tag {
+        id
+        color
+        name
+        sort
+      }
+    }
   }
 }
     `;
@@ -256,6 +273,14 @@ export const GetTaskIdDocument = gql`
     user {
       id
       name
+    }
+    task_tags(order_by: {tag: {sort: asc}}) {
+      tag {
+        id
+        color
+        name
+        sort
+      }
     }
   }
 }
@@ -338,9 +363,9 @@ export type GetCommentsByTaskIdQueryHookResult = ReturnType<typeof useGetComment
 export type GetCommentsByTaskIdLazyQueryHookResult = ReturnType<typeof useGetCommentsByTaskIdLazyQuery>;
 export type GetCommentsByTaskIdQueryResult = Apollo.QueryResult<GetCommentsByTaskIdQuery, GetCommentsByTaskIdQueryVariables>;
 export const AddTaskDocument = gql`
-    mutation AddTask($name: String!, $description: String!, $project_id: Int!, $status_id: Int!, $task_type_id: Int!, $user_id: Int!) {
+    mutation AddTask($name: String!, $description: String!, $project_id: Int!, $status_id: Int!, $task_type_id: Int!, $user_id: Int!, $task_tags: [task_tags_insert_input!]!) {
   insert_task(
-    objects: {name: $name, description: $description, project_id: $project_id, status_id: $status_id, task_type_id: $task_type_id, user_id: $user_id}
+    objects: {name: $name, description: $description, project_id: $project_id, status_id: $status_id, task_type_id: $task_type_id, user_id: $user_id, task_tags: {data: $task_tags}}
   ) {
     returning {
       id
@@ -352,6 +377,14 @@ export const AddTaskDocument = gql`
       user_id
       status {
         name
+      }
+      task_tags {
+        id
+        tag {
+          name
+          color
+          sort
+        }
       }
     }
   }
@@ -378,6 +411,7 @@ export type AddTaskMutationFn = Apollo.MutationFunction<AddTaskMutation, AddTask
  *      status_id: // value for 'status_id'
  *      task_type_id: // value for 'task_type_id'
  *      user_id: // value for 'user_id'
+ *      task_tags: // value for 'task_tags'
  *   },
  * });
  */
@@ -434,7 +468,7 @@ export type AddCommentMutationHookResult = ReturnType<typeof useAddCommentMutati
 export type AddCommentMutationResult = Apollo.MutationResult<AddCommentMutation>;
 export type AddCommentMutationOptions = Apollo.BaseMutationOptions<AddCommentMutation, AddCommentMutationVariables>;
 export const UpdateTaskDocument = gql`
-    mutation UpdateTask($id: bigint!, $name: String!, $description: String!, $project_id: Int!, $status_id: Int!, $task_type_id: Int!, $user_id: Int!, $in_progress_date: timestamptz!, $done_date: timestamptz!) {
+    mutation UpdateTask($id: bigint!, $name: String!, $description: String!, $project_id: Int!, $status_id: Int!, $task_type_id: Int!, $user_id: Int!, $in_progress_date: timestamptz!, $done_date: timestamptz!, $task_tags_ids: [bigint!], $task_tags: [task_tags_insert_input!]!) {
   update_task(
     where: {id: {_eq: $id}}
     _set: {name: $name, description: $description, project_id: $project_id, status_id: $status_id, task_type_id: $task_type_id, user_id: $user_id, in_progress_date: $in_progress_date, done_date: $done_date}
@@ -449,6 +483,29 @@ export const UpdateTaskDocument = gql`
       user_id
       status {
         name
+      }
+    }
+  }
+  delete_task_tags(where: {task_id: {_eq: $id}, tag_id: {_nin: $task_tags_ids}}) {
+    affected_rows
+    returning {
+      id
+      tag_id
+      task_id
+      user_id
+    }
+  }
+  insert_task_tags(
+    objects: $task_tags
+    on_conflict: {constraint: task_tags_task_id_tag_id_key, update_columns: [task_id, tag_id]}
+  ) {
+    affected_rows
+    returning {
+      tag {
+        color
+        id
+        name
+        sort
       }
     }
   }
@@ -478,6 +535,8 @@ export type UpdateTaskMutationFn = Apollo.MutationFunction<UpdateTaskMutation, U
  *      user_id: // value for 'user_id'
  *      in_progress_date: // value for 'in_progress_date'
  *      done_date: // value for 'done_date'
+ *      task_tags_ids: // value for 'task_tags_ids'
+ *      task_tags: // value for 'task_tags'
  *   },
  * });
  */

@@ -20,6 +20,7 @@ import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 
 import { useRouter } from 'next/router';
+import { Chip } from '@mui/material';
 
 import { 
     useGetTaskQuery, 
@@ -130,6 +131,16 @@ const Task = ( () => {
                                 {/* <Typography variant="caption" component="div">
                                     {t.user.name}
                                 </Typography> */}
+                                {/* {data.task.tags.map( (task) => {
+                                return (
+                                    <Chip 
+                                        variant="filled" 
+                                        label={task.name} 
+                                        sx={{marginRight: '5px', borderRadius: '8px'}} 
+                                        style={{ backgroundColor: task_tag.color}}  
+                                    />
+                                )
+                            })} */}
                             </CardContent>
                             <Box
                                 sx={{

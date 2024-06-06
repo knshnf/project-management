@@ -30,6 +30,12 @@ query GetMasterdata {
           name
       }
   }
+  tags(order_by: {sort: asc}) {
+    id
+    color
+    name
+    sort
+  }
 }
 `;
 
@@ -76,6 +82,14 @@ query GetTask {
             id
             name
         }
+        task_tags(order_by: {tag: {sort: asc}}) {
+            tag {
+                id
+                color
+                name
+                sort
+            }
+        }
     }
   }
 `;
@@ -109,6 +123,14 @@ query GetTaskId(
         user {
             id
             name
+        }
+        task_tags(order_by: {tag: {sort: asc}}) {
+            tag {
+                id
+                color
+                name
+                sort
+            }
         }
     }
   }
@@ -146,7 +168,8 @@ mutation AddTask(
     $project_id: Int!,
     $status_id: Int!,
     $task_type_id: Int!,
-    $user_id: Int!
+    $user_id: Int!,
+    $task_tags: [task_tags_insert_input!]!
 ) {
     insert_task(
         objects: {
@@ -155,7 +178,8 @@ mutation AddTask(
             project_id: $project_id,
             status_id: $status_id,
             task_type_id: $task_type_id,
-            user_id: $user_id
+            user_id: $user_id,
+            task_tags: {data: $task_tags}
         }
     ) {
         returning {
@@ -169,6 +193,14 @@ mutation AddTask(
             status {
                 name
             }
+            task_tags {
+                id
+              tag {
+                name,
+                color,
+                sort
+              }
+          }
         }
     }
     }
@@ -200,7 +232,7 @@ mutation AddComment(
     }
     }
 `;
-  
+
 // Update
 export { useUpdateTaskMutation } from './queries.types'
 const UPDATE_TASK = gql`
@@ -211,9 +243,11 @@ mutation UpdateTask(
     $project_id: Int!,
     $status_id: Int!,
     $task_type_id: Int!,
-    $user_id: Int!
+    $user_id: Int!,
     $in_progress_date: timestamptz!,
-    $done_date: timestamptz!
+    $done_date: timestamptz!,
+    $task_tags_ids: [bigint!], 
+    $task_tags: [task_tags_insert_input!]!
 ) {
     update_task(
         where: {
@@ -240,9 +274,30 @@ mutation UpdateTask(
             user_id
             status {
                 name
-            }
+            } 
         }
     }
+    delete_task_tags(where: {task_id: {_eq: $id}, tag_id: {_nin: $task_tags_ids}}) {
+            affected_rows
+            returning {
+                id
+                tag_id
+                task_id
+                user_id
+            }
+        }
+
+    insert_task_tags(objects: $task_tags, on_conflict: {constraint: task_tags_task_id_tag_id_key, update_columns: [task_id, tag_id]}) {
+            affected_rows
+            returning {
+                tag {
+                    color
+                    id
+                    name
+                    sort
+                }
+            }
+        }
     }
 `;
 
