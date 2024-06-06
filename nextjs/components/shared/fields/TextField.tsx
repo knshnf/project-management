@@ -4,16 +4,15 @@ const TextField = ( ({ label, value, mode })  => {
     return (
         <Box
             sx={{
-                width: '500px',
+                width: '100%',
                 margin: '40px',
-                marginLeft: '50px',
                 display: 'flex',
             }}
         >
             <Box 
                 sx={{
                     width: '30%',
-                    textAlign: 'right'
+                    textAlign: 'left'
                 }}
             >
                 {label}:

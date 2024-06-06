@@ -103,6 +103,9 @@ const FormTask = ( () => {
     const handleClose = () => {
       setAnchorEl(null);
     };
+    const handleClickChip = () => {
+        console.info('You clicked the Chip.');
+    };
 
     const { error: errorMasterdata, data: dataMasterdata } = useGetMasterdataQuery()
 
@@ -483,7 +486,7 @@ const FormTask = ( () => {
                 </Button>
             </Box>
             <Divider />
-            <Status data={dataMasterdata} currentStatus={data?.task_by_pk.status.name}/>
+            <Status masterData={dataMasterdata} currentStatus={data?.task_by_pk.status.name} taskData={data}/>
             <Box
                 sx={{
                     minHeight: '750px',
@@ -516,141 +519,159 @@ const FormTask = ( () => {
                         }}
                     />
 
-                    <TextFieldEdit
-                        label='Description'
-                        value={ 
-                            <TextField
-                                sx={{
-                                    width: '100%'
-                                }}
-                                id="description"
-                                variant="standard"
-                                size="small"
-                                value={description}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                multiline
-                                maxRows={4}
-                                onChange={e => setDescription(e.target.value)}
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: { xs: 'column', md: 'row' },
+                    }}> 
+                        <Box sx={{
+                            width: '100%'
+                        }}>
+                            <TextFieldEdit
+                                label='Description'
+                                value={ 
+                                    <TextField
+                                        sx={{
+                                            width: '322px'
+                                        }}
+                                        id="description"
+                                        variant="standard"
+                                        size="small"
+                                        value={description}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        multiline
+                                        maxRows={4}
+                                        onChange={e => setDescription(e.target.value)}
+                                    />
+                                }
                             />
-                        }
-                    />
 
-                    <TextFieldEdit
-                        label='Project'
-                        value={ 
-                            <Select
-                                sx={{
-                                    width: '100%'
-                                }}
-                                labelId="project_id"
-                                id="project_id"
-                                value={project_id}
-                                variant="standard"
-                                onChange={e => setProjectId(Number(e.target.value))}
-                                label="Project"
-                            >
-                                {
-                                    dataMasterdata?.projects.map( (dtt) => {
-                                        return (
-                                            <MenuItem key={dtt.id} value={dtt.id}> {dtt.name} </MenuItem>
-                                        )
-                                    })
+                            <TextFieldEdit
+                                label='Project'
+                                value={ 
+                                    <Select
+                                        sx={{
+                                            width: '322px'
+                                        }}
+                                        labelId="project_id"
+                                        id="project_id"
+                                        value={project_id}
+                                        variant="standard"
+                                        onChange={e => setProjectId(Number(e.target.value))}
+                                        label="Project"
+                                    >
+                                        {
+                                            dataMasterdata?.projects.map( (dtt) => {
+                                                return (
+                                                    <MenuItem key={dtt.id} value={dtt.id}> {dtt.name} </MenuItem>
+                                                )
+                                            })
+                                        }
+                                    </Select>
                                 }
-                            </Select>
-                        }
-                    />
+                            />
 
-                    <TextFieldEdit
-                        label='Task Type'
-                        value={ 
-                            <Select
-                                sx={{
-                                    width: '100%'
-                                }}
-                                id="task_type_id"
-                                value={task_type_id}
-                                variant="standard"
-                                onChange={e => setTaskTypeId(Number(e.target.value))}
-                                label="Task Type"
-                            >
-                                {
-                                    dataMasterdata?.task_type.map( (dtt) => {
-                                        return (
-                                            <MenuItem key={dtt.id} value={dtt.id}> {dtt.name} </MenuItem>
-                                        )
-                                    })
-                                }
-                            </Select>
-                        }
-                    />
+                        </Box>
 
-                    <TextFieldEdit
-                        label='User'
-                        value={ 
-                            <Select
-                                sx={{
-                                    width: '100%'
-                                }}
-                                labelId="user_id"
-                                id="user_id"
-                                value={user_id}
-                                variant="standard"
-                                onChange={e => setUserId(Number(e.target.value))}
-                                label="User"
-                            >
-                                {
-                                    dataMasterdata?.users.map( (dtt) => {
-                                        return (
-                                            <MenuItem key={dtt.id} value={dtt.id}> {dtt.name} </MenuItem>
-                                        )
-                                    })
-                                }
-                            </Select>
-                        }
-                    />
-
-                    <TextFieldEdit
-                        label='Tags'
-                        value={ 
-                            <>
-                                <Select
-                                    id="tags"
-                                    multiple
-                                    value={tags ? tags.map(task_tag => task_tag.name) : []}
-                                    onChange={handleChangeChip}
-                                    input={<OutlinedInput id="select-multiple-chip"/>}
-                                    renderValue={(selected) => (
-                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                            {selected.map((value) => (
-                                                <Chip 
-                                                    key={value} 
-                                                    label={value}
-                                                    sx={{marginRight: '5px', borderRadius: '8px'}}
-                                                    style={{ backgroundColor: tags.filter(tag => tag.name == value )[0]?.color}}
-                                                />
-                                            ))}
-                                        </Box>
-                                    )}
-                                    MenuProps={MenuProps}
-                                >
-                                    {dataMasterdata?.tags.map((tag) => (
-                                        <MenuItem
-                                            key={tag.name}
-                                            value={tag.name}
+                        <Box sx={{
+                            display: 'flex',
+                            width: '100%',
+                            flexDirection: 'column'
+                        }}>
+                            <TextFieldEdit
+                                label='Tags'
+                                value={ 
+                                    <>
+                                        <Select
+                                            id="tags"
+                                            multiple
+                                            value={tags ? tags.map(task_tag => task_tag.name) : []}
+                                            onChange={handleChangeChip}
+                                            input={<OutlinedInput id="select-multiple-chip"/>}
+                                            renderValue={(selected) => (
+                                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                                    {selected.map((value) => (
+                                                        <Chip 
+                                                            key={value} 
+                                                            label={value}
+                                                            sx={{marginRight: '5px', borderRadius: '5px'}}
+                                                            style={{ backgroundColor: tags.filter(tag => tag.name == value )[0]?.color}}
+                                                            size="small"
+                                                        />
+                                                    ))}
+                                                </Box>
+                                            )}
+                                            MenuProps={MenuProps}
+                                            sx={{width: 322}}
                                         >
-                                            {tag.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </>
-                        }
-                    />
+                                            {dataMasterdata?.tags.map((tag) => (
+                                                <MenuItem
+                                                    key={tag.name}
+                                                    value={tag.name}
+                                                >
+                                                    {tag.name}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                    </>
+                                }
+                            />
+                            <TextFieldEdit
+                                label='Task Type'
+                                value={ 
+                                    <Select
+                                        sx={{
+                                            width: '322px'
+                                        }}
+                                        id="task_type_id"
+                                        value={task_type_id}
+                                        variant="standard"
+                                        onChange={e => setTaskTypeId(Number(e.target.value))}
+                                        label="Task Type"
+                                    >
+                                        {
+                                            dataMasterdata?.task_type.map( (dtt) => {
+                                                return (
+                                                    <MenuItem key={dtt.id} value={dtt.id}> {dtt.name} </MenuItem>
+                                                )
+                                            })
+                                        }
+                                    </Select>
+                                }
+                            />
 
+                            <TextFieldEdit
+                                label='User'
+                                value={ 
+                                    <Select
+                                        sx={{
+                                            width: '322px'
+                                        }}
+                                        labelId="user_id"
+                                        id="user_id"
+                                        value={user_id}
+                                        variant="standard"
+                                        onChange={e => setUserId(Number(e.target.value))}
+                                        label="User"
+                                    >
+                                        {
+                                            dataMasterdata?.users.map( (dtt) => {
+                                                return (
+                                                    <MenuItem key={dtt.id} value={dtt.id}> {dtt.name} </MenuItem>
+                                                )
+                                            })
+                                        }
+                                    </Select>
+                                }
+                            />
+                        </Box>
+                    </Box>
                 </Box>
                 :
-                <Box>
+                <Box sx={{
+                    paddingX: '50px'
+                }}>
 
                     <Typography 
                         sx={{
@@ -661,82 +682,62 @@ const FormTask = ( () => {
                         {name}
                     </Typography>
 
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: { xs: 'column', lg: 'row' }
+                    }}> 
+                        <Box sx={{
+                            width: '100%'
+                        }}>
+                            <TextFieldRead 
+                                label='Description'
+                                value={description}
+                                mode={mode}
+                            />
 
-                    <TextFieldRead 
-                        label='Description'
-                        value={description}
-                        mode={mode}
-                    />
+                            <TextFieldRead 
+                                label='Project'
+                                value={data?.task_by_pk.project.name}
+                                mode={mode}
+                            />
 
-                    <TextFieldRead 
-                        label='Project'
-                        value={data?.task_by_pk.project.name}
-                        mode={mode}
-                    />
+                        </Box>
 
-                    <TextFieldRead 
-                        label='Task Type'
-                        value={data?.task_by_pk.task_type.name}
-                        mode={mode}
-                    />
+                        <Box sx={{
+                            display: 'flex',
+                            width: '100%',
+                            flexDirection: 'column'
+                        }}>
+                            <TextFieldRead
+                                label='Tags'
+                                value={
+                                    tags?.map( (task_tag) => {
+                                        return (
+                                            <Chip 
+                                                variant="filled" 
+                                                label={task_tag.name} 
+                                                sx={{marginRight: '5px', borderRadius: '8px'}} 
+                                                style={{ backgroundColor: task_tag.color}}
+                                                onClick={handleClickChip}  
+                                            />
+                                        )
+                                    })
+                                }
+                                mode={mode}
+                            />
+                            <TextFieldRead 
+                                label='Task Type'
+                                value={data?.task_by_pk.task_type.name}
+                                mode={mode}
+                            />
 
-                    <TextFieldRead 
-                        label='User'
-                        value={data?.task_by_pk.user.name}
-                        mode={mode}
-                    />
-
-                    <TextFieldRead 
-                        label='Created At'
-                        value={dateformat(createdAt, "dd-mmm-yyyy")}
-                        mode={mode}
-                    />
-
-                    <TextFieldRead 
-                        label='Updated At'
-                        value={dateformat(updatedAt, "dd-mmm-yyyy")}
-                        mode={mode}
-                    />
-
-                    <TextFieldRead 
-                        label='Draft Date'
-                        value={dateformat(draftDate, "dd-mmm-yyyy")}
-                        mode={mode}
-                    />
-
-                    <TextFieldRead 
-                        label='In Progress Date'
-                        value={inProgressDate ? dateformat(inProgressDate, "dd-mmm-yyyy") : 
-                            "N/A"
-                        }
-                        mode={mode}
-                    />
-
-                    <TextFieldRead
-                        label='Done Date'
-                        value={doneDate ? dateformat(doneDate, "dd-mmm-yyyy") : 
-                            "N/A"
-                        }
-                        mode={mode}
-                    />
-
-                    <TextFieldRead
-                        label='Tags'
-                        value={
-                            tags?.map( (task_tag) => {
-                                return (
-                                    <Chip 
-                                        variant="filled" 
-                                        label={task_tag.name} 
-                                        sx={{marginRight: '5px', borderRadius: '8px'}} 
-                                        style={{ backgroundColor: task_tag.color}}  
-                                    />
-                                )
-                            })
-                        }
-                        mode={mode}
-                    />
-
+                            <TextFieldRead 
+                                label='User'
+                                value={data?.task_by_pk.user.name}
+                                mode={mode}
+                            />
+                        </Box>
+                    </Box>
                 </Box>
             }
             {

@@ -5,16 +5,15 @@ const TextFieldEdit = ( ( {label, value} ) => {
     return (
         <Box
             sx={{
-                width: '500px',
-                margin: '20px',
-                marginLeft: '50px',
+                width: '100%',
+                margin: '40px',
                 display: 'flex',
             }}
         >
             <Box 
                 sx={{
                     width: '30%',
-                    textAlign: 'right'
+                    textAlign: 'left'
                 }}
             >
                 {label}:

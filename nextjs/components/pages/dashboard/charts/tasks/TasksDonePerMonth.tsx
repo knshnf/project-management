@@ -64,13 +64,7 @@ const TasksDonePerMonth = (start_date: Date, end_date: Date) => {
       categories: chart_categories,
     },
     title: {
-      text: [
-        `Tasks Done Per Month`,
-        `${MONTHS[from_date.get("month")]} ${from_date.get("year")} — ${
-          MONTHS[to_date.get("month")]
-        } ${to_date.get("year")}`,
-      ],
-      align: "center",
+      text: `Monthly Finished Tasks`,
     },
     colors: ["#000484"],
   };

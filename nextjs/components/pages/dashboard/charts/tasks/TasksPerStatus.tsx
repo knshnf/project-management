@@ -39,12 +39,18 @@ const TasksPerStatus = () => {
       categories: ["Draft", "In-Progress", "Done"],
     },
     title: {
-      text: "Tasks Based on Status",
-      align: "center",
+      text: "Status Count",
     },
     fill: {
       colors: ["#000484"],
     },
+    // plotOptions: {
+    //   bar: {
+    //    borderRadius: 75,
+    //    borderRadiusApplication: 'end',
+    //    borderRadiusWhenStacked: 'last',
+    //   }
+    // }
   };
 
   const series = [

@@ -4,9 +4,9 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 
 import _ from 'lodash'
+import { Typography } from '@mui/material';
 
-const Status = ( ( {data, currentStatus} ) => {
-
+const Status = ( ( {masterData, currentStatus, taskData} ) => {
     const steps = []
 
     const status_sort = {
@@ -15,29 +15,48 @@ const Status = ( ( {data, currentStatus} ) => {
         'Done': 2
     }
 
-    const statusList = data?.status
+    const statusList = masterData?.status
 
     const status = []
 
     statusList?.map( (value) => {
+        let date;
+        if(value.name === 'Draft') {
+            date = taskData?.task_by_pk?.draft_date;
+        }
+        else if (value.name === 'In-Progress') {
+            date = taskData?.task_by_pk?.in_progress_date
+        }
+        else if (value.name === 'Done') {
+            date = taskData?.task_by_pk?.done_date
+        }
+
         status.push({
             name: value.name,
-            sort: status_sort[value.name]
+            sort: status_sort[value.name],
+            date: date
         })
     })
 
     const status_ordered = _.orderBy(status, ['sort'],['asc'])
 
     status_ordered.map( (value) => {
-        steps.push(value.name)
+        steps.push({label: value.name, date: value.date})
     })
 
     return (
         <Box sx={{ marginTop: '40px', width: '100%' }}>
             <Stepper activeStep={status_sort[currentStatus]} alternativeLabel>
-            {steps.map((label) => (
-                <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+            {steps.map((step) => (
+                <Step key={step.label}>
+                <StepLabel>
+                    {step.label}
+                    <br/>
+                    <Typography sx={{fontSize: '12px'}}>
+                        {step.date ? new Date(step.date).toDateString().split(' ').slice(1).join(' ') : null}
+                    </Typography>
+                    
+                </StepLabel>
                 </Step>
             ))}
             </Stepper>

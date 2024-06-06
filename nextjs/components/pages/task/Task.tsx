@@ -95,71 +95,92 @@ const Task = ( () => {
 
     const kanbanView = ( () => {
         return (
-            data?.task.map( (t) => {
-                const statusColor = t.status.color
-                return (
-                    <Button
-                        sx={{
-                            margin: '10px',
-                        }}
-                        href={`http://localhost:3000/formtask?view=${view}&mode=edit&id=${t.id}`}
-                    >
-                        <Card 
+            <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexWrap: 'wrap'
+            }}>
+                {data?.task.map( (t) => {
+                    const statusColor = t.status.color
+                    return (
+                        
+                        <Button
                             sx={{
-                                textAlign: 'left',
-                                width: '320px',
-                                height: '220px',
-                                display: 'flex',
-                                flexDirection: 'Column',
+                                margin: '10px',
                             }}
-                            variant="outlined"
+                            href={`http://localhost:3000/formtask?view=${view}&mode=edit&id=${t.id}`}
                         >
-                            <CardContent>
-                                <Typography variant="h6" component="div">
-                                    {t.name}
-                                </Typography>
-                                <Divider 
-                                    sx={{
-                                        marginBottom: '10px'
-                                    }}
-                                />
-                                <Typography 
-                                    variant="caption"
-                                >
-                                    {t.description}
-                                </Typography>
-                                {/* <Typography variant="caption" component="div">
-                                    {t.user.name}
-                                </Typography> */}
-                                {/* {data.task.tags.map( (task) => {
-                                return (
-                                    <Chip 
-                                        variant="filled" 
-                                        label={task.name} 
-                                        sx={{marginRight: '5px', borderRadius: '8px'}} 
-                                        style={{ backgroundColor: task_tag.color}}  
-                                    />
-                                )
-                            })} */}
-                            </CardContent>
-                            <Box
+                            <Card 
                                 sx={{
+                                    textAlign: 'left',
+                                    width: '320px',
+                                    height: '220px',
                                     display: 'flex',
-                                    alignItems: 'flex-end',
-                                    justifyContent: 'center',
-                                    height: '30px',
-                                    marginTop: 'auto',
-                                    background: statusColor,
-                                    color: 'white',
-                                  
+                                    flexDirection: 'Column',
                                 }}
+                                variant="outlined"
                             >
-                                {t.status.name}
-                            </Box>
-                        </Card>
-                    </Button>
-                )
-            })
+                                <CardContent>
+                                    {
+                                    (t.name.length > 35)
+                                    ?
+                                    <Typography noWrap variant="h6" component="div">
+                                        {t.name}
+                                    </Typography>
+                                    :
+                                    <Typography variant="h6" component="div">
+                                        {t.name}
+                                    </Typography>
+                                    
+                                    }
+
+                                
+                                    <Typography 
+                                        variant="caption"
+                                    >
+                                        {t.description}
+                                    </Typography>
+                                    {/* <Typography variant="caption" component="div">
+                                        {t.user.name}
+                                    </Typography> */}
+                                </CardContent>
+                            
+                                <Box sx={{
+                                    marginTop: 'auto',
+                                    marginX: '15px',
+                                    marginBottom: '10px'
+                                }}>
+                                    {t.task_tags.map( (task_tag) => {
+                                        return (
+                                            <Chip 
+                                                variant="filled" 
+                                                label={task_tag.tag.name} 
+                                                sx={{marginRight: '5px', borderRadius: '5px'}} 
+                                                style={{ backgroundColor: task_tag.tag.color}}  
+                                                size="small"
+                                            />
+                                        )
+                                    })} 
+                                </Box>
+
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        alignItems: 'flex-end',
+                                        justifyContent: 'center',
+                                        height: '30px',
+                                        background: statusColor,
+                                        color: 'white',
+                                    
+                                    }}
+                                >
+                                    {t.status.name}
+                                </Box>
+                            </Card>
+                        </Button>
+                    )
+                })}
+            </Box>
         )
     })
 
