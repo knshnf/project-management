@@ -54,6 +54,7 @@ const Navigation = ( () => {
                 value={value}
                 onChange={handleChange}
                 aria-label="wrapped label tabs example"
+                textColor= 'primary'
              >
                 {
                     navItems.map( (navItem, i) => {

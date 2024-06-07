@@ -1,3 +1,4 @@
+import { Typography, Box } from "@mui/material";
 import { useGetTaskStatusQuery } from "./queries";
 
 import dynamic from "next/dynamic";
@@ -38,9 +39,6 @@ const TasksPerStatus = () => {
     xaxis: {
       categories: ["Draft", "In-Progress", "Done"],
     },
-    title: {
-      text: "Status Count",
-    },
     fill: {
       colors: ["#000484"],
     },
@@ -60,7 +58,13 @@ const TasksPerStatus = () => {
     },
   ];
 
-  return <Chart options={options} series={series} type="bar" width="100%" />;
+  return (
+  <>
+    <Typography> <Box fontWeight={700}> Status Count </Box></Typography>
+    <Chart options={options} series={series} type="bar" width="100%" />
+  </>
+  
+  );
 };
 
 export default TasksPerStatus;

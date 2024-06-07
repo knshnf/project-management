@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
@@ -63,9 +64,6 @@ const TasksDonePerMonth = (start_date: Date, end_date: Date) => {
     xaxis: {
       categories: chart_categories,
     },
-    title: {
-      text: `Monthly Finished Tasks`,
-    },
     colors: ["#000484"],
   };
 
@@ -79,6 +77,7 @@ const TasksDonePerMonth = (start_date: Date, end_date: Date) => {
 
   return (
     <>
+      {/* <Typography> Tasks Per Month </Typography> */}
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Box
           sx={{

@@ -114,7 +114,7 @@ const Task = ( () => {
                                 sx={{
                                     textAlign: 'left',
                                     width: '320px',
-                                    height: '220px',
+                                    height: '250px',
                                     display: 'flex',
                                     flexDirection: 'Column',
                                 }}

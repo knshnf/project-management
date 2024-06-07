@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { Avatar } from '@mui/material';
 
 import Navigation from './Navigation'
 
@@ -51,32 +52,43 @@ const Header = ( ()=> {
     return (
         <Box sx={{ display: 'flex', height: '70px'}}>
             <CssBaseline />
-            <AppBar component="nav" sx={{ bgcolor: 'white' }}>
-            <Toolbar>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={handleDrawerToggle}
-                    sx={{ mr: 2, display: { sm: 'none' } }}
-                >
-                <MenuIcon />
-                </IconButton>
-                <Typography
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', color: 'black' } }}
-                >
-                PROJECT MANAGEMENT BOARD
-                </Typography>
-                <Box >
+            <AppBar component="nav" sx={{ bgcolor: 'white', boxShadow: 0, borderBottom: '1px solid #C1C7CD'}}>
+            <Toolbar sx={{ justifyContent: 'space-between', overflowX: 'hidden'}} variant="regular">
+                <Box sx={{ flex: 1}}>
+                    <IconButton
+                        color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
+                    >
+                    <MenuIcon />
+                    </IconButton>
+                    <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', color: 'black' } }}
+                    >
+                    PROJECT MANAGEMENT BOARD
+                    </Typography>
+                </Box>
+                <Box>
                     <Navigation />
                 </Box>
-                <Button
-                onClick={handleLogout}
-            >
-                Logout
-            </Button>
+                <Box sx={{ display: 'flex', flex: 1, justifyContent: 'right'}}>
+                    {/* <Button
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </Button> */}
+                    <Button>
+                        <Box sx={{display: 'flex'}}>
+                            <Avatar variant="square">
+                                K
+                            </Avatar>
+                        </Box>
+                    </Button>
+                </Box>   
             </Toolbar>
             </AppBar>
             <nav>

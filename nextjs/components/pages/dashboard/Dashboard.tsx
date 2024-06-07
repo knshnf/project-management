@@ -22,12 +22,16 @@ const Dashboard = () => {
           alignItems: "end",
           justifyContent: "center",
           width: "100%",
-          marginTop: 2,
+          marginTop: 3,
+          gap: 3,
+          paddingX: 3
         }}
       >
         <Box
           sx={{
             width: "100%",
+            border: '1px solid #C1C7CD',
+            padding: 5
           }}
         >
           {TasksDonePerMonth(new Date(2024, 0), new Date(2024, 11))}
@@ -35,6 +39,8 @@ const Dashboard = () => {
         <Box
           sx={{
             width: "100%",
+            border: '1px solid #C1C7CD',
+            padding: 5
           }}
         >
           {TasksPerStatus()}
