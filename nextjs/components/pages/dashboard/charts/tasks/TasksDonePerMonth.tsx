@@ -60,11 +60,14 @@ const TasksDonePerMonth = ({start_date, end_date}) => {
       categories: chart_categories,
     },
     colors: ["#000484"],
+    markers: {
+      size: 5,
+    }
   };
 
   const series = [
     {
-      name: "Status",
+      name: "Done Tasks",
       data: chart_values,
     },
   ];
