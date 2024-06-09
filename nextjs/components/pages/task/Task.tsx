@@ -21,6 +21,8 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 
 import { useRouter } from 'next/router';
 import { Chip } from '@mui/material';
+import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 import { 
     useGetTaskQuery, 
@@ -107,6 +109,7 @@ const Task = ( () => {
                         <Button
                             sx={{
                                 margin: '10px',
+                                textTransform: 'none'
                             }}
                             href={`http://localhost:3000/formtask?view=${view}&mode=edit&id=${t.id}`}
                         >
@@ -155,12 +158,52 @@ const Task = ( () => {
                                             <Chip 
                                                 variant="filled" 
                                                 label={task_tag.tag.name} 
-                                                sx={{marginRight: '5px', borderRadius: '5px'}} 
+                                                sx={{marginRight: '5px', borderRadius: '5px', fontSize: 11}} 
                                                 style={{ backgroundColor: task_tag.tag.color}}  
                                                 size="small"
                                             />
                                         )
                                     })} 
+                                </Box>
+
+                                <Box sx={{
+                                    marginX: '15px',
+                                    marginBottom: '10px',
+                                    display: 'flex',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    <Box 
+                                    textAlign='center'
+                                    marginTop='auto'
+                                    marginBottom='auto'
+                                    sx={{
+                                        display: 'flex',
+                                        color: 'gray',
+                                        gap: 0.5
+                                    }}>
+                                        <PersonOutlineOutlinedIcon style={{ fontSize: 16, marginTop: 'auto', marginBottom: 'auto', }}/>
+                                        {t.user.name}
+                                    </Box>
+
+
+                                    {
+                                    (t.comments_aggregate.aggregate.count > 0 )
+                                    ?
+                                    <Box 
+                                    textAlign='center'
+                                    marginTop='auto'
+                                    marginBottom='auto'
+                                    sx={{
+                                        display: 'flex',
+                                        color: 'gray',
+                                        gap: 0.5
+                                    }}>
+                                        <ChatOutlinedIcon style={{ fontSize: 16, marginTop: 'auto', marginBottom: 'auto', }} />
+                                        {t.comments_aggregate.aggregate.count}
+                                    </Box>
+                                    :
+                                    null
+                                    }
                                 </Box>
 
                                 <Box

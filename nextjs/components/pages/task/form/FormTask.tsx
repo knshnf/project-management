@@ -341,77 +341,81 @@ const FormTask = ( () => {
                 sx={{
                     height: '60px',
                     display: 'flex',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
                 }}
             >
-            {
-                (mode == 'create')
-                ?
+                <Box>
+                {
+                    (mode == 'create')
+                    ?
+                    <Button
+                        sx={{
+                            marginLeft: '15px'
+                        }}
+                        variant="contained"
+                        onClick={handleCreate}
+                    >
+                        Create
+                    </Button> 
+                    : 
+                    null
+                }
+                    {
+                        (save == false) 
+                        ? 
+                            <Button
+                                sx={{
+                                    marginLeft: '15px'
+                                }}
+                                variant="contained"
+                                color='success'
+                                onClick={handleSave}
+                            >
+                                Save
+                            </Button> 
+                        : 
+                        null
+                    }
+
+                    {
+                        (cancel == false) 
+                        ? 
+                            <Button
+                                sx={{
+                                    marginLeft: '15px'
+                                }}
+                                variant="contained"
+                                color='error'
+                                onClick={handleCancel}
+                            >
+                                Cancel
+                            </Button>
+                        : 
+                        null
+                    }
+
+                    {
+                        (edit == false && mode != 'create') 
+                        ? 
+                            <Button
+                                sx={{
+                                    marginLeft: '15px'
+                                }}
+                                variant="contained"
+                                hidden={cancel}
+                                onClick={handleEdit}
+                            >
+                                Edit
+                            </Button>
+                        : 
+                        null
+                    }
+                </Box>
                 <Button
                     sx={{
-                        marginLeft: '15px'
-                    }}
-                    variant="contained"
-                    onClick={handleCreate}
-                >
-                    Create
-                </Button> 
-                : 
-                null
-            }
-                {
-                    (save == false) 
-                    ? 
-                        <Button
-                            sx={{
-                                marginLeft: '15px'
-                            }}
-                            variant="contained"
-                            color='success'
-                            onClick={handleSave}
-                        >
-                            Save
-                        </Button> 
-                    : 
-                    null
-                }
-
-                {
-                    (cancel == false) 
-                    ? 
-                        <Button
-                            sx={{
-                                marginLeft: '15px'
-                            }}
-                            variant="contained"
-                            color='error'
-                            onClick={handleCancel}
-                        >
-                            Cancel
-                        </Button>
-                    : 
-                    null
-                }
-
-                {
-                    (edit == false && mode != 'create') 
-                    ? 
-                        <Button
-                            sx={{
-                                marginLeft: '15px'
-                            }}
-                            variant="contained"
-                            hidden={cancel}
-                            onClick={handleEdit}
-                        >
-                            Edit
-                        </Button>
-                    : 
-                    null
-                }
-                <Button
-                    sx={{
-                        margin: 'auto',
+                        marginTop: 'auto',
+                        marginBottom: 'auto',
                     }} 
                     onClick={handleClick}
                 >

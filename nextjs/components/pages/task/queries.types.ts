@@ -18,7 +18,7 @@ export type GetStatusIdQuery = { __typename?: 'query_root', status: Array<{ __ty
 export type GetTaskQueryVariables = Types.Exact<{ [key: string]: never; }>;
 
 
-export type GetTaskQuery = { __typename?: 'query_root', task: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string, color?: string | null } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null, task_tags: Array<{ __typename?: 'task_tags', tag: { __typename?: 'tags', id: number, color?: string | null, name: string, sort: number } }> }> };
+export type GetTaskQuery = { __typename?: 'query_root', task: Array<{ __typename?: 'task', id: number, name: string, description?: string | null, created_at: any, updated_at: any, draft_date?: any | null, in_progress_date?: any | null, done_date?: any | null, project?: { __typename?: 'projects', id: number, name: string } | null, status?: { __typename?: 'status', id: number, name: string, color?: string | null } | null, task_type?: { __typename?: 'task_type', id: number, name: string } | null, user?: { __typename?: 'users', id: number, name: string } | null, task_tags: Array<{ __typename?: 'task_tags', tag: { __typename?: 'tags', id: number, color?: string | null, name: string, sort: number } }>, comments_aggregate: { __typename?: 'comments_aggregate', aggregate?: { __typename?: 'comments_aggregate_fields', count: number } | null } }> };
 
 export type GetTaskIdQueryVariables = Types.Exact<{
   id: Types.Scalars['bigint']['input'];
@@ -215,6 +215,11 @@ export const GetTaskDocument = gql`
         color
         name
         sort
+      }
+    }
+    comments_aggregate {
+      aggregate {
+        count
       }
     }
   }

@@ -90,6 +90,11 @@ query GetTask {
                 sort
             }
         }
+        comments_aggregate {
+            aggregate {
+                count
+            }
+        }
     }
   }
 `;
