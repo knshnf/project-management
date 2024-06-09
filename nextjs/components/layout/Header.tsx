@@ -14,13 +14,16 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Avatar } from '@mui/material';
+import { useEffect } from 'react';
 
 import Navigation from './Navigation'
 
 import { useRouter } from 'next/router'
+import AccountMenu from './AccountMenu';
 
 
 const Header = ( ()=> {
+    const [user, setUser] = useState(null)
 
     const router = useRouter()
 
@@ -33,11 +36,9 @@ const Header = ( ()=> {
         setMobileOpen((prevState) => !prevState);
     };
 
-    
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        router.push('http://localhost:3000/login')
-    };
+    useEffect(() => {
+        setUser(JSON.parse(localStorage.getItem('user')))
+    }, [])
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -53,7 +54,7 @@ const Header = ( ()=> {
         <Box sx={{ display: 'flex', height: '70px'}}>
             <CssBaseline />
             <AppBar component="nav" sx={{ bgcolor: 'white', boxShadow: 0, borderBottom: '1px solid #C1C7CD'}}>
-            <Toolbar sx={{ justifyContent: 'space-between', overflowX: 'hidden'}} variant="regular">
+            <Toolbar sx={{ justifyContent: 'space-between', overflowX: 'hidden'}} variant="dense">
                 <Box sx={{ flex: 1}}>
                     <IconButton
                         color="inherit"
@@ -81,13 +82,28 @@ const Header = ( ()=> {
                     >
                         Logout
                     </Button> */}
-                    <Button>
+                    {/* <Button>
                         <Box sx={{display: 'flex'}}>
-                            <Avatar variant="square">
-                                K
-                            </Avatar>
+                            <Box>
+                                <Avatar variant="square" color="#f2f2f8">
+                                    K
+                                </Avatar>
+                            </Box>
+                            <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'column'
+                            }}>
+                                <Box>
+                                    <Typography> {user?.username} </Typography>
+                                </Box>
+                                <Box>
+                                    <Typography> {user?.role} </Typography>
+                                </Box>
+                            </Box>
+                            
                         </Box>
-                    </Button>
+                    </Button> */}
+                    <AccountMenu user={user}/>
                 </Box>   
             </Toolbar>
             </AppBar>

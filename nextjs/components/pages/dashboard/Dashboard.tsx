@@ -25,11 +25,14 @@ const Dashboard = () => {
         justifyContent: 'space-between',
         width: "100%",
         paddingX: 3,
-        marginTop: 3
       }}>
         <Box
-          fontWeight={700}
+          // fontWeight={700}
           textAlign='center'
+          fontSize={20}
+          marginTop='auto'
+          marginRight='auto'
+          marginBottom='auto'
         >
           Task Performance
         </Box>

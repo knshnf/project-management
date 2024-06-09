@@ -59,7 +59,7 @@ const Navigation = ( () => {
                 {
                     navItems.map( (navItem, i) => {
                         return (
-                            <Tab key={i} value={navItem.value} label={navItem.label} disabled={navItem.disabled} wrapped/>
+                            <Tab sx={{textTransform: 'none'}} key={i} value={navItem.value} label={navItem.label} disabled={navItem.disabled} wrapped/>
                         )
                     })
                 }

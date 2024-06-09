@@ -6,7 +6,6 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
 import Snackbar from '@mui/material/Snackbar';
@@ -18,7 +17,7 @@ import { jwt_token, jwt_token_login_auth } from '../../../hooks/useAuthenticate'
 import { useRouter } from 'next/router'
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+
 
 function Login() {
   const router = useRouter()  
@@ -50,6 +49,8 @@ function Login() {
             users(where: {username: {_eq: ${username}}}) {
               id
               username
+              first_name
+              last_name
               role
             }
           }`
@@ -61,8 +62,10 @@ function Login() {
         if (res.data.users.length > 0) {
           const id = res.data.users[0].id
           const username = res.data.users[0].username
+          const first_name = res.data.users[0].first_name
+          const last_name = res.data.users[0].last_name
           const role = res.data.users[0].role
-          const user = {id: id, username: username, role: role}
+          const user = {id: id, username: username, first_name: first_name, last_name: last_name, role: role}
   
           const token = jwt_token(id, username, role)
           localStorage.setItem("token", token);
@@ -77,7 +80,7 @@ function Login() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -141,7 +144,7 @@ function Login() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }
 
