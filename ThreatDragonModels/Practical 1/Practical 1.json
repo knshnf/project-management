@@ -19,7 +19,7 @@
         "cells": [
           {
             "position": {
-              "x": 40,
+              "x": 50,
               "y": 30
             },
             "size": {
@@ -354,7 +354,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Authentication Response\nRender Dashboard/\nReturn Invalid",
+              "name": "Authentication Response\nRender Voter Dashboard/\nReturn Invalid",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -366,7 +366,7 @@
               "threats": []
             },
             "labels": [
-              "Authentication Response\nRender Dashboard/\nReturn Invalid"
+              "Authentication Response\nRender Voter Dashboard/\nReturn Invalid"
             ],
             "id": "7703967c-adcf-4605-959b-6c049fd2acae",
             "source": {
