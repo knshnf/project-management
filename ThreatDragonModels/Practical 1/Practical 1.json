@@ -19,8 +19,8 @@
         "cells": [
           {
             "position": {
-              "x": 50,
-              "y": 30
+              "x": 35,
+              "y": 20
             },
             "size": {
               "width": 1110,
@@ -171,7 +171,7 @@
             },
             "attrs": {
               "text": {
-                "text": "Election Admin \nBrowser"
+                "text": "Voter Client\nBrowser"
               },
               "body": {
                 "stroke": "#333333",
@@ -267,7 +267,7 @@
             "id": "d8fcfe3b-a7e8-4009-912e-4c85a6c1c5da",
             "data": {
               "type": "tm.Actor",
-              "name": "Election Admin \nBrowser",
+              "name": "Voter Client\nBrowser",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -320,6 +320,10 @@
               "port": "24557b62-babb-439a-9e84-95aacdcd0927"
             },
             "vertices": [
+              {
+                "x": 300,
+                "y": 190
+              },
               {
                 "x": 330,
                 "y": 160
@@ -379,8 +383,16 @@
             },
             "vertices": [
               {
+                "x": 440,
+                "y": 280
+              },
+              {
                 "x": 400,
                 "y": 290
+              },
+              {
+                "x": 370,
+                "y": 310
               },
               {
                 "x": 370,
@@ -698,7 +710,7 @@
             },
             "attrs": {
               "text": {
-                "text": "Trust Boundar"
+                "text": "Trust Boundary"
               }
             },
             "visible": true,
@@ -707,7 +719,7 @@
             "zIndex": 13,
             "data": {
               "type": "tm.Text",
-              "name": "Trust Boundar",
+              "name": "Trust Boundary",
               "hasOpenThreats": false
             }
           }
