@@ -40,7 +40,7 @@
           },
           {
             "position": {
-              "x": 530,
+              "x": 540,
               "y": 220
             },
             "size": {
@@ -152,7 +152,7 @@
               "hasOpenThreats": false,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
-              "isWebApplication": false,
+              "isWebApplication": true,
               "privilegeLevel": "",
               "threats": []
             },
@@ -171,7 +171,7 @@
             },
             "attrs": {
               "text": {
-                "text": "Voter Browser"
+                "text": "Election Admin \nBrowser"
               },
               "body": {
                 "stroke": "#333333",
@@ -267,7 +267,7 @@
             "id": "d8fcfe3b-a7e8-4009-912e-4c85a6c1c5da",
             "data": {
               "type": "tm.Actor",
-              "name": "Voter Browser",
+              "name": "Election Admin \nBrowser",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -658,7 +658,7 @@
               "isALog": false,
               "isEncrypted": false,
               "isSigned": false,
-              "storesCredentials": false,
+              "storesCredentials": true,
               "storesInventory": false,
               "threats": []
             }
