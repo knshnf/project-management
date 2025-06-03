@@ -19,8 +19,8 @@
         "cells": [
           {
             "position": {
-              "x": 35,
-              "y": 20
+              "x": 25,
+              "y": 30
             },
             "size": {
               "width": 1110,
@@ -171,7 +171,7 @@
             },
             "attrs": {
               "text": {
-                "text": "Voter Client\nBrowser"
+                "text": "Election Admin \nClient\nBrowser"
               },
               "body": {
                 "stroke": "#333333",
@@ -267,7 +267,7 @@
             "id": "d8fcfe3b-a7e8-4009-912e-4c85a6c1c5da",
             "data": {
               "type": "tm.Actor",
-              "name": "Voter Client\nBrowser",
+              "name": "Election Admin \nClient\nBrowser",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -358,7 +358,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Authentication Response\nRender Voter Dashboard/\nReturn Invalid",
+              "name": "Authentication Response\nRender Admin Dashboard/\nReturn Invalid",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -370,7 +370,7 @@
               "threats": []
             },
             "labels": [
-              "Authentication Response\nRender Voter Dashboard/\nReturn Invalid"
+              "Authentication Response\nRender Admin Dashboard/\nReturn Invalid"
             ],
             "id": "7703967c-adcf-4605-959b-6c049fd2acae",
             "source": {
