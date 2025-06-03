@@ -19,8 +19,36 @@
         "cells": [
           {
             "position": {
-              "x": 510,
-              "y": 180
+              "x": 50,
+              "y": 30
+            },
+            "size": {
+              "width": 1110,
+              "height": 380
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "id": "296d50cd-e435-4d46-b8e9-fd39f324cf61",
+            "zIndex": -1,
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Trust Boundary",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
+            }
+          },
+          {
+            "position": {
+              "x": 530,
+              "y": 220
             },
             "size": {
               "width": 80,
@@ -38,6 +66,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 1,
             "ports": {
               "groups": {
                 "top": {
@@ -121,7 +150,6 @@
               ]
             },
             "id": "a5faf533-49c1-483d-bae1-12ff584e1a95",
-            "zIndex": 1,
             "data": {
               "type": "tm.Process",
               "name": "Nodejs \nServer",
@@ -141,8 +169,8 @@
           },
           {
             "position": {
-              "x": 130,
-              "y": 190
+              "x": 110,
+              "y": 240
             },
             "size": {
               "width": 112.5,
@@ -160,6 +188,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 2,
             "ports": {
               "groups": {
                 "top": {
@@ -243,7 +272,6 @@
               ]
             },
             "id": "d8fcfe3b-a7e8-4009-912e-4c85a6c1c5da",
-            "zIndex": 2,
             "data": {
               "type": "tm.Actor",
               "name": "Client Browser",
@@ -300,12 +328,16 @@
             },
             "vertices": [
               {
-                "x": 290,
-                "y": 170
+                "x": 330,
+                "y": 160
               },
               {
-                "x": 360,
-                "y": 170
+                "x": 400,
+                "y": 160
+              },
+              {
+                "x": 440,
+                "y": 180
               }
             ]
           },
@@ -329,7 +361,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Authentication Response\nRender Dashboard or \nReturn Invalid",
+              "name": "Authentication Response\nRender Dashboard/\nReturn Invalid",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -341,7 +373,7 @@
               "threats": []
             },
             "labels": [
-              "Authentication Response\nRender Dashboard or \nReturn Invalid"
+              "Authentication Response\nRender Dashboard/\nReturn Invalid"
             ],
             "id": "7703967c-adcf-4605-959b-6c049fd2acae",
             "source": {
@@ -354,24 +386,20 @@
             },
             "vertices": [
               {
-                "x": 420,
-                "y": 260
+                "x": 400,
+                "y": 290
               },
               {
-                "x": 390,
-                "y": 260
+                "x": 370,
+                "y": 290
               },
               {
-                "x": 350,
-                "y": 280
+                "x": 330,
+                "y": 310
               },
               {
-                "x": 340,
-                "y": 280
-              },
-              {
-                "x": 290,
-                "y": 260
+                "x": 270,
+                "y": 290
               }
             ]
           },
@@ -420,12 +448,12 @@
             },
             "vertices": [
               {
-                "x": 700,
-                "y": 150
+                "x": 780,
+                "y": 170
               },
               {
-                "x": 830,
-                "y": 170
+                "x": 910,
+                "y": 190
               }
             ]
           },
@@ -474,12 +502,12 @@
             },
             "vertices": [
               {
-                "x": 810,
-                "y": 230
+                "x": 890,
+                "y": 290
               },
               {
-                "x": 670,
-                "y": 230
+                "x": 750,
+                "y": 290
               }
             ]
           },
@@ -499,126 +527,30 @@
             "labels": [
               "Trust Boundary"
             ],
-            "id": "ada1956a-083f-4716-909c-610b8b9c037d",
+            "id": "97832dfa-1244-49b6-a3a3-468bc5782615",
             "source": {
               "x": 400,
-              "y": 20
+              "y": 60
             },
             "target": {
-              "x": 510,
-              "y": 420
+              "x": 420,
+              "y": 380
             },
             "vertices": [
               {
-                "x": 430,
-                "y": 110
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Password Generation Request",
-              "description": "",
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": []
-            },
-            "labels": [
-              "Password Generation Request"
-            ],
-            "id": "2ec82941-a03f-4319-838d-b25e6dd6d337",
-            "source": {
-              "cell": "a261d42f-5a6f-41b9-a71e-139a84fd7c41",
-              "port": "81fc0c70-9c3b-456c-a825-f773fb00ff73"
-            },
-            "target": {
-              "cell": "f8f8222a-4a5f-4624-b4ba-cf3526142a4a",
-              "port": "4f777660-fbca-449a-89be-83fec4e5f0cc"
-            },
-            "vertices": [
+                "x": 470,
+                "y": 120
+              },
               {
-                "x": 920,
-                "y": 90
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
-              "name": "Secured Passwords",
-              "description": "",
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": []
-            },
-            "labels": [
-              "Secured Password"
-            ],
-            "id": "6910ea61-2f9a-418e-b4d7-a5dc1b4b7bb7",
-            "source": {
-              "cell": "f8f8222a-4a5f-4624-b4ba-cf3526142a4a",
-              "port": "4f777660-fbca-449a-89be-83fec4e5f0cc"
-            },
-            "target": {
-              "cell": "a261d42f-5a6f-41b9-a71e-139a84fd7c41",
-              "port": "81fc0c70-9c3b-456c-a825-f773fb00ff73"
-            },
-            "vertices": [
-              {
-                "x": 1150,
-                "y": 100
+                "x": 490,
+                "y": 320
               }
             ]
           },
           {
             "position": {
-              "x": 990,
-              "y": 190
+              "x": 970,
+              "y": 230
             },
             "size": {
               "width": 120,
@@ -639,6 +571,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 11,
             "ports": {
               "groups": {
                 "top": {
@@ -722,7 +655,6 @@
               ]
             },
             "id": "a261d42f-5a6f-41b9-a71e-139a84fd7c41",
-            "zIndex": 11,
             "data": {
               "type": "tm.Store",
               "name": "MongoDB Database",
@@ -740,122 +672,51 @@
           },
           {
             "position": {
-              "x": 970,
-              "y": -60
+              "x": 60,
+              "y": 20
             },
             "size": {
-              "width": 90,
-              "height": 100
+              "width": 112.5,
+              "height": 60
             },
             "attrs": {
               "text": {
-                "text": "Secured \nPassword \nGenerator"
-              },
-              "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
-                "strokeDasharray": null
+                "text": "Perimeter Firewall"
               }
             },
             "visible": true,
-            "shape": "process",
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "0ee71eb8-904d-4777-9b8e-1cd21b9f3b74"
-                },
-                {
-                  "group": "right",
-                  "id": "c3442db9-fd77-4213-8195-4085ee62fa34"
-                },
-                {
-                  "group": "bottom",
-                  "id": "4f777660-fbca-449a-89be-83fec4e5f0cc"
-                },
-                {
-                  "group": "left",
-                  "id": "24557b62-babb-439a-9e84-95aacdcd0927"
-                }
-              ]
-            },
-            "id": "f8f8222a-4a5f-4624-b4ba-cf3526142a4a",
+            "shape": "td-text-block",
+            "id": "c5a89223-eef0-4279-9152-f8aeefdafc70",
+            "zIndex": 12,
             "data": {
-              "type": "tm.Process",
-              "name": "Secured \nPassword \nGenerator",
-              "description": "",
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "handlesCardPayment": false,
-              "handlesGoodsOrServices": false,
-              "isWebApplication": false,
-              "privilegeLevel": "",
-              "threats": []
+              "type": "tm.Text",
+              "name": "Perimeter Firewall",
+              "hasOpenThreats": false
+            }
+          },
+          {
+            "position": {
+              "x": 183,
+              "y": 20
             },
-            "zIndex": 12
+            "size": {
+              "width": 112.5,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Trust Boundar"
+              }
+            },
+            "visible": true,
+            "shape": "td-text-block",
+            "id": "b1f6a26d-1689-404b-ba01-31fa5d5e7688",
+            "zIndex": 13,
+            "data": {
+              "type": "tm.Text",
+              "name": "Trust Boundar",
+              "hasOpenThreats": false
+            }
           }
         ]
       }
