@@ -19,7 +19,7 @@
         "cells": [
           {
             "position": {
-              "x": 50,
+              "x": 40,
               "y": 30
             },
             "size": {
@@ -36,13 +36,6 @@
               "description": "",
               "isTrustBoundary": true,
               "hasOpenThreats": false
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
             }
           },
           {
@@ -178,7 +171,7 @@
             },
             "attrs": {
               "text": {
-                "text": "Client Browser"
+                "text": "Voter Browser"
               },
               "body": {
                 "stroke": "#333333",
@@ -274,7 +267,7 @@
             "id": "d8fcfe3b-a7e8-4009-912e-4c85a6c1c5da",
             "data": {
               "type": "tm.Actor",
-              "name": "Client Browser",
+              "name": "Voter Browser",
               "description": "",
               "outOfScope": false,
               "reasonOutOfScope": "",
@@ -549,8 +542,8 @@
           },
           {
             "position": {
-              "x": 970,
-              "y": 230
+              "x": 1000,
+              "y": 220
             },
             "size": {
               "width": 120,
